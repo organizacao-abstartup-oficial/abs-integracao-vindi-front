@@ -19,9 +19,9 @@ export default function GrowthForm() {
     
       <>
         <Header/>
-        <Container>
-         <FormGrowthContent />
-        </Container>
+          <Container>
+            <FormGrowthContent />
+          </Container>
         <Footer />
         
       </>
