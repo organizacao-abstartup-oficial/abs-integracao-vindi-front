@@ -7,20 +7,20 @@ import Footer from 'components/Footers';
 
 import Header from 'components/Header';
 
-import FormStarterContent from 'views/Sections/FormStarterContent'
+import FormImpactContent from 'views/Sections/FormImpactContent'
 
 //import Modals from "./Sections/Modals.js";
 
 
 
 
-export default function StarterForm() {
+export default function ImpactForm() {
   return (
     
       <>
         <Header/>
         <Container>
-         <FormStarterContent />
+         <FormImpactContent />
         </Container>
         <Footer />
         

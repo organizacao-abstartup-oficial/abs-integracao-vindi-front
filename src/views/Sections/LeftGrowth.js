@@ -3,7 +3,7 @@ import React from "react";
 
 import { Col } from "reactstrap";
 import { Link } from 'react-router-dom';
-import plainLogo from '../../assets/img/icons/common/starter.png'
+import plainLogo from '../../assets/img/icons/common/growth.png'
 
 export default function IndexSections() {
   return (
@@ -14,11 +14,11 @@ export default function IndexSections() {
           </h3>
           <p>Informe seus dados pessoais para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
 
-          <img src={plainLogo} alt="starter" width="250px"/>
+          <img src={plainLogo} alt="growth" width="250px"/>
           <br/>
           <br/>
 
-          <Link to="/">Clique aqui para mudar de plano</Link>
+          <Link to="/">Clique aqui para mudar plano.</Link>
           
         </Col>
       </>

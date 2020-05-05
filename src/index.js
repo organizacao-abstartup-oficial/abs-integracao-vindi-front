@@ -9,29 +9,33 @@ import "assets/scss/style.scss?v1.1.0";
 
 import IndexForm from "views/Index.js";
 import Starter from "views/pages/Starter.js";
-import Login from "views/pages/Login.js";
-import Profile from "views/pages/Profile.js";
-import Register from "views/pages/Register.js";
+import Growth from "views/pages/Growth.js";
+import Impact from "views/pages/Impact.js";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact render={props => <IndexForm {...props} />} />
+      <Route
+        path="/" 
+        exact 
+        render={props => <IndexForm {...props} />}
+      />
+
       <Route
         path="/starter"
         exact
         render={props => <Starter {...props} />}
       />
-      <Route path="/login-page" exact render={props => <Login {...props} />} />
-      <Route
-        path="/profile-page"
-        exact
-        render={props => <Profile {...props} />}
+
+      <Route 
+        path="/growth" 
+        exact 
+        render={props => <Growth {...props} />} 
       />
       <Route
-        path="/register-page"
+        path="/impact"
         exact
-        render={props => <Register {...props} />}
+        render={props => <Impact {...props} />}
       />
       <Redirect to="/" />
     </Switch>

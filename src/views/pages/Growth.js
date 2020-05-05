@@ -7,20 +7,20 @@ import Footer from 'components/Footers';
 
 import Header from 'components/Header';
 
-import FormStarterContent from 'views/Sections/FormStarterContent'
+import FormGrowthContent from 'views/Sections/FormGrowthContent'
 
 //import Modals from "./Sections/Modals.js";
 
 
 
 
-export default function StarterForm() {
+export default function GrowthForm() {
   return (
     
       <>
         <Header/>
         <Container>
-         <FormStarterContent />
+         <FormGrowthContent />
         </Container>
         <Footer />
         
