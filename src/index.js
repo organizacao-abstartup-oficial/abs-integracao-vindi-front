@@ -17,26 +17,32 @@ ReactDOM.render(
     <Switch>
       <Route
         path="/" 
-        exact 
-        render={props => <IndexForm {...props} />}
-      />
+        exact   
+      >
+        <IndexForm/>
+      </Route>
 
       <Route
         path="/starter"
         exact
-        render={props => <Starter {...props} />}
-      />
+      >
+        <Starter/>
+      </Route>
 
       <Route 
         path="/growth" 
-        exact 
-        render={props => <Growth {...props} />} 
-      />
+        exact
+      >
+        <Growth/>
+      </Route>
+
       <Route
         path="/impact"
         exact
-        render={props => <Impact {...props} />}
-      />
+      >
+        <Impact />
+      </Route>
+      
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>,

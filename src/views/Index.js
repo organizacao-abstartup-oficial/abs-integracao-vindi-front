@@ -38,7 +38,7 @@ export default function StarterForm() {
                     />
                   </Link>
                 </Card>
-                <Button color="primary" id="toggler" full style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
+                <Button color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
                   Ver benefícios
                 </Button>
                   <UncontrolledCollapse toggler="#toggler">
@@ -68,7 +68,7 @@ export default function StarterForm() {
                     />
                   </Link>
                 </Card>
-                <Button color="primary" id="toggler" full style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
+                <Button color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
                   Ver benefícios
                 </Button>
                 <UncontrolledCollapse toggler="#toggler">
@@ -102,7 +102,7 @@ export default function StarterForm() {
                     />
                   </Link>
                 </Card>
-                <Button color="primary" id="toggler" full style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
+                <Button color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
                   Ver benefícios
                 </Button>
                   <UncontrolledCollapse toggler="#toggler">
