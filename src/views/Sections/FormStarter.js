@@ -214,7 +214,7 @@ function getStepContent(step) {
           helperText="Fase da startup"
           variant="outlined"
         />
-                <TextField
+        <TextField
           id="whats"
           select
           label="Investimento?"
@@ -315,19 +315,12 @@ export default function FormStarter() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            <p className={classes.instructions}>{getStepContent(activeStep)}</p>
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                 Voltar
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                Próximo
-              </Button>
+
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" className={classes.completed}>
@@ -335,7 +328,7 @@ export default function FormStarter() {
                   </Typography>
                 ) : (
                   <Button variant="contained" color="primary" onClick={handleComplete}>
-                    {completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Passo finalizado'}
+                    {completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo'}
                   </Button>
                 ))}
             </div>
