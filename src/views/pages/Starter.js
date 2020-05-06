@@ -19,7 +19,7 @@ export default function StarterForm() {
     
       <>
         <Header/>
-        <Container>
+        <Container className="contain-body--form">
          <FormStarterContent />
         </Container>
         <Footer />

@@ -19,7 +19,7 @@ export default function ImpactForm() {
     
       <>
         <Header/>
-        <Container>
+        <Container className="contain-body--form">
          <FormImpactContent />
         </Container>
         <Footer />

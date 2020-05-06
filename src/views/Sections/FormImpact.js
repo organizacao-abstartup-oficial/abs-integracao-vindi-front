@@ -12,6 +12,8 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 import { Col, Row } from 'reactstrap'
 
+import Modal from './Modals';
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -400,13 +402,12 @@ export default function FormStarter() {
       <div>
         {allStepsCompleted() ? (
           <div>
-            <center>
-              <Typography className={classes.instructions}>
-                Cadastro finalizado com sucesso!
-                Agora é só acessar seu portal de benefícios.
-              </Typography>
-          
-              <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
+          <center>
+            <Typography className={classes.instructions}>
+              Cadastro finalizado com sucesso!
+              clique aqui para finalizar o pagamento
+            </Typography>
+            <Modal />
             </center>
           </div>
         ) : (

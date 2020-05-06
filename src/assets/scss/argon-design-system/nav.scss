@@ -48,6 +48,10 @@
     height: auto;
 }
 
+.contain-body--form{
+    margin-top: -50px;
+}
+
 .nav-pills {
     .nav-item:not(:last-child) {
         padding-right: $nav-pills-space-x;

@@ -9,6 +9,9 @@ import {
   Col
 } from "reactstrap";
 
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import CropFreeIcon from '@material-ui/icons/CropFree';
+
 
 class Modals extends Component {
   state = {};
@@ -21,15 +24,26 @@ class Modals extends Component {
     return (
       <>
         <Row>
-          <Col md="6">
+        
+          <Col md="12">
+          <center>
             <Button
               block
               color="default"
               type="button"
               onClick={() => this.toggleModal("formModal")}
             >
-              PAGAR COM CARTÃO DE CRÉDITO
+             <CreditCardIcon/> PAGAR COM CARTÃO DE CRÉDITO
             </Button>
+            <Button
+              block
+              color="success"
+              type="button"
+              onClick={() => this.toggleModal("formModal")}
+            >
+             <CropFreeIcon/> PAGAR COM BOLETO
+            </Button>
+            </center>
             <Modal
               className="modal-dialog-centered"
               size="sm"

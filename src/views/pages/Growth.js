@@ -19,7 +19,7 @@ export default function GrowthForm() {
     
       <>
         <Header/>
-          <Container>
+          <Container className="contain-body--form">
             <FormGrowthContent />
           </Container>
         <Footer />
