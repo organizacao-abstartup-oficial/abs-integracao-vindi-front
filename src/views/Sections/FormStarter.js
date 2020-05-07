@@ -12,9 +12,12 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 import InputMask from "react-input-mask";
 
-import { Col, Row } from 'reactstrap'
+import { Col, Row } from 'reactstrap';
 
-import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data'
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
+
+import Lottie from 'react-lottie'
+import animationData from '../../components/Animation/21052-checking.json'
 
 import axios from 'axios';
 
@@ -39,12 +42,33 @@ export default function FormStarter() {
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
-  const [ cep, setCep ] = useState('')
-  const [ uf, setUf ] = useState('UF')
-  const [ municipio, setMunicipio ] = useState('Cidade')
-  const [ logradouro, setLogradouro ] = useState('Nome da Rua')
-  const [ phone, setPhone ] = useState('')
-
+  const [ cep, setCep ] = useState('');
+  const [ uf, setUf ] = useState('UF');
+  const [ municipio, setMunicipio ] = useState('Cidade');
+  const [ logradouro, setLogradouro ] = useState('Nome da Rua');
+  const [ numeroLogradouro, setNumeroLogradouro ] = useState('');
+  const [ complemento, setComplemento ] = useState('');
+  const [ phone, setPhone ] = useState('');
+  const [ name, setName ] = useState('');
+  const [ mail, setMail ] = useState('');
+  const [ business, setBusiness ] = useState('');
+  const [ cnpj, setCnpj ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ confirmpassword, setConfirmpassword ] = useState('');
+  const [ getcargo, setGetCargo ] = useState('');
+  const [ getsocios, setGetSocios ] = useState('');
+  const [ getsegmento, setGetSegmento ] = useState('');
+  const [ getmodelo, setGetModelo ] = useState('');
+  const [ getfase, setGetFase ] = useState('');
+  const [ getinvestimentos, setGetInvestimento ] = useState('');
+  const [ gettime, setGetTime ] = useState('');
+  const [ getajuda, setGetAjuda ] = useState('');
+  const [ site, setSite ] = useState('');
+  const [ linkedin, setLinkedin ] = useState('');
+  const [ facebook, setFacebook ] = useState('');
+  const [ instagram, setInstagram ] = useState('');
+  const [ youtube, setYoutube ] = useState('');
+  const [ plain, setPlain ] = useState({ id: 3, name:'Start'})
 
   const steps = getSteps();
 
@@ -55,23 +79,33 @@ export default function FormStarter() {
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
       console.log(municipio)
+      setPlain({ id: 3, name:'Plano Start'})
     })
   }
+
+  const defaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
   function getSteps() {
   return ['Dados do Contato', 'Modelo de negócio', 'Contato'];
   }
 
   function getStepContent(step) {
-    const selects = [ 'Info 1', 'Info 2', 'Info 3', 'Info 4', 'Info 5',];
 
-
-    const formStep1 = <form><Row lg="8">
+    const formStep1 = <form onSubmit={handleComplete} ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
             id="name"
             type="text"
+            value={name}
+            onChange={ e => setName(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira seu nome"
             helperText="Nome completo (pessoa física)"
@@ -84,6 +118,8 @@ export default function FormStarter() {
             required={true}
             id="company"
             type="text"
+            value={business}
+            onChange={ e => setBusiness(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira o nome de sua startup"
             defaultValue=""
@@ -92,89 +128,97 @@ export default function FormStarter() {
             margin="normal"
             variant="outlined"
           />
-          <div style={{ display: 'flex', width: '100%' }}>
-            <InputMask
-                mask="99.999.999/9999-99"
-              >
-                {() => 
-                <TextField
-                  label="CNPJ"
-                  required={true}
-                  id="cnpj"
-                  type="text"
-                  style={{ margin: 8, width: '50%' }}
-                  defaultValue=""
-                  helperText="Apenas números"
-                  vmargin="normal"
-                  variant="outlined"
-                  />}
-            </InputMask>
+              <div style={{ display: 'flex', width: '100%' }}>
+                <InputMask
+                    value={cnpj}
+                    onChange={e => setCnpj( e.target.value )}
+                    mask="99.999.999/9999-99"
+                  >
+                    {() => 
+                    <TextField
+                      label="CNPJ"
+                      required={true}
+                      id="cnpj"
+                      type="text"
+                      style={{ margin: 8, width: '50%' }}
+                      defaultValue=""
+                      helperText="Apenas números"
+                      vmargin="normal"
+                      variant="outlined"
+                      />}
+                </InputMask>
 
-            <InputMask
-              mask={ phone.length === 10 ? "(99) 9999.9999" : "(99) 99999.9999"}
-              value={phone}
-              onChange={ e => setPhone(e.target.value)}
-            >
-              {() => 
-                <TextField
-                  label="Telefone"
-                  required={true}
-                  id="phone"
-                  type="text"
-                  style={{ margin: 8, width: '50%' }}
-                  placeholder="Telefone para contato"
-                  defaultValue=""
-                  helperText="Telefone com DDD"
-                  margin="normal"
-                  variant="outlined"
-                  />}
-            </InputMask>
+                <InputMask
+                  mask={ phone.length === 10 ? "(99) 9999.9999" : "(99) 99999.9999"}
+                  value={phone}
+                  onChange={ e => setPhone(e.target.value)}
+                >
+                  {() => 
+                    <TextField
+                      label="Telefone"
+                      required={true}
+                      id="phone"
+                      type="text"
+                      style={{ margin: 8, width: '50%' }}
+                      placeholder="Telefone para contato"
+                      defaultValue=""
+                      helperText="Telefone com DDD"
+                      margin="normal"
+                      variant="outlined"
+                      />}
+                </InputMask>
 
-          </div>
-          <TextField
-            label="Email"
-            required={true}
-            id="email"
-            type= "email"
-            style={{ margin: 8 }}
-            placeholder="Cadastre seu melhor email"
-            defaultValue=""
-            fullWidth
-            helperText="Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups"
-            margin="normal"
-            variant="outlined"
-          />
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Senha"
-            required={true}
-            id="password"
-            type="password"
-            fullWidth
-            style={{ margin: 8 }}
-            placeholder="Telefone para contato"
-            defaultValue=""
-            helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="Confirmar senha"
-            required={true}
-            id="re-password"
-            type="password"
-            fullWidth
-            style={{ margin: 8 }}
-            defaultValue=""
-            helperText="Confirmar senha"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
-          </Row>
+              </div>
+              <TextField
+                label="Email"
+                required={true}
+                id="email"
+                type= "email"
+                value={mail}
+                onChange={ e => setMail(e.target.value) }
+                style={{ margin: 8 }}
+                placeholder="Cadastre seu melhor email"
+                defaultValue=""
+                fullWidth
+                helperText="Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups"
+                margin="normal"
+                variant="outlined"
+              />
+              <div style={{ display: 'flex', width: '100%' }}>
+              <TextField
+                label="Senha"
+                required={true}
+                id="password"
+                type="password"
+                fullWidth
+                value={password}
+                onChange={ e => setPassword(e.target.value) }
+                style={{ margin: 8 }}
+                placeholder="Telefone para contato"
+                defaultValue=""
+                helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                label="Confirmar senha"
+                required={true}
+                id="re-password"
+                type="password"
+                fullWidth
+                value={confirmpassword}
+                onChange={ e => setConfirmpassword(e.target.value) }
+                style={{ margin: 8 }}
+                defaultValue=""
+                helperText="Confirmar senha"
+                vmargin="normal"
+                variant="outlined"
+              />
+              </div>
+            </Row>
           </form>;
     
-    const formStep2 = <form><div>
+    const formStep2 = <form onSubmit={handleComplete} ><div>
         
         <div style={{ display: 'flex', width: '100%' }}>
           <TextField
@@ -182,6 +226,8 @@ export default function FormStarter() {
             select
             fullWidth
             required={true}
+            value={getcargo}
+            onChange={ e => setGetCargo(e.target.value)}
             label="Qual seu cargo?"
             style={{ margin: 8 }}
             SelectProps={{
@@ -200,6 +246,8 @@ export default function FormStarter() {
             select
             fullWidth
             required={true}
+            value={getsocios}
+            onChange={ e => setGetSocios(e.target.value)}
             label="Numero de sócios?"
             style={{ margin: 8 }}
             SelectProps={{
@@ -222,9 +270,10 @@ export default function FormStarter() {
               select
               fullWidth
               required={true}
+              value={getsegmento}
+              onChange={ e => setGetSegmento(e.target.value)}
               label="Segmento"
               style={{ margin: 8 }}
-              value=""
               SelectProps={{
                 native: true,
               }}
@@ -239,10 +288,12 @@ export default function FormStarter() {
             </TextField>
 
             <TextField
-              id="socios"
+              id="modelo"
               select
               fullWidth
               required={true}
+              value={getmodelo}
+              onChange={ e => setGetModelo(e.target.value)}
               label="Modelo de negócio?"
               style={{ margin: 8 }}
               SelectProps={{
@@ -262,13 +313,14 @@ export default function FormStarter() {
           <div style={{ display: 'flex', width: '100%' }}>
 
             <TextField
-              id="socios"
+              id="fase"
               select
               fullWidth
               required={true}
+              value={getfase}
+              onChange={ e => setGetFase(e.target.value)}
               label="Qual fase atual?"
               style={{ margin: 8 }}
-              value={selects}
               SelectProps={{
                 native: true,
               }}
@@ -285,9 +337,10 @@ export default function FormStarter() {
               select
               fullWidth
               required={true}
+              value={getinvestimentos}
+              onChange={ e => setGetInvestimento(e.target.value)}
               label="Já recebeu investimento?"
               style={{ margin: 8 }}
-              value=""
               SelectProps={{
                 native: true,
               }}
@@ -309,9 +362,10 @@ export default function FormStarter() {
             select
             fullWidth
             required={true}
+            value={gettime}
+            onChange={ e => setGetTime(e.target.value)}
             label="Qual o tamanho do seu time"
             style={{ margin: 8 }}
-            value=""
             SelectProps={{
               native: true,
             }}
@@ -323,10 +377,12 @@ export default function FormStarter() {
             ))}
           </TextField>
           <TextField
-            id="socios"
+            id="ajuda"
             select
             fullWidth
             required={true}
+            value={getajuda}
+            onChange={ e => setGetAjuda(e.target.value)}
             label="Em que ABS pode te ajudar?"
             style={{ margin: 8 }}
             SelectProps={{
@@ -351,6 +407,7 @@ export default function FormStarter() {
           <div style={{ display: 'flex', width: '100%' }}>
             <InputMask
               mask="99999-999"
+              value={cep}
               onChange={ e => { setCep( e.target.value ) } }
 
             >
@@ -415,6 +472,8 @@ export default function FormStarter() {
             id="number"
             required={true}
             style={{ margin: 8 }}
+            value={numeroLogradouro}
+            onChange={ e => setNumeroLogradouro(e.target.value)}
             defaultValue=""
             placeholder="Número"
             helperText="Número"
@@ -427,6 +486,8 @@ export default function FormStarter() {
             fullWidth
             required={true}
             style={{ margin: 8 }}
+            value={complemento}
+            onChange={ e => setComplemento(e.target.value)}
             defaultValue=""
             helperText="UF"
             vmargin="normal"
@@ -440,6 +501,8 @@ export default function FormStarter() {
             id="website"
             label="Site"
             style={{ margin: 8 }}
+            value={site}
+            onChange={ e => setSite(e.target.value)}
             placeholder="Qual o site?"
             helperText="Insira o endereço do seu site. (opcional)"
             fullWidth
@@ -453,6 +516,8 @@ export default function FormStarter() {
             id="linkedin"
             fullWidth
             style={{ margin: 8 }}
+            value={linkedin}
+            onChange={ e => setLinkedin(e.target.value)}
             defaultValue=""
             helperText="URL do Linkedin (opcional)"
             margin="normal"
@@ -463,6 +528,8 @@ export default function FormStarter() {
             id="facebook"
             fullWidth
             style={{ margin: 8 }}
+            value={facebook}
+            onChange={ e => setFacebook(e.target.value)}
             defaultValue=""
             helperText="URL do Facebook (opcional)"
             vmargin="normal"
@@ -476,6 +543,8 @@ export default function FormStarter() {
             id="instagram"
             fullWidth
             style={{ margin: 8 }}
+            value={instagram}
+            onChange={ e => setInstagram(e.target.value)}
             defaultValue=""
             helperText="URL do Instagram (opcional)"
             margin="normal"
@@ -486,6 +555,8 @@ export default function FormStarter() {
             id="YouTube"
             fullWidth
             style={{ margin: 8 }}
+            value={youtube}
+            onChange={ e => setYoutube(e.target.value)}
             defaultValue=""
             helperText="URL do Youtube (opcional)"
             vmargin="normal"
@@ -544,7 +615,8 @@ export default function FormStarter() {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
+  function handleComplete (e) {
+    e.preventDefault();
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
@@ -566,8 +638,14 @@ export default function FormStarter() {
         {allStepsCompleted() ? (
           <div>
             <center>
-              <h2 className={classes.instructions}>Não tem nada aqui para pagar!</h2>
-              <h3 className={classes.instructions}>Basta clicar no botão abaixo e ser feliz :)</h3>
+
+              <Lottie options={defaultOptions}
+                height={300}
+                width={300}
+              />
+              <h2 className={classes.instructions}>{name}, não tem nada aqui para pagar!</h2>
+              <h3 className={classes.instructions}>Basta clicar no botão abaixo e ser feliz, {business} vai decolar :)</h3>
+              <p>O Plano Contratado é o: <b>{ plain.name }</b></p>
 
               <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
             </center>
