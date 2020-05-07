@@ -12,6 +12,10 @@ import {
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 
+import CreditCard from '../../components/CreditCard'
+import Boleto from '../../components/Boleto'
+
+
 
 class Modals extends Component {
   state = {};
@@ -39,7 +43,7 @@ class Modals extends Component {
               block
               color="success"
               type="button"
-              onClick={() => this.toggleModal("formModal")}
+              onClick={() => this.toggleModal("formModalBol")}
             >
              <CropFreeIcon/> PAGAR COM BOLETO
             </Button>
@@ -53,7 +57,23 @@ class Modals extends Component {
               <div className="modal-body p-0">
                 <Card className="bg-secondary shadow border-0">
 
-                <h1>Formulário de Pagamento com Cartão de crédito</h1>
+                <CreditCard/>
+                
+                </Card>
+              </div>
+            </Modal>
+
+
+            <Modal
+              className="modal-dialog-centered"
+              size="sm"
+              isOpen={this.state.formModalBol}
+              toggle={() => this.toggleModal("formModalBol")}
+            >
+              <div className="modal-body p-0">
+                <Card className="bg-secondary shadow border-0">
+
+                <Boleto/>
                 
                 </Card>
               </div>

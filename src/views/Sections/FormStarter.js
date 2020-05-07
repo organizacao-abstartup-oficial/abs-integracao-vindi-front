@@ -566,11 +566,9 @@ export default function FormStarter() {
         {allStepsCompleted() ? (
           <div>
             <center>
-              <Typography className={classes.instructions}>
-                Não tem nada aqui para pagar!
-                Basta clicar no botão abaixo e ser feliz :)
-              </Typography>
-          
+              <h2 className={classes.instructions}>Não tem nada aqui para pagar!</h2>
+              <h3 className={classes.instructions}>Basta clicar no botão abaixo e ser feliz :)</h3>
+
               <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
