@@ -42,12 +42,32 @@ export default function FormStarter() {
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
-  const [ cep, setCep ] = useState('')
-  const [ uf, setUf ] = useState('UF')
-  const [ municipio, setMunicipio ] = useState('Cidade')
-  const [ logradouro, setLogradouro ] = useState('Nome da Rua')
-  const [ phone, setPhone ] = useState('')
-
+  const [ cep, setCep ] = useState('');
+  const [ uf, setUf ] = useState('UF');
+  const [ municipio, setMunicipio ] = useState('Cidade');
+  const [ logradouro, setLogradouro ] = useState('Nome da Rua');
+  const [ numeroLogradouro, setNumeroLogradouro ] = useState('');
+  const [ complemento, setComplemento ] = useState('');
+  const [ phone, setPhone ] = useState('');
+  const [ name, setName ] = useState('');
+  const [ mail, setMail ] = useState('');
+  const [ business, setBusiness ] = useState('');
+  const [ cnpj, setCnpj ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ confirmpassword, setConfirmpassword ] = useState('');
+  const [ getcargo, setGetCargo ] = useState('');
+  const [ getsocios, setGetSocios ] = useState('');
+  const [ getsegmento, setGetSegmento ] = useState('');
+  const [ getmodelo, setGetModelo ] = useState('');
+  const [ getfase, setGetFase ] = useState('');
+  const [ getinvestimentos, setGetInvestimento ] = useState('');
+  const [ gettime, setGetTime ] = useState('');
+  const [ getajuda, setGetAjuda ] = useState('');
+  const [ site, setSite ] = useState('');
+  const [ linkedin, setLinkedin ] = useState('');
+  const [ facebook, setFacebook ] = useState('');
+  const [ instagram, setInstagram ] = useState('');
+  const [ youtube, setYoutube ] = useState('');
 
   const steps = getSteps();
 
@@ -66,15 +86,19 @@ export default function FormStarter() {
   }
 
   function getStepContent(step) {
-    const selects = [ 'Info 1', 'Info 2', 'Info 3', 'Info 4', 'Info 5',];
 
+    function validateStep(e){
+      e.preventDefault();
+    }
 
-    const formStep1 = <form><Row lg="8">
+    const formStep1 = <form onSubmit={handleComplete} ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
             id="name"
             type="text"
+            value={name}
+            onChange={ e => setName(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira seu nome"
             helperText="Nome completo (pessoa física)"
@@ -87,6 +111,8 @@ export default function FormStarter() {
             required={true}
             id="company"
             type="text"
+            value={business}
+            onChange={ e => setBusiness(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira o nome de sua startup"
             defaultValue=""
@@ -139,6 +165,8 @@ export default function FormStarter() {
             required={true}
             id="email"
             type= "email"
+            value={mail}
+            onChange={ e => setMail(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Cadastre seu melhor email"
             defaultValue=""
@@ -154,6 +182,8 @@ export default function FormStarter() {
             id="password"
             type="password"
             fullWidth
+            value={password}
+            onChange={ e => setPassword(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Telefone para contato"
             defaultValue=""
@@ -167,6 +197,8 @@ export default function FormStarter() {
             id="re-password"
             type="password"
             fullWidth
+            value={confirmpassword}
+            onChange={ e => setConfirmpassword(e.target.value) }
             style={{ margin: 8 }}
             defaultValue=""
             helperText="Confirmar senha"
@@ -177,7 +209,7 @@ export default function FormStarter() {
           </Row>
           </form>;
     
-    const formStep2 = <form><div>
+    const formStep2 = <form onSubmit={handleComplete} ><div>
         
         <div style={{ display: 'flex', width: '100%' }}>
           <TextField
@@ -185,6 +217,8 @@ export default function FormStarter() {
             select
             fullWidth
             required={true}
+            value={papeis}
+            onChange={ e => setGetCargo(e.targer.value)}
             label="Qual seu cargo?"
             style={{ margin: 8 }}
             SelectProps={{
@@ -271,7 +305,7 @@ export default function FormStarter() {
               required={true}
               label="Qual fase atual?"
               style={{ margin: 8 }}
-              value={selects}
+              value=""
               SelectProps={{
                 native: true,
               }}
@@ -547,7 +581,8 @@ export default function FormStarter() {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
+  function handleComplete (e) {
+    e.preventDefault();
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
@@ -569,9 +604,11 @@ export default function FormStarter() {
         {allStepsCompleted() ? (
           <div>
             <center>
-              <h2 className={classes.instructions}>Pronto, seu cadastro foi realizado com sucesso!</h2>
-              <h5 className={classes.instructions}>Agora basta realizar o pagamento e aproveitar os benefícios :)</h5>
+              <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
+              <hr/>
+              <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
 
+              <h2>Obrigado!</h2>
               <Modal />
             </center>
           </div>

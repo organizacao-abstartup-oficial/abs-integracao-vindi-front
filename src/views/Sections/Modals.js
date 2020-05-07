@@ -41,7 +41,7 @@ class Modals extends Component {
             </Button>
             <Button
               block
-              color="success"
+              // color="success"
               type="button"
               onClick={() => this.toggleModal("formModalBol")}
             >
