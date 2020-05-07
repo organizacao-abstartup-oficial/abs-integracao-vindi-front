@@ -10,6 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
+import InputMask from "react-input-mask";
+
 import { Col, Row } from 'reactstrap'
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data'
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function FormStarter() {
+
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
@@ -40,6 +43,8 @@ export default function FormStarter() {
   const [ uf, setUf ] = useState('UF')
   const [ municipio, setMunicipio ] = useState('Cidade')
   const [ logradouro, setLogradouro ] = useState('Nome da Rua')
+  const [ phone, setPhone ] = useState('')
+
 
   const steps = getSteps();
 
@@ -77,7 +82,7 @@ export default function FormStarter() {
           <TextField
             label="Nome da Startup"
             required={true}
-            id="phone"
+            id="company"
             type="text"
             style={{ margin: 8 }}
             placeholder="Insira o nome de sua startup"
@@ -88,30 +93,43 @@ export default function FormStarter() {
             variant="outlined"
           />
           <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="CNPJ"
-            required={true}
-            id="cnpj"
-            type="number"
-            pattern="/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/"
-            style={{ margin: 8, width: '50%' }}
-            defaultValue=""
-            helperText="Apenas números"
-            vmargin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="Telefone"
-            required={true}
-            id="phone"
-            type="phone"
-            style={{ margin: 8, width: '50%' }}
-            placeholder="Telefone para contato"
-            defaultValue=""
-            helperText="Telefone com DDD"
-            margin="normal"
-            variant="outlined"
-          />
+            <InputMask
+                mask="99.999.999/9999-99"
+              >
+                {() => 
+                <TextField
+                  label="CNPJ"
+                  required={true}
+                  id="cnpj"
+                  type="text"
+                  style={{ margin: 8, width: '50%' }}
+                  defaultValue=""
+                  helperText="Apenas números"
+                  vmargin="normal"
+                  variant="outlined"
+                  />}
+            </InputMask>
+
+            <InputMask
+              mask={ phone.length === 10 ? "(99) 9999.9999" : "(99) 99999.9999"}
+              value={phone}
+              onChange={ e => setPhone(e.target.value)}
+            >
+              {() => 
+                <TextField
+                  label="Telefone"
+                  required={true}
+                  id="phone"
+                  type="text"
+                  style={{ margin: 8, width: '50%' }}
+                  placeholder="Telefone para contato"
+                  defaultValue=""
+                  helperText="Telefone com DDD"
+                  margin="normal"
+                  variant="outlined"
+                  />}
+            </InputMask>
+
           </div>
           <TextField
             label="Email"
@@ -331,17 +349,23 @@ export default function FormStarter() {
       <div>
 
           <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="CEP"
-            id="cep"
-            required={true}
-            style={{ margin: 8}}
-            defaultValue={cep}
-            onChange={ e => { setCep( e.target.value ) } }
-            helperText="Insira o CEP"
-            margin="normal"
-            variant="outlined"
-          />
+            <InputMask
+              mask="99999-999"
+              onChange={ e => { setCep( e.target.value ) } }
+
+            >
+              {() => 
+                <TextField
+                    label="CEP"
+                    id="cep"
+                    required={true}
+                    style={{ margin: 8}}
+                    defaultValue={cep}
+                    helperText="Insira o CEP"
+                    margin="normal"
+                    variant="outlined"
+                  />}
+            </InputMask>
           <Button variant="contained" fullWidth color="primary" style={{ margin: 8, marginBottom: 30}} onClick={getAddress}>AUTO COMPLETAR ENDEREÇO</Button>
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
