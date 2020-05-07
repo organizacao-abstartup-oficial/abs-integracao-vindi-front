@@ -35,7 +35,7 @@ class Modals extends Component {
               block
               color="default"
               type="button"
-              onClick={() => this.toggleModal("formModal")}
+              onClick={() => this.toggleModal("formModalCredit")}
             >
              <CreditCardIcon/> PAGAR COM CARTÃO DE CRÉDITO
             </Button>
@@ -51,8 +51,8 @@ class Modals extends Component {
             <Modal
               className="modal-dialog-centered"
               size="sm"
-              isOpen={this.state.formModal}
-              toggle={() => this.toggleModal("formModal")}
+              isOpen={this.state.formModalCredit}
+              toggle={() => this.toggleModal("formModalCredit")}
             >
               <div className="modal-body p-0">
                 <Card className="bg-secondary shadow border-0">

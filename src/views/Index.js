@@ -44,7 +44,7 @@ export default function StarterForm() {
                   <UncontrolledCollapse toggler="#toggler">
                     <Card>
                       <CardBody>
-                      <h4>BASIC</h4>
+                      <h4>START</h4>
                         <hr/>
                         <li>Descontos em eventos da ABStartups e de parceiros</li><br/>
                         <li>Acesso em alguns benefícios do Portal de Benefícios</li><br/>
@@ -76,13 +76,13 @@ export default function StarterForm() {
                     <CardBody>
                     <h4>GROWTH</h4>
                         <hr/>
-                        <li>Start +</li><br/>
-                        <li>Acesso total dos benefícios do Portal de Benefícios</li><br/>
-                        <li>Comitês ABStartups</li><br/>
-                        <li>Pitch Training</li><br/>
-                        <li>Papo com Investidor</li><br/>
-                        <li>1 Ingresso para o CASE</li><br/>
-                        <li>Mentorias</li><br/>
+                        <li>Acesso a todos os benefícios do Portal de Benefícios START</li><br/>
+                        <li>Acesso a todos os benefícios exclusivos do Portal de Benefícios GROWTH</li><br/>
+                        <li>Partipação nos Comitês ABStartups</li><br/>
+                        <li>Participação nas mentorias de Pitch Training</li><br/>
+                        <li>Participação nas mentorias de Papo com Investidor</li><br/>
+                        <li>Participação em mentorias  com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)</li><br/>
+                        <li>Um ingresso para o evento CASE (incluir aqui o link do site do CASE)</li><br/>
                         <hr/>
                       <center>
                         <h5>10x de R$ 49,90</h5>
