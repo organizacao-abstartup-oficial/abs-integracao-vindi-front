@@ -12,6 +12,8 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 import { Col, Row } from 'reactstrap'
 
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data'
+
 import axios from 'axios';
 
 
@@ -32,12 +34,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormStarter() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
-  const [completed, setCompleted] = useState({});
-  const [cep, setCep ] = useState('')
-  const [uf, setUf ] = useState('UF')
-  const [municipio, setMunicipio ] = useState('Cidade')
-  const [logradouro, setLogradouro ] = useState('Nome da Rua')
+  const [ activeStep, setActiveStep ] = useState(0);
+  const [ completed, setCompleted ] = useState({});
+  const [ cep, setCep ] = useState('')
+  const [ uf, setUf ] = useState('UF')
+  const [ municipio, setMunicipio ] = useState('Cidade')
+  const [ logradouro, setLogradouro ] = useState('Nome da Rua')
+
   const steps = getSteps();
 
   async function  getAddress(){
@@ -157,140 +160,168 @@ export default function FormStarter() {
         
         <div style={{ display: 'flex', width: '100%' }}>
           <TextField
-            id="whats"
+            id="qual-seu-cargo"
             select
             fullWidth
-            label="Como nos conheceu?"
+            required={true}
+            label="Qual seu cargo?"
             style={{ margin: 8 }}
-            value={selects}
             SelectProps={{
               native: true,
             }}
             helperText="Como conheceu a ABS?"
             variant="outlined"
           >
-            <option>Selecione uma opção</option>
-            <option>Mentoria</option>
-            <option>Investidor</option>
-            <option>Desconto em Produtos</option>
-            <option>Networking</option>
-            <option>Visibilidade</option>
-            <option>Ingressos do case</option>
-            <option>Outros</option>
+            {papeis.map( cargo => (
+              <option key={cargo.id} value={cargo.text}>{cargo.text}</option>
+            ))}
           </TextField>
           
           <TextField
             id="socios"
             select
             fullWidth
+            required={true}
             label="Numero de sócios?"
             style={{ margin: 8 }}
-            value={selects}
             SelectProps={{
               native: true,
             }}
             helperText="Quantos sócios possui?"
             variant="outlined"
           >
-            <option>Selecione uma opção</option>
-            <option>Mentoria</option>
-            <option>Investidor</option>
-            <option>Desconto em Produtos</option>
-            <option>Networking</option>
-            <option>Visibilidade</option>
-            <option>Ingressos do case</option>
-            <option>Outros</option>
+            {time.map( time => (
+              <option key={time.id} value={time.text}>{time.text}</option>
+            ))}
+
           </TextField>
+          
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
+
+            <TextField
+              id="segmentos"
+              select
+              fullWidth
+              required={true}
+              label="Segmento"
+              style={{ margin: 8 }}
+              value=""
+              SelectProps={{
+                native: true,
+              }}
+              helperText="Selecione um dos modelos listados"
+              variant="outlined"
+            >
+
+              {segmentos.map( segmentos => (
+                <option key={segmentos.id} value={segmentos.text}>{segmentos.text}</option>
+              ))}
+          
+            </TextField>
+
+            <TextField
+              id="socios"
+              select
+              fullWidth
+              required={true}
+              label="Modelo de negócio?"
+              style={{ margin: 8 }}
+              SelectProps={{
+                native: true,
+              }}
+              helperText="Selecione uma das opções."
+              variant="outlined"
+            >
+              {negociosShort.map( negocios => (
+                <option key={negocios.id} value={negocios.text}>{negocios.text}</option>
+              ))}
+
+            </TextField>
+
+          </div>
+
+          <div style={{ display: 'flex', width: '100%' }}>
+
+            <TextField
+              id="socios"
+              select
+              fullWidth
+              required={true}
+              label="Qual fase atual?"
+              style={{ margin: 8 }}
+              value={selects}
+              SelectProps={{
+                native: true,
+              }}
+              helperText="Fase da startup"
+              variant="outlined"
+            >
+              {fasesShort.map( fase => (
+                <option key={fase.id} value={fase.text}>{fase.text}</option>
+              ))}
+            </TextField>
+
+            <TextField
+              id="whats"
+              select
+              fullWidth
+              required={true}
+              label="Já recebeu investimento?"
+              style={{ margin: 8 }}
+              value=""
+              SelectProps={{
+                native: true,
+              }}
+              helperText="Já recebeu investimento?"
+              variant="outlined"
+            >
+              {investimentos.map( investimento => (
+                <option key={investimento.id} value={investimento.text}>{investimento.text}</option>
+              ))}
+            </TextField>
+
+          
+          </div>
+
+
+          <div style={{ display: 'flex', width: '100%' }}>
           <TextField
-            id="receita"
+            id="tamanho-da-equipe"
             select
             fullWidth
-            label="Receita"
+            required={true}
+            label="Qual o tamanho do seu time"
             style={{ margin: 8 }}
-            value={selects}
+            value=""
             SelectProps={{
               native: true,
             }}
-            helperText="Modelo de receita"
+            helperText="Quantos colaboradores possui"
             variant="outlined"
           >
-            <option>Selecione uma opção</option>
-            <option>Mentoria</option>
-            <option>Investidor</option>
-            <option>Desconto em Produtos</option>
-            <option>Networking</option>
-            <option>Visibilidade</option>
-            <option>Ingressos do case</option>
-            <option>Outros</option>
+            {time.map( time => (
+              <option key={time.id} value={time.text}>{time.text}</option>
+            ))}
           </TextField>
           <TextField
             id="socios"
             select
             fullWidth
-            label="Qual fase atual?"
-            style={{ margin: 8 }}
-            value={selects}
-            SelectProps={{
-              native: true,
-            }}
-            helperText="Fase da startup"
-            variant="outlined"
-          >
-            <option>Selecione uma opção</option>
-            <option>Mentoria</option>
-            <option>Investidor</option>
-            <option>Desconto em Produtos</option>
-            <option>Networking</option>
-            <option>Visibilidade</option>
-            <option>Ingressos do case</option>
-            <option>Outros</option>
-          </TextField>
-          </div>
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            id="whats"
-            select
-            fullWidth
-            label="Investimento?"
-            style={{ margin: 8 }}
-            value={selects}
-            SelectProps={{
-              native: true,
-            }}
-            helperText="Já recebeu investimento?"
-            variant="outlined"
-          >
-            <option>Selecione uma opção</option>
-            <option>Mentoria</option>
-            <option>Investidor</option>
-            <option>Desconto em Produtos</option>
-            <option>Networking</option>
-            <option>Visibilidade</option>
-            <option>Ingressos do case</option>
-            <option>Outros</option>
-          </TextField>
-          <TextField
-            id="socios"
-            select
-            fullWidth
-            label="Momento"
+            required={true}
+            label="Em que ABS pode te ajudar?"
             style={{ margin: 8 }}
             SelectProps={{
               native: true,
             }}
-            helperText="O que você busca?"
+            helperText="Selecione uma das opções"
             variant="outlined"
           >
-            <option>Selecione uma opção</option>
-            <option>Mentoria</option>
-            <option>Investidor</option>
-            <option>Desconto em Produtos</option>
-            <option>Networking</option>
-            <option>Visibilidade</option>
-            <option>Ingressos do case</option>
-            <option>Outros</option>
+          { oquebusca.map(oquebusca => (
+            <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
+          ))}
+            <option value="0">Mentorias</option>
+
           </TextField>
           </div>
         </div>
@@ -349,7 +380,7 @@ export default function FormStarter() {
             InputProps={{ readOnly: true, }}
             defaultValue={logradouro}
             value={logradouro}
-            helperText="Insira o endereço do seu site. (opcional)"
+            helperText="Logradouro ex: Rua... Avenida"
             fullWidth
             margin="normal"
             variant="outlined"
@@ -512,8 +543,8 @@ export default function FormStarter() {
           <div>
             <center>
               <Typography className={classes.instructions}>
-                Cadastro finalizado com sucesso!
-                Agora é só acessar seu portal de benefícios.
+                Não tem nada aqui para pagar!
+                Basta clicar no botão abaixo e ser feliz :)
               </Typography>
           
               <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
