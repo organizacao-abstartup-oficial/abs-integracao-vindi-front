@@ -40,9 +40,9 @@ export const segmentos = [
   {id: 38, text: 'Imobiliário'},
   {id: 39, text: 'Produtos de Consumo'},
   {id: 40, text: 'Serviços Profissionais, científicos ou técnicos'},
-  {id: 40, text: 'Indústria'},
-  {id: 41, text: 'Energia'},
-  {id: 42, text: 'Outros'},
+  {id: 41, text: 'Indústria'},
+  {id: 42, text: 'Energia'},
+  {id: 43, text: 'Outros'},
 ];
 
 export const publicos = [

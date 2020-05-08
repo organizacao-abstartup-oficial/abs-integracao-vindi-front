@@ -15,6 +15,8 @@ import Header from 'components/Header';
 
 
 export default function StarterForm() {
+
+
   return (
     
       <>
@@ -32,9 +34,9 @@ export default function StarterForm() {
             <Row>
               <Col className="mb-5 mb-md-0" md="4">
                 <Card className="card-lift--hover shadow border-0">
-                  <Link to="/starter">
+                  <Link to="/start">
                     <CardImg
-                      alt="..."
+                      alt="start"
                       src={require("assets/img/icons/common/starter.png")}
                     />
                   </Link>
@@ -55,6 +57,8 @@ export default function StarterForm() {
                         <center>
                           <h5>GRÁTIS</h5>
                         </center>
+
+                        <Link to="/start"><Button  href="plain" color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>Contratar</Button></Link>
                         
                       </CardBody>
                     </Card>
@@ -64,7 +68,7 @@ export default function StarterForm() {
                 <Card className="card-lift--hover shadow border-0">
                   <Link to="/growth">
                     <CardImg
-                      alt="..."
+                      alt=""
                       src={require("assets/img/icons/common/growth.png")}
                     />
                   </Link>
@@ -75,6 +79,7 @@ export default function StarterForm() {
                 <UncontrolledCollapse toggler="#toggler">
                   <Card>
                     <CardBody>
+                    <section id="plain"></section>
                     <h4>GROWTH</h4>
                         <hr/>
                         <li>Acesso a todos os benefícios do Portal de Benefícios START</li><br/>
@@ -98,12 +103,14 @@ export default function StarterForm() {
                 <Card className="card-lift--hover shadow border-0">
                   <Link to="/impact">
                     <CardImg
-                      alt="..."
+                      alt="impact"
                       src={require("assets/img/icons/common/impact.png")}
+                      width="20px"
+                      height="auto"
                     />
                   </Link>
                 </Card>
-                <Button color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
+                <Button color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }} >
                   Ver benefícios
                 </Button>
                   <UncontrolledCollapse toggler="#toggler">

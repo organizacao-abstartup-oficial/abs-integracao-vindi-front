@@ -23,7 +23,7 @@ ReactDOM.render(
       </Route>
 
       <Route
-        path="/starter"
+        path="/start"
         exact
       >
         <Starter/>

@@ -14,7 +14,7 @@ export default function IndexSections() {
           </h3>
           <p>Informe seus dados pessoais para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
 
-          <img src={plainLogo} alt="impact" width="250px"/>
+          <img src={plainLogo} alt="impact" width="200px"/>
           <br/>
           <br/>
 

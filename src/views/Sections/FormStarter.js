@@ -7,6 +7,7 @@ import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
@@ -17,7 +18,7 @@ import { Col, Row } from 'reactstrap';
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
 
 import Lottie from 'react-lottie'
-import animationData from '../../components/Animation/21052-checking.json'
+import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
 
 import axios from 'axios';
 
@@ -68,7 +69,7 @@ export default function FormStarter() {
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
-  const [ plain, setPlain ] = useState({ id: 3, name:'Start'})
+  const [ plain, setPlain ] = useState({ id: 1, name:'Growth'})
 
   const steps = getSteps();
 
@@ -79,7 +80,7 @@ export default function FormStarter() {
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
       console.log(municipio)
-      setPlain({ id: 3, name:'Plano Start'})
+      setPlain({ id: 2, name:'Growth'})
     })
   }
 
@@ -98,12 +99,11 @@ export default function FormStarter() {
 
   function getStepContent(step) {
 
-    const formStep1 = <form onSubmit={handleComplete} ><Row lg="8">
+    const formStep1 = <FormControl onSubmit={handleComplete} ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
             id="name"
-            type="text"
             value={name}
             onChange={ e => setName(e.target.value) }
             style={{ margin: 8 }}
@@ -117,12 +117,11 @@ export default function FormStarter() {
             label="Nome da Startup"
             required={true}
             id="company"
-            type="text"
+            type='text'
             value={business}
             onChange={ e => setBusiness(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira o nome de sua startup"
-            defaultValue=""
             helperText="Nome fantasia (nome fantasia)"
             fullWidth
             margin="normal"
@@ -139,9 +138,8 @@ export default function FormStarter() {
                       label="CNPJ"
                       required={true}
                       id="cnpj"
-                      type="text"
+                      type='text'
                       style={{ margin: 8, width: '50%' }}
-                      defaultValue=""
                       helperText="Apenas números"
                       vmargin="normal"
                       variant="outlined"
@@ -158,10 +156,9 @@ export default function FormStarter() {
                       label="Telefone"
                       required={true}
                       id="phone"
-                      type="text"
+                      type='text'
                       style={{ margin: 8, width: '50%' }}
                       placeholder="Telefone para contato"
-                      defaultValue=""
                       helperText="Telefone com DDD"
                       margin="normal"
                       variant="outlined"
@@ -173,12 +170,11 @@ export default function FormStarter() {
                 label="Email"
                 required={true}
                 id="email"
-                type= "email"
+                type="email"
                 value={mail}
                 onChange={ e => setMail(e.target.value) }
                 style={{ margin: 8 }}
                 placeholder="Cadastre seu melhor email"
-                defaultValue=""
                 fullWidth
                 helperText="Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups"
                 margin="normal"
@@ -195,7 +191,6 @@ export default function FormStarter() {
                 onChange={ e => setPassword(e.target.value) }
                 style={{ margin: 8 }}
                 placeholder="Telefone para contato"
-                defaultValue=""
                 helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
                 margin="normal"
                 variant="outlined"
@@ -209,16 +204,15 @@ export default function FormStarter() {
                 value={confirmpassword}
                 onChange={ e => setConfirmpassword(e.target.value) }
                 style={{ margin: 8 }}
-                defaultValue=""
                 helperText="Confirmar senha"
                 vmargin="normal"
                 variant="outlined"
               />
               </div>
             </Row>
-          </form>;
+          </FormControl>;
     
-    const formStep2 = <form onSubmit={handleComplete} ><div>
+    const formStep2 = <FormControl onSubmit={handleComplete} ><Row lg="8">
         
         <div style={{ display: 'flex', width: '100%' }}>
           <TextField
@@ -398,11 +392,11 @@ export default function FormStarter() {
 
           </TextField>
           </div>
-        </div>
-      </form>;
+        </Row>
+      </FormControl>;
 
-    const formStep3 = <form>
-      <div>
+    const formStep3 = <FormControl>
+      <Row lg="8">
 
           <div style={{ display: 'flex', width: '100%' }}>
             <InputMask
@@ -417,7 +411,6 @@ export default function FormStarter() {
                     id="cep"
                     required={true}
                     style={{ margin: 8}}
-                    defaultValue={cep}
                     helperText="Insira o CEP"
                     margin="normal"
                     variant="outlined"
@@ -433,7 +426,6 @@ export default function FormStarter() {
             required={true}
             style={{ margin: 8, width: 200  }}
             defaultValue={municipio}
-            value={municipio}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -445,7 +437,6 @@ export default function FormStarter() {
             required={true}
             style={{ margin: 8, width: 100 }}
             defaultValue={uf}
-            value={uf}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -460,7 +451,6 @@ export default function FormStarter() {
             placeholder="Endereço?"
             InputProps={{ readOnly: true, }}
             defaultValue={logradouro}
-            value={logradouro}
             helperText="Logradouro ex: Rua... Avenida"
             fullWidth
             margin="normal"
@@ -470,11 +460,11 @@ export default function FormStarter() {
           <TextField
             label="Número"
             id="number"
+            type='text'
             required={true}
             style={{ margin: 8 }}
             value={numeroLogradouro}
             onChange={ e => setNumeroLogradouro(e.target.value)}
-            defaultValue=""
             placeholder="Número"
             helperText="Número"
             margin="normal"
@@ -484,11 +474,11 @@ export default function FormStarter() {
             label="Complemento"
             id="complemento"
             fullWidth
+            type='text'
             required={true}
             style={{ margin: 8 }}
             value={complemento}
             onChange={ e => setComplemento(e.target.value)}
-            defaultValue=""
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -500,6 +490,7 @@ export default function FormStarter() {
           <TextField
             id="website"
             label="Site"
+            type='text'
             style={{ margin: 8 }}
             value={site}
             onChange={ e => setSite(e.target.value)}
@@ -515,10 +506,10 @@ export default function FormStarter() {
             label="Linkedin"
             id="linkedin"
             fullWidth
+            type='text'
             style={{ margin: 8 }}
             value={linkedin}
             onChange={ e => setLinkedin(e.target.value)}
-            defaultValue=""
             helperText="URL do Linkedin (opcional)"
             margin="normal"
             variant="outlined"
@@ -527,10 +518,10 @@ export default function FormStarter() {
             label="Facebook"
             id="facebook"
             fullWidth
+            type='text'
             style={{ margin: 8 }}
             value={facebook}
             onChange={ e => setFacebook(e.target.value)}
-            defaultValue=""
             helperText="URL do Facebook (opcional)"
             vmargin="normal"
             variant="outlined"
@@ -542,10 +533,10 @@ export default function FormStarter() {
             label="Instagram"
             id="instagram"
             fullWidth
+            type='text'
             style={{ margin: 8 }}
             value={instagram}
             onChange={ e => setInstagram(e.target.value)}
-            defaultValue=""
             helperText="URL do Instagram (opcional)"
             margin="normal"
             variant="outlined"
@@ -554,18 +545,18 @@ export default function FormStarter() {
             label="YouTube"
             id="YouTube"
             fullWidth
+            type='text'
             style={{ margin: 8 }}
             value={youtube}
             onChange={ e => setYoutube(e.target.value)}
-            defaultValue=""
             helperText="URL do Youtube (opcional)"
             vmargin="normal"
             variant="outlined"
           />
           </div>
-        </div>
+        </Row>
 
-        </form>;
+        </FormControl>;
 
     switch (step) {
       case 0:
@@ -640,8 +631,8 @@ export default function FormStarter() {
             <center>
 
               <Lottie options={defaultOptions}
-                height={300}
-                width={300}
+                height={100}
+                width={100}
               />
               <h2 className={classes.instructions}>{name}, não tem nada aqui para pagar!</h2>
               <h3 className={classes.instructions}>Basta clicar no botão abaixo e ser feliz, {business} vai decolar :)</h3>
@@ -652,7 +643,8 @@ export default function FormStarter() {
           </div>
         ) : (
           <div>
-            <p className={classes.instructions}>{getStepContent(activeStep)}</p>
+            <p className={classes.instructions}></p>
+            {getStepContent(activeStep)}
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button} variant="contained">
                 <NavigateBeforeIcon/> Voltar
