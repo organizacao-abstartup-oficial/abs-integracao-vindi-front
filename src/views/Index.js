@@ -57,9 +57,6 @@ export default function StarterForm() {
                         <center>
                           <h5>GRÁTIS</h5>
                         </center>
-
-                        <Link to="/start"><Button  href="plain" color="primary" id="toggler" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>Contratar</Button></Link>
-                        
                       </CardBody>
                     </Card>
                   </UncontrolledCollapse>

@@ -71,7 +71,7 @@ export default function FormStarter() {
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
-  const [ plain, setPlain ] = useState({ id: 2, name:'Impact'})
+  const [ plain, setPlain ] = useState({ id: 1, name:'Impact'})
 
   const steps = getSteps();
 
@@ -82,7 +82,7 @@ export default function FormStarter() {
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
       console.log(municipio)
-      setPlain({ id: 2, name:'Growth'})
+      setPlain({ id: 2, name:'Impact'})
     })
   }
 
@@ -427,7 +427,8 @@ export default function FormStarter() {
             id="municipio"
             required={true}
             style={{ margin: 8, width: 200  }}
-            defaultValue={municipio}
+            placeholder={municipio}
+            value={municipio}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -438,7 +439,8 @@ export default function FormStarter() {
             id="uf"
             required={true}
             style={{ margin: 8, width: 100 }}
-            defaultValue={uf}
+            placeholder={uf}
+            value={uf}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -450,9 +452,9 @@ export default function FormStarter() {
             id="logradouro"
             label="Endereço"
             style={{ margin: 8 }}
-            placeholder="Endereço?"
             InputProps={{ readOnly: true, }}
-            defaultValue={logradouro}
+            value={logradouro}
+            placeholder={logradouro}
             helperText="Logradouro ex: Rua... Avenida"
             fullWidth
             margin="normal"
