@@ -43,8 +43,7 @@
 
 .logo-top{
     margin-top: 30px;
-    max-width: 300px;
-    min-width: 200px;
+    width: 300px;
     height: auto;
 }
 
@@ -119,5 +118,14 @@
     + .card {
         @include border-top-radius(0);
         @include border-bottom-radius($card-border-radius);
+    }
+}
+
+
+@media (max-width: 600px) 
+{
+    .logo-top{
+        width: 200px;
+        height: 44px;
     }
 }
