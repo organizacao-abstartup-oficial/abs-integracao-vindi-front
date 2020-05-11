@@ -86,6 +86,28 @@ export default function FormStarter() {
     })
   }
 
+
+  async function handleRegisterUppo(e){
+    e.preventDefault();
+
+    const data = {
+      mail,
+      password,
+      cnpj,
+      name
+    }
+
+    console.log(data)
+
+    try {
+      const response = await axios.post('https://api.uppo.com.br/abstartups/integration/register', data)
+      
+      alert(`Olá, ${response.data.name}. Seja bem vindo!`)
+    } catch (err) {
+      alert('Erro, por favor tente novamente.')
+    }
+  }
+
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -101,7 +123,7 @@ export default function FormStarter() {
 
   function getStepContent(step) {
 
-    const formStep1 = <FormControl onSubmit={handleComplete} ><Row lg="8">
+    const formStep1 = <form onSubmit={handleRegisterUppo} ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
@@ -212,7 +234,7 @@ export default function FormStarter() {
               />
               </div>
             </Row>
-          </FormControl>;
+          </form>;
     
     const formStep2 = <FormControl onSubmit={handleComplete} ><Row lg="8">
         
@@ -600,6 +622,7 @@ export default function FormStarter() {
           steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
+    console.log(`Passo ativo ${newActiveStep}`)
   };
 
   const handleBack = () => {
@@ -656,14 +679,13 @@ export default function FormStarter() {
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button} variant="contained">
                 <NavigateBeforeIcon/> Voltar
               </Button>
-
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" className={classes.completed}>
                     O passo {activeStep + 1} está completo.
                   </Typography>
                 ) : (
-                  <Button variant="contained" color="primary" onClick={handleComplete}>
+                  <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo'} <NavigateNextIcon/>
                   </Button>
                 ))}

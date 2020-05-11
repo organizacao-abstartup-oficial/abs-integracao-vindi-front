@@ -50,14 +50,14 @@ class Modals extends Component {
             </center>
             <Modal
               className="modal-dialog-centered"
-              size="sm"
+              size="fluid"
               isOpen={this.state.formModalCredit}
               toggle={() => this.toggleModal("formModalCredit")}
             >
               <div className="modal-body p-0">
-                <Card className="bg-secondary shadow border-0">
-
-                <CreditCard/>
+                <Card className="border-0 center">
+                
+                  <CreditCard/>
                 
                 </Card>
               </div>

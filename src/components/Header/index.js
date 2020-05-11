@@ -18,7 +18,7 @@ export default function Nav() {
         </div>
         <Container>
         <Row className="justify-content-center">
-          <img src={logoABS} alt="logo" className="justify-content-center logo-top"/>
+          <img src={logoABS} alt="logo" width="auto" heigth="auto" className="justify-content-center logo-top"/>
         </Row>
         </Container>
         

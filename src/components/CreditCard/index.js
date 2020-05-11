@@ -1,15 +1,8 @@
 import React from 'react';
+import MainScreen from './screens/MainScreen';
 
-import CreditCardIMG from '../../assets/img/icons/common/creditcard.png';
-
-// import { Container } from './styles';
-
-function CreditCard() {
-  return (
-    <div>
-      <img src={CreditCardIMG} alt="creditcard"/>
-    </div>
-  );
+function App() {
+    return <MainScreen />;
 }
 
-export default CreditCard;
+export default App;
