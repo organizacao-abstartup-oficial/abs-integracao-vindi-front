@@ -79,6 +79,7 @@ const MainScreen = () => {
                     cardDateRef={cardElementsRef.cardDate}
                 ></Card>
             </CForm>
+                
         </div>
     );
 };

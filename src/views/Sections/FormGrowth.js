@@ -7,7 +7,6 @@ import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
@@ -75,6 +74,9 @@ export default function FormStarter() {
 
   const steps = getSteps();
 
+  // const UppoKeys = { key: 'd11c23405afed0902c28f4a901828fa4', token:'18389634cd246eae28d7902bc6d462bb' }
+  // const VindiKeys = { key: 'ODqT7BVRZyUhQpD4pz0j5408HsGgoICEmsIhxJ_9zXo'}
+
   async function  getAddress(){
     await axios.get(`https://viacep.com.br/ws/${cep.replace(/-\s/g,"")}/json/`)
     .then( response => {
@@ -87,22 +89,39 @@ export default function FormStarter() {
   }
 
 
-  async function handleRegisterUppo(e){
-    e.preventDefault();
+  async function handleRegisterUppo(){
 
     const data = {
-      mail,
-      password,
-      cnpj,
-      name
+      email: mail,
+      password: password,
+      cpf: cnpj,
+      name: name
     }
 
-    console.log(data)
 
     try {
       const response = await axios.post('https://api.uppo.com.br/abstartups/integration/register', data)
       
-      alert(`Olá, ${response.data.name}. Seja bem vindo!`)
+      alert(`Olá, ${response.data.user.name}. Seja bem vindo!`)
+    } catch (err) {
+      alert('Erro, por favor tente novamente.')
+    }
+  }
+
+    async function handleRegisterVindi(){
+
+    const data = {
+      email: mail,
+      password: password,
+      cpf: cnpj,
+      name: name
+    }
+
+
+    try {
+      const response = await axios.post('https://app.vindi.com.br/api/v1/customers', data)
+      
+      alert(`Olá, ${response.data.user.name}. Seja bem vindo!`)
     } catch (err) {
       alert('Erro, por favor tente novamente.')
     }
@@ -123,7 +142,9 @@ export default function FormStarter() {
 
   function getStepContent(step) {
 
-    const formStep1 = <form onSubmit={handleRegisterUppo} ><Row lg="8">
+    switch (step) {
+      case 0:
+        return <Row lg="8">
           <TextField
             label="Nome"
             required={true}
@@ -233,10 +254,9 @@ export default function FormStarter() {
                 variant="outlined"
               />
               </div>
-            </Row>
-          </form>;
-    
-    const formStep2 = <FormControl onSubmit={handleComplete} ><Row lg="8">
+            </Row>;
+      case 1:
+        return  <Row lg="8">
         
         <div style={{ display: 'flex', width: '100%' }}>
           <TextField
@@ -416,11 +436,9 @@ export default function FormStarter() {
 
           </TextField>
           </div>
-        </Row>
-      </FormControl>;
-
-    const formStep3 = <FormControl>
-      <Row lg="8">
+        </Row>;
+      case 2:
+        return <Row lg="8">
 
           <div style={{ display: 'flex', width: '100%' }}>
             <InputMask
@@ -580,17 +598,7 @@ export default function FormStarter() {
             variant="outlined"
           />
           </div>
-        </Row>
-
-        </FormControl>;
-
-    switch (step) {
-      case 0:
-        return formStep1;
-      case 1:
-        return  formStep2;
-      case 2:
-        return formStep3;
+        </Row>;
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -615,14 +623,23 @@ export default function FormStarter() {
   };
 
   const handleNext = () => {
-    const newActiveStep =
+    //Inputar validações aqui
+        const newActiveStep =
       isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
-    console.log(`Passo ativo ${newActiveStep}`)
+
+    if (newActiveStep === 1){
+      handleRegisterUppo()
+      console.log(`Post Uppo`)
+    }
+    if (newActiveStep === 2){
+      console.log(`Validar passo 2`)
+    } else {
+      console.log(`Validar passo 3`)
+    }
+    
   };
 
   const handleBack = () => {
