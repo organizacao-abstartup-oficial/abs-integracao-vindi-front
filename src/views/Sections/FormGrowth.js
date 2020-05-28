@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import Lottie from 'react-lottie';
+import axios from 'axios';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -9,19 +12,16 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-
 import InputMask from "react-input-mask";
-
+// import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Col, Row } from 'reactstrap';
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
-
+// import { Vindi, Uppo } from '../../Data/Keys';
+import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
 import Modal from './Modals';
 
-import Lottie from 'react-lottie'
-import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
 
-import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,14 +44,16 @@ export default function FormStarter() {
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
+  const [ name, setName ] = useState('');
   const [ cep, setCep ] = useState('');
   const [ uf, setUf ] = useState('UF');
+  const [ country, setCountry ] = useState('UF');
   const [ municipio, setMunicipio ] = useState('Cidade');
   const [ logradouro, setLogradouro ] = useState('Nome da Rua');
   const [ numeroLogradouro, setNumeroLogradouro ] = useState('');
   const [ complemento, setComplemento ] = useState('');
+  const [ bairro, setBairro ] = useState('');
   const [ phone, setPhone ] = useState('');
-  const [ name, setName ] = useState('');
   const [ mail, setMail ] = useState('');
   const [ business, setBusiness ] = useState('');
   const [ cnpj, setCnpj ] = useState('');
@@ -72,10 +74,8 @@ export default function FormStarter() {
   const [ youtube, setYoutube ] = useState('');
   const [ plain, setPlain ] = useState({ id: 1, name:'Growth'})
 
-  const steps = getSteps();
 
-  // const UppoKeys = { key: 'd11c23405afed0902c28f4a901828fa4', token:'18389634cd246eae28d7902bc6d462bb' }
-  // const VindiKeys = { key: 'ODqT7BVRZyUhQpD4pz0j5408HsGgoICEmsIhxJ_9zXo'}
+  const steps = getSteps();
 
   async function  getAddress(){
     await axios.get(`https://viacep.com.br/ws/${cep.replace(/-\s/g,"")}/json/`)
@@ -83,48 +83,10 @@ export default function FormStarter() {
       setUf(response.data.uf)
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
-      console.log(municipio)
+      setBairro(response.data.bairro)
       setPlain({ id: 2, name:'Growth'})
+      setCountry('BR')
     })
-  }
-
-
-  async function handleRegisterUppo(){
-
-    const data = {
-      email: mail,
-      password: password,
-      cpf: cnpj,
-      name: name
-    }
-
-
-    try {
-      const response = await axios.post('https://api.uppo.com.br/abstartups/integration/register', data)
-      
-      alert(`Olá, ${response.data.user.name}. Seja bem vindo!`)
-    } catch (err) {
-      alert('Erro, por favor tente novamente.')
-    }
-  }
-
-    async function handleRegisterVindi(){
-
-    const data = {
-      email: mail,
-      password: password,
-      cpf: cnpj,
-      name: name
-    }
-
-
-    try {
-      const response = await axios.post('https://app.vindi.com.br/api/v1/customers', data)
-      
-      alert(`Olá, ${response.data.user.name}. Seja bem vindo!`)
-    } catch (err) {
-      alert('Erro, por favor tente novamente.')
-    }
   }
 
   const defaultOptions = {
@@ -144,7 +106,7 @@ export default function FormStarter() {
 
     switch (step) {
       case 0:
-        return <Row lg="8">
+        return ( <form autoComplete="on" ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
@@ -192,9 +154,9 @@ export default function FormStarter() {
                 </InputMask>
 
                 <InputMask
-                  mask={ phone.length === 10 ? "(99) 9999.9999" : "(99) 99999.9999"}
+                  mask={ phone.length === 10 ? "99 (99) 9999.9999" : "99 (99) 99999.9999"}
                   value={phone}
-                  onChange={ e => setPhone(e.target.value)}
+                  onChange={ e => setPhone( '55' + e.target.value)}
                 >
                   {() => 
                     <TextField
@@ -254,11 +216,12 @@ export default function FormStarter() {
                 variant="outlined"
               />
               </div>
-            </Row>;
-      case 1:
-        return  <Row lg="8">
+            </Row></form>);
+
+        case 1: 
+          return  (<form><Row lg="8" xs="12">
         
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div style={{ display: 'flex', width: '100%' }} xs="12">
           <TextField
             id="qual-seu-cargo"
             select
@@ -436,9 +399,10 @@ export default function FormStarter() {
 
           </TextField>
           </div>
-        </Row>;
+        </Row></form>);
+
       case 2:
-        return <Row lg="8">
+        return ( <form><Row lg="8">
 
           <div style={{ display: 'flex', width: '100%' }}>
             <InputMask
@@ -598,7 +562,7 @@ export default function FormStarter() {
             variant="outlined"
           />
           </div>
-        </Row>;
+        </Row></form>);
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -624,20 +588,23 @@ export default function FormStarter() {
 
   const handleNext = () => {
     //Inputar validações aqui
-        const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    setActiveStep(newActiveStep);
+    const newActiveStep = isLastStep() && !allStepsCompleted()
+    
+      ? steps.findIndex((step, i) => !(i in completed))
+      : activeStep + 1;
+      setActiveStep(newActiveStep);
 
     if (newActiveStep === 1){
-      handleRegisterUppo()
       console.log(`Post Uppo`)
+      
     }
     if (newActiveStep === 2){
       console.log(`Validar passo 2`)
-    } else {
+    } 
+    if (newActiveStep === 3) {
       console.log(`Validar passo 3`)
+      // handleRegisterVindi()
+      // handleRegisterUppo()
     }
     
   };
@@ -662,7 +629,7 @@ export default function FormStarter() {
     <Col lg="8">
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
-          <Step key={label}> este é para teste
+          <Step key={label}>
             <StepButton onClick={handleStep(index)} completed={completed[index]}>
               {label}
             </StepButton>
@@ -677,7 +644,7 @@ export default function FormStarter() {
             <Lottie options={defaultOptions}
               height={100}
               width={100}
-              />
+            />
 
               <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
               <hr/>
@@ -688,6 +655,7 @@ export default function FormStarter() {
               <Modal />
             </center>
           </div>
+
         ) : (
           <div>
             <p className={classes.instructions}></p>

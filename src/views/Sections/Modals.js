@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 
 import {
@@ -12,9 +11,11 @@ import {
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 
-import CreditCard from '../../components/CreditCard'
-import Boleto from '../../components/Boleto'
+import CreditCard from '../../components/CreditCard';
 
+
+  const BoletoNumber = '34191.09040 12197.380442 54967.890002 8 82680000001000';
+  const URLBoleto = 'https://api.aceitafacil.com/boleto/e2d0e88f-35d4-4224-93b4-0d4456279ac5/';
 
 
 class Modals extends Component {
@@ -24,6 +25,9 @@ class Modals extends Component {
       [state]: !this.state[state]
     });
   };
+
+
+
   render() {
     return (
       <>
@@ -71,11 +75,13 @@ class Modals extends Component {
               toggle={() => this.toggleModal("formModalBol")}
             >
               <div className="modal-body p-0">
-                <Card className="bg-secondary shadow border-0">
-
-                <Boleto/>
-                
-                </Card>
+              <center>
+                <h1>Pagamento com boleto</h1>
+                <p>{BoletoNumber}</p>
+                <button>Copiar código de Barras</button>
+                <button href={URLBoleto}>Clique aqui para imprimir</button>
+              </center>
+              <br/>
               </div>
             </Modal>
           </Col>

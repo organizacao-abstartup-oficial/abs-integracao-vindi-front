@@ -32,7 +32,7 @@ export default function Footers() {
                 <Button
                   className="btn-icon-only rounded-circle"
                   color="twitter"
-                  href="https://twitter.com/creativetim"
+                  href="https://twitter.com/abstartups"
                   id="tooltip475038074"
                   target="_blank"
                 >
@@ -41,12 +41,12 @@ export default function Footers() {
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip475038074">
-                  Follow us
+                  Siga-nos
                 </UncontrolledTooltip>
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
                   color="facebook"
-                  href="https://www.facebook.com/creativetim"
+                  href="https://www.facebook.com/ABStartups"
                   id="tooltip837440414"
                   target="_blank"
                 >
@@ -55,12 +55,12 @@ export default function Footers() {
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip837440414">
-                  Like us
+                  Curta nossa página
                 </UncontrolledTooltip>
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
                   color="facebook"
-                  href="https://dribbble.com/creativetim"
+                  href="https://www.linkedin.com/company/2280154/"
                   id="tooltip829810202"
                   target="_blank"
                 >
@@ -69,26 +69,26 @@ export default function Footers() {
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip829810202">
-                  Follow us
+                  Oficial
                 </UncontrolledTooltip>
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
                   color="instagram"
-                  href="https://github.com/creativetimofficial"
-                  id="tooltip495507257"
+                  href="https://www.instagram.com/abstartups/"
+                  id="tooltip829810202"
                   target="_blank"
                 >
                   <span className="btn-inner--icon">
                     <i className="fa fa-instagram" />
                   </span>
                 </Button>
-                <UncontrolledTooltip delay={0} target="tooltip495507257">
-                  Star on Github
+                <UncontrolledTooltip delay={0} target="tooltip829810202">
+                  Oficial
                 </UncontrolledTooltip>
                 <Button
                   className="btn-icon-only rounded-circle ml-1"
                   color="youtube"
-                  href="https://github.com/creativetimofficial"
+                  href="https://www.youtube.com/channel/UCwj0JWfpPyx4X8ZUOQ_XsJA"
                   id="tooltip495507257"
                   target="_blank"
                 >
@@ -97,7 +97,7 @@ export default function Footers() {
                   </span>
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip495507257">
-                  Star on Github
+                  Acesse o nosso Canal
                 </UncontrolledTooltip>
               </Col>
             </Row>
