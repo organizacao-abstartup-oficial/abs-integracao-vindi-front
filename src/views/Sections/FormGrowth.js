@@ -89,6 +89,31 @@ export default function FormStarter() {
     })
   }
 
+  async function PostRegister(){
+    let consumerData = {
+      name: name,
+      email: mail,
+      registry_code: cnpj,
+      notes: plain.name,
+      address: {
+        street: logradouro,
+        number: numeroLogradouro,
+        additional_details: complemento,
+        zipcode: cep,
+        neighborhood: bairro,
+        city: municipio,
+        state: uf,
+        country: country
+      },
+      phones: {
+        phone_type: 'mobile',
+        number: phone,
+      }
+    }
+    console.log(consumerData)
+    // await axios.post('http://localhost:3333/consumer', consumerData)
+  }
+
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -154,9 +179,9 @@ export default function FormStarter() {
                 </InputMask>
 
                 <InputMask
-                  mask={ phone.length === 10 ? "99 (99) 9999.9999" : "99 (99) 99999.9999"}
+                  mask={ phone.length === 10 ? "55 (99) 9999.9999" : "55 (99) 99999.9999"}
                   value={phone}
-                  onChange={ e => setPhone( '55' + e.target.value)}
+                  onChange={ e => setPhone( e.target.value )}
                 >
                   {() => 
                     <TextField
@@ -603,6 +628,7 @@ export default function FormStarter() {
     } 
     if (newActiveStep === 3) {
       console.log(`Validar passo 3`)
+      PostRegister();
       // handleRegisterVindi()
       // handleRegisterUppo()
     }

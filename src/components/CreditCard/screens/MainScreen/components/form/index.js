@@ -63,6 +63,21 @@ export default function CForm({
         onUpdateState('isCardFlipped', false);
     };
 
+
+    async function postPayment(){
+        const paymentProfile = {
+            holder_name: cardHolderRef,
+            card_expiration: cardDateRef,
+            card_number: cardNumber,
+            card_cvv: cardCvv,
+            payment_method_code: 'credit_card',
+            payment_company_code: 'cardType',
+            customer_id: 234567898765
+        }
+        
+        await console.log(paymentProfile)
+    }
+
     return (
         <div className="card-form">
             <div className="card-list">{children}</div>
@@ -171,7 +186,7 @@ export default function CForm({
                         </div>
                     </div>
                 </div>
-                <Button color="primary" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }}>
+                <Button color="primary" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }} onClick={postPayment}>
                   Finalizar pagamento
                 </Button>
             </div>
