@@ -72,7 +72,9 @@ export default function FormStarter() {
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
-  const [ plain, setPlain ] = useState({ id: 1, name:'Growth'})
+  const [ plain, setPlain ] = useState({ id: 165019, name:'Growth'})
+  const [ idConsumer, setIdConsumer ] = useState('')
+
 
 
   const steps = getSteps();
@@ -84,16 +86,32 @@ export default function FormStarter() {
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
       setBairro(response.data.bairro)
-      setPlain({ id: 2, name:'Growth'})
+      setPlain({ id: 165019, name:'Growth'})
       setCountry('BR')
     })
   }
+
+  async function PostUppo(){
+    let userRegister = {
+      email: mail,
+      password: password,
+      cpf: cnpj,
+      name: name
+    }
+
+      try {
+        await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/associate', userRegister)
+      } catch (err) {
+        alert('Não foi possível cadastrar na upppo!')
+        
+      }
+    }
 
   async function PostRegister(){
     let consumerData = {
       name: name,
       email: mail,
-      registry_code: cnpj,
+      registry_code: cnpj.replace(/\D/g, ''),
       notes: plain.name,
       address: {
         street: logradouro,
@@ -110,8 +128,22 @@ export default function FormStarter() {
         number: phone,
       }
     }
-    console.log(consumerData)
-    // await axios.post('http://localhost:3333/consumer', consumerData)
+
+     try {
+      console.log(consumerData)
+      await axios.post( 'https://apiv1-abstartups.herokuapp.com/consumer', consumerData)
+      .then( response => {
+        setIdConsumer(response.data.customer.id)
+        alert(response.status)
+      })
+       
+     } catch (error) {
+       alert('Houve um problema!')
+       
+     }
+
+    await sessionStorage.setItem('customer_id', idConsumer);
+    await  sessionStorage.setItem('plan_id', plain.id);
   }
 
   const defaultOptions = {
@@ -222,7 +254,7 @@ export default function FormStarter() {
                 value={password}
                 onChange={ e => setPassword(e.target.value) }
                 style={{ margin: 8 }}
-                placeholder="Telefone para contato"
+                placeholder="Cadastre sua senha"
                 helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
                 margin="normal"
                 variant="outlined"
@@ -621,6 +653,7 @@ export default function FormStarter() {
 
     if (newActiveStep === 1){
       console.log(`Post Uppo`)
+      PostUppo()
       
     }
     if (newActiveStep === 2){
@@ -675,7 +708,7 @@ export default function FormStarter() {
               <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
               <hr/>
               <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
-              
+              { idConsumer ? `${idConsumer}` : 'sem resposta'}
               <p>O Plano Contratado é o: <b>{ plain.name }</b></p>
               <h2>Obrigado!</h2>
               <Modal />

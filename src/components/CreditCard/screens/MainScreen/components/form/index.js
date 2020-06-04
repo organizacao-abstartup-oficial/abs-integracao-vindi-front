@@ -21,7 +21,10 @@ export default function CForm({
     cardCvv,
     children
 }) {
-    const [cardNumber, setCardNumber] = useState('');
+    const [ cardNumber, setCardNumber ] = useState('');
+    const [ cardName, setCardName ] = useState('');
+    const [ cardMothExpiration, setCardMonthExpiration ] = useState('');
+    const [ cardYearExpiration, setCardYearExpiration ] = useState('');
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
@@ -59,6 +62,8 @@ export default function CForm({
 
         setCardNumber(cardNumber.trimRight());
         onUpdateState(name, cardNumber);
+
+        sessionStorage.setItem('cardNumber', cardNumber);
     };
 
     const onCvvFocus = (event) => {
@@ -72,7 +77,7 @@ export default function CForm({
 
     async function postPayment(){
         const paymentProfile = {
-            holder_name: cardHolderRef,
+            holder_name: cardName,
             card_expiration: cardDateRef,
             card_number: cardNumber,
             card_cvv: cardCvv,
@@ -117,7 +122,7 @@ export default function CForm({
                         name="cardHolder"
                         onChange={handleFormChange}
                         ref={cardHolderRef}
-                        onFocus={(e) => onCardInputFocus(e, 'cardHolder')}
+                        onFocus={ e => setCardName(e.target.value)}
                         onBlur={onCardInputBlur}
                     />
                 </div>

@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import { uuid } from 'uuidv4';
+
+import { CopyToClipboard } from "react-copy-to-clipboard"; 
 
 import {
   Button,
@@ -10,12 +14,33 @@ import {
 
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CropFreeIcon from '@material-ui/icons/CropFree';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import PrintIcon from '@material-ui/icons/Print';
 
 import CreditCard from '../../components/CreditCard';
 
 
-  const BoletoNumber = '34191.09040 12197.380442 54967.890002 8 82680000001000';
-  const URLBoleto = 'https://api.aceitafacil.com/boleto/e2d0e88f-35d4-4224-93b4-0d4456279ac5/';
+
+const URLBoleto = sessionStorage.getItem('banksliplink');
+const BoletoNumber = sessionStorage.getItem('bankslipcode');
+
+const BankSlipData = {
+  plan_id: sessionStorage.getItem('plan_id'),
+  customer_id: sessionStorage.getItem('customer_id'),
+  payment_method_code: 'bank_slip',
+  metadata: uuid(),
+  invoice_split: false
+
+
+}
+
+async function SetPaymentBankSlip(){
+  await axios.post( 'https://apiv1-abstartups.herokuapp.com/subscription/bankslip', BankSlipData)
+  .then( response => {
+    sessionStorage.setItem('bankslipcode', response.data.subscription.code);
+    sessionStorage.setItem('banksliplink', response.data.bill.url);
+  })
+}
 
 
 class Modals extends Component {
@@ -25,6 +50,9 @@ class Modals extends Component {
       [state]: !this.state[state]
     });
   };
+
+
+
 
 
 
@@ -72,14 +100,42 @@ class Modals extends Component {
               className="modal-dialog-centered"
               size="sm"
               isOpen={this.state.formModalBol}
-              toggle={() => this.toggleModal("formModalBol")}
+              toggle={() => this.toggleModal("formModalBol") ||  SetPaymentBankSlip() }
             >
-              <div className="modal-body p-0">
+              <div className="modal-body p-4">
               <center>
-                <h1>Pagamento com boleto</h1>
-                <p>{BoletoNumber}</p>
-                <button>Copiar código de Barras</button>
-                <button href={URLBoleto}>Clique aqui para imprimir</button>
+                <h2>BOLETO GERADO COM SUCESSO!</h2>
+                <hr/>
+                <div>
+                  <h5>{BoletoNumber}</h5>
+                </div>
+                <div>
+
+                <CopyToClipboard text={BoletoNumber}>
+                    <Button
+                    fullwidth
+                    color="default"
+                    type="button"
+                    >
+                     <FileCopyIcon/> Copiar código de barras
+                    </Button>
+                  </CopyToClipboard>
+                  
+                  <hr/>
+
+                  
+
+                <Button
+                    fullwidth
+                    color="default"
+                    type="button"
+                    onClick={() => window.open(URLBoleto, '_blank')}
+                  >
+                  <PrintIcon/> Clique aqui para imprimir
+                </Button>
+
+
+                </div>
               </center>
               <br/>
               </div>
