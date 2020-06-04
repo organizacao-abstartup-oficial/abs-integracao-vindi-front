@@ -25,7 +25,6 @@ const MainScreen = () => {
         [state]
     );
 
-    // References for the Form Inputs used to focus corresponding inputs.
     let formFieldsRefObj = {
         cardNumber: useRef(),
         cardHolder: useRef(),
@@ -37,7 +36,6 @@ const MainScreen = () => {
         formFieldsRefObj[key].current.focus();
     });
 
-    // This are the references for the Card DIV elements.
     let cardElementsRef = {
         cardNumber: useRef(),
         cardHolder: useRef(),

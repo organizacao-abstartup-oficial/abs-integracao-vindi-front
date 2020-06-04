@@ -28,6 +28,12 @@ export default function CForm({
 
         onUpdateState(name, value);
     };
+    const plainValue = 499
+
+    const installments = [ 
+        { id: 1, value: 1, label: `1x de ${plainValue}` }, 
+        { id: 2, value: 5, label: `5x de ${plainValue /5}` },
+        { id: 3, value: 10, label: `10x de ${plainValue /10}` }]
 
     // TODO: We can improve the regex check with a better approach like in the card component.
     const onCardNumberChange = (event) => {
@@ -185,7 +191,26 @@ export default function CForm({
                             />
                         </div>
                     </div>
+                    
+                
                 </div>
+
+                    <select
+                        name="installments"
+                        className="card-input__input -select"
+                        value={installments}
+                        onChange={e => console.log(e.target.value)}
+                    >
+                        <option value="" disabled>
+                            Selecione as parcelas
+                        </option>
+
+                        {installments.map(installments => (
+                            <option key={installments.id} value={installments.value}>
+                                {installments.label}
+                            </option>
+                        ))}
+                    </select>
                 <Button color="primary" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }} onClick={postPayment}>
                   Finalizar pagamento
                 </Button>
