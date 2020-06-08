@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Lottie from 'react-lottie';
 import axios from 'axios';
+import * as Yup from 'yup';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -42,6 +43,15 @@ const useStyles = makeStyles((theme) => ({
 export default function FormStarter() {
 
   const classes = useStyles();
+  const [ hasError, setHasError ] = useState({
+    name: false,
+    business: false,
+    cnpj: false,
+    phone: false,
+    mail: false,
+    password: false,
+    confirmpassword: false
+  });
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
   const [ name, setName ] = useState('');
@@ -173,6 +183,7 @@ export default function FormStarter() {
             fullWidth
             margin="normal"
             variant="outlined"
+            error={hasError.name}
           />
           <TextField
             label="Nome da Startup"
@@ -187,6 +198,7 @@ export default function FormStarter() {
             fullWidth
             margin="normal"
             variant="outlined"
+            error={hasError.business}
           />
               <div style={{ display: 'flex', width: '100%' }}>
                 <InputMask
@@ -204,6 +216,7 @@ export default function FormStarter() {
                       helperText="Apenas números"
                       vmargin="normal"
                       variant="outlined"
+                      error={hasError.cnpj}
                       />}
                 </InputMask>
 
@@ -223,6 +236,7 @@ export default function FormStarter() {
                       helperText="Telefone com DDD"
                       margin="normal"
                       variant="outlined"
+                      error={hasError.phone}
                       />}
                 </InputMask>
 
@@ -240,6 +254,7 @@ export default function FormStarter() {
                 helperText="Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups"
                 margin="normal"
                 variant="outlined"
+                error={hasError.mail}
               />
               <div style={{ display: 'flex', width: '100%' }}>
               <TextField
@@ -255,6 +270,7 @@ export default function FormStarter() {
                 helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
                 margin="normal"
                 variant="outlined"
+                error={hasError.password}
               />
               <TextField
                 label="Confirmar senha"
@@ -268,6 +284,7 @@ export default function FormStarter() {
                 helperText="Confirmar senha"
                 vmargin="normal"
                 variant="outlined"
+                error={hasError.confirmpassword}
               />
               </div>
             </Row></form>);
@@ -640,18 +657,74 @@ export default function FormStarter() {
     return completedSteps() === totalSteps();
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     //Inputar validações aqui
     const newActiveStep = isLastStep() && !allStepsCompleted()
     
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
-      setActiveStep(newActiveStep);
-
+      
     if (newActiveStep === 1){
       console.log(`Post Uppo`)
-      PostUppo()
-      
+
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          business: Yup.string().required(),
+          cnpj: Yup.string().required().min(14),
+          phone: Yup.string().required().min(11),
+          mail: Yup.string().email().required(),
+          password: Yup.string().required(),
+          confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
+        });
+
+        const data = {
+          name,
+          business,
+          cnpj,
+          phone,
+          mail,
+          password,
+          confirmpassword
+        }
+        await schema.validate(data, {
+          abortEarly: false
+        })
+        PostUppo();
+
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        setActiveStep(newActiveStep);
+        
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errorMessages = {};
+          err.inner.forEach(error => {
+            errorMessages[error.path] = true;
+          });
+          const { 
+            name,
+            business,
+            cnpj,
+            phone,
+            mail,
+            password,
+            confirmpassword 
+          } = errorMessages;
+          setHasError(
+            {
+              ...hasError, 
+              name,
+              business,
+              cnpj,
+              phone,
+              mail,
+              password,
+              confirmpassword
+            })
+        }
+      }
     }
     if (newActiveStep === 2){
       console.log(`Validar passo 2`)
@@ -677,9 +750,6 @@ export default function FormStarter() {
 
   function handleComplete (e) {
     e.preventDefault();
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
     handleNext();
   };
 
