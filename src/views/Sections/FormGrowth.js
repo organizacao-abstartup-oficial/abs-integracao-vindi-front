@@ -179,7 +179,7 @@ export default function FormStarter() {
             onChange={ e => setName(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira seu nome"
-            helperText="Nome completo (pessoa física)"
+            helperText={ hasError.name ? 'Nome é obrigatório' : 'Nome completo (pessoa física)'}
             fullWidth
             margin="normal"
             variant="outlined"
@@ -194,7 +194,7 @@ export default function FormStarter() {
             onChange={ e => setBusiness(e.target.value) }
             style={{ margin: 8 }}
             placeholder="Insira o nome de sua startup"
-            helperText="Nome fantasia (nome fantasia)"
+            helperText={ hasError.business ? 'Nome da startup é obrigatório' : 'Nome da startup (nome fantasia)'}
             fullWidth
             margin="normal"
             variant="outlined"
@@ -213,7 +213,7 @@ export default function FormStarter() {
                       id="cnpj"
                       type='text'
                       style={{ margin: 8, width: '50%' }}
-                      helperText="Apenas números"
+                      helperText={ hasError.cnpj ? 'CNPJ é obrigatório' : 'Apenas números'}
                       vmargin="normal"
                       variant="outlined"
                       error={hasError.cnpj}
@@ -233,7 +233,7 @@ export default function FormStarter() {
                       type='text'
                       style={{ margin: 8, width: '50%' }}
                       placeholder="Telefone para contato"
-                      helperText="Telefone com DDD"
+                      helperText={ hasError.phone ? 'Telefone é obrigatório' : 'Telefone com DDD'}
                       margin="normal"
                       variant="outlined"
                       error={hasError.phone}
@@ -251,7 +251,7 @@ export default function FormStarter() {
                 style={{ margin: 8 }}
                 placeholder="Cadastre seu melhor email"
                 fullWidth
-                helperText="Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups"
+                helperText={ hasError.mail ? 'O email é obrigatório' : 'Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups'}
                 margin="normal"
                 variant="outlined"
                 error={hasError.mail}
@@ -267,7 +267,7 @@ export default function FormStarter() {
                 onChange={ e => setPassword(e.target.value) }
                 style={{ margin: 8 }}
                 placeholder="Cadastre sua senha"
-                helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
+                helperText={ hasError.password ? 'Senha é obrigatória' : 'Com esta senha você irá realizar o seu login no Portal de Benefícios'}
                 margin="normal"
                 variant="outlined"
                 error={hasError.password}
@@ -281,7 +281,7 @@ export default function FormStarter() {
                 value={confirmpassword}
                 onChange={ e => setConfirmpassword(e.target.value) }
                 style={{ margin: 8 }}
-                helperText="Confirmar senha"
+                helperText={ hasError.confirmpassword ? 'Senha não confere' : 'Confirmar senha'}
                 vmargin="normal"
                 variant="outlined"
                 error={hasError.confirmpassword}
@@ -488,7 +488,7 @@ export default function FormStarter() {
                     id="cep"
                     required={true}
                     style={{ margin: 8}}
-                    helperText="Insira o CEP"
+                    helperText={hasError.cep ? 'Este campo é obrigatório' : 'Insira o CEP'}
                     margin="normal"
                     variant="outlined"
                   />}
