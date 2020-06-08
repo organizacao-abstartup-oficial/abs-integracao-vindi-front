@@ -688,7 +688,7 @@ export default function FormStarter() {
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepButton onClick={handleStep(index)} completed={completed[index]}>
+            <StepButton onClick={ handleStep(index)} completed={completed[index] }>
               {label}
             </StepButton>
           </Step>
