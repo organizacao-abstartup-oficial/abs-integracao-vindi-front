@@ -22,9 +22,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "compile-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css",
-    "minify-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.min.css --output-style compressed",
-    "map-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css --source-map true",
+    "compile-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css",
+    "minify-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.min.css --output-style compressed",
+    "map-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css --source-map true",
     "deploy": "aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read"
   },
   "eslintConfig": {

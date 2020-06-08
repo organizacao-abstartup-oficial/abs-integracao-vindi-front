@@ -5,13 +5,13 @@
 @import "../../../node_modules/bootstrap/scss/functions";
 
 // Theme Variables
-@import "argon-design-system/variables";
+@import "abs-form/variables";
 
 // Bootstrap Core
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
 // Theme Core
-@import "argon-design-system/theme";
+@import "abs-form/theme";
 
 // React Differences
 @import "react/react-differences";

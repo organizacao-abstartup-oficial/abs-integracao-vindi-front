@@ -141,9 +141,6 @@ export default function FormStarter() {
        alert('Houve um problema!')
        
      }
-
-    await sessionStorage.setItem('customer_id', idConsumer);
-    await  sessionStorage.setItem('plan_id', plain.id);
   }
 
   const defaultOptions = {
@@ -664,6 +661,8 @@ export default function FormStarter() {
       PostRegister();
       // handleRegisterVindi()
       // handleRegisterUppo()
+      sessionStorage.setItem('customer_id', idConsumer);
+      sessionStorage.setItem('plan_id', plain.id);
     }
     
   };
