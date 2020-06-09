@@ -6,18 +6,14 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import {
   Button,
-  Card,
   Modal,
   Row,
   Col
 } from "reactstrap";
 
-import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import PrintIcon from '@material-ui/icons/Print';
-
-import CreditCard from '../../components/CreditCard';
 
 
 
@@ -43,7 +39,7 @@ async function SetPaymentBankSlip(){
 }
 
 
-class Modals extends Component {
+class BoletoModal extends Component {
   state = {};
   toggleModal = state => {
     this.setState({
@@ -65,14 +61,6 @@ class Modals extends Component {
           <center>
             <Button
               block
-              color="default"
-              type="button"
-              onClick={() => this.toggleModal("formModalCredit")}
-            >
-             <CreditCardIcon/> PAGAR COM CARTÃO DE CRÉDITO
-            </Button>
-            <Button
-              block
               // color="success"
               type="button"
               onClick={() => this.toggleModal("formModalBol")}
@@ -80,21 +68,6 @@ class Modals extends Component {
              <CropFreeIcon/> PAGAR COM BOLETO
             </Button>
             </center>
-            <Modal
-              className="modal-dialog-centered"
-              size="fluid"
-              isOpen={this.state.formModalCredit}
-              toggle={() => this.toggleModal("formModalCredit")}
-            >
-              <div className="modal-body p-0">
-                <Card className="border-0 center">
-                
-                  <CreditCard/>
-                
-                </Card>
-              </div>
-            </Modal>
-
 
             <Modal
               className="modal-dialog-centered"
@@ -147,4 +120,4 @@ class Modals extends Component {
   }
 }
 
-export default Modals;
+export default BoletoModal;

@@ -20,7 +20,8 @@ import { Col, Row } from 'reactstrap';
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
 // import { Vindi, Uppo } from '../../Data/Keys';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
-import Modal from './Modals';
+import CardModal from './CardModal';
+import BoletoModal from './BoletoModal'
 
 
 
@@ -61,7 +62,6 @@ export default function FormStarter() {
     getajuda: false,
     cep: false,
     numeroLogradouro: false,
-    complemento: false,
   });
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
@@ -591,7 +591,6 @@ export default function FormStarter() {
             id="complemento"
             fullWidth
             type='text'
-            required={true}
             style={{ margin: 8 }}
             value={complemento}
             onChange={ e => setComplemento(e.target.value)}
@@ -918,7 +917,8 @@ export default function FormStarter() {
               { idConsumer ? `${idConsumer}` : 'sem resposta'}
               <p>O Plano Contratado é o: <b>{ plain.name }</b></p>
               <h2>Obrigado!</h2>
-              <Modal />
+              <CardModal />
+              <BoletoModal/>
             </center>
           </div>
 

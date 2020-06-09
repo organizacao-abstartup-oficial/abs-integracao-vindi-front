@@ -15,14 +15,16 @@ import InputMask from "react-input-mask";
 
 import { Col, Row } from 'reactstrap';
 
+import axios from 'axios';
+
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
 
-import Modal from './Modals';
+import Lottie from 'react-lottie';
+import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 
-import Lottie from 'react-lottie'
-import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
+import BoletoModal from './BoletoModal';
+import CardModal from './CardModal';
 
-import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -667,7 +669,8 @@ export default function FormStarter() {
               
               <p>O Plano Contratado é o: <b>{ plain.name }</b></p>
               <h2>Obrigado!</h2>
-              <Modal />
+              <BoletoModal />
+              <CardModal/>
             </center>
           </div>
         ) : (
