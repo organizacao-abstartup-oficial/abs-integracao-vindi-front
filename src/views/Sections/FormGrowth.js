@@ -92,8 +92,7 @@ export default function FormStarter() {
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
-  const [ plain, setPlain ] = useState({ id: 165019, name:'Growth'})
-  const [ idConsumer, setIdConsumer ] = useState('')
+  const [ idConsumer, setIdConsumer ] = useState('');
 
 
 
@@ -106,8 +105,8 @@ export default function FormStarter() {
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
       setBairro(response.data.bairro)
-      setPlain({ id: 165019, name:'Growth'})
       setCountry('BR')
+      localStorage.clear();
     })
   }
 
@@ -132,7 +131,6 @@ export default function FormStarter() {
       name: business,
       email: mail,
       registry_code: cnpj.replace(/\D/g, ''),
-      notes: plain.name,
       metadata: {
         nome_pessoa_fisica: name,
         cargo_empresa: getcargo,
@@ -528,7 +526,15 @@ export default function FormStarter() {
                     error={hasError.cep}
                   />}
             </InputMask>
-          <Button variant="contained" fullWidth color="primary" style={{ margin: 8, marginBottom: 30}} onClick={getAddress}>AUTO COMPLETAR ENDEREÇO</Button>
+          <Button 
+            variant="contained"
+            fullWidth
+            color="primary"
+            style={{ margin: 8, marginBottom: 30}}
+            onClick={getAddress}>
+            AUTO COMPLETAR ENDEREÇO
+          </Button>
+
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
           <TextField
@@ -834,6 +840,7 @@ export default function FormStarter() {
     if (newActiveStep === 3) {
       console.log(`Validar passo 3`)
       window.scrollTo({top: 0, behavior: 'smooth'});
+      localStorage.setItem('id_consumer', idConsumer)
 
       try {
 
@@ -855,8 +862,6 @@ export default function FormStarter() {
         PostRegister();
         // handleRegisterVindi()
         // handleRegisterUppo()
-        sessionStorage.setItem('customer_id', idConsumer);
-        sessionStorage.setItem('plan_id', plain.id);
 
         const newCompleted = completed;
         newCompleted[activeStep] = true;
@@ -917,7 +922,7 @@ export default function FormStarter() {
               <hr/>
               <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
               { idConsumer ? `${idConsumer}` : 'sem resposta'}
-              <p>O Plano Contratado é o: <b>{ plain.name }</b></p>
+              <p>O Plano Contratado é o: <b>Growth</b></p>
               <h2>Obrigado!</h2>
               <CardModal />
               <BoletoModal/>

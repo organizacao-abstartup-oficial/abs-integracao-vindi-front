@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 
+import Lottie from 'react-lottie';
+import axios from 'axios';
+import * as Yup from 'yup';
+// import { cnpj } from 'cpf-cnpj-validator';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -7,20 +12,15 @@ import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-
 import InputMask from "react-input-mask";
-
 import { Col, Row } from 'reactstrap';
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
+import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 
-import Lottie from 'react-lottie'
-import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
 
-import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,16 +41,37 @@ const useStyles = makeStyles((theme) => ({
 export default function FormStarter() {
 
   const classes = useStyles();
+  const [ hasError, setHasError ] = useState({
+    name: false,
+    business: false,
+    cnpj: false,
+    phone: false,
+    mail: false,
+    password: false,
+    confirmpassword: false,
+    getcargo: false,
+    getsocios: false,
+    getsegmento: false,
+    getmodelo: false,
+    getfase: false,
+    getinvestimentos: false,
+    gettime: false,
+    getajuda: false,
+    cep: false,
+    numeroLogradouro: false,
+  });
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
+  const [ name, setName ] = useState('');
   const [ cep, setCep ] = useState('');
   const [ uf, setUf ] = useState('UF');
+  const [ country, setCountry ] = useState('UF');
   const [ municipio, setMunicipio ] = useState('Cidade');
   const [ logradouro, setLogradouro ] = useState('Nome da Rua');
   const [ numeroLogradouro, setNumeroLogradouro ] = useState('');
   const [ complemento, setComplemento ] = useState('');
+  const [ bairro, setBairro ] = useState('');
   const [ phone, setPhone ] = useState('');
-  const [ name, setName ] = useState('');
   const [ mail, setMail ] = useState('');
   const [ business, setBusiness ] = useState('');
   const [ cnpj, setCnpj ] = useState('');
@@ -69,7 +90,10 @@ export default function FormStarter() {
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
-  const [ plain, setPlain ] = useState({ id: 1, name:'Growth'})
+  const [ plain, setPlain ] = useState({ id: 1, name:'Starter', price: '0,00', info: 'Grátis'})
+  const [ idConsumer, setIdConsumer ] = useState('')
+
+
 
   const steps = getSteps();
 
@@ -79,9 +103,78 @@ export default function FormStarter() {
       setUf(response.data.uf)
       setMunicipio(response.data.localidade)
       setLogradouro(response.data.logradouro)
-      console.log(municipio)
-      setPlain({ id: 2, name:'Growth'})
+      setBairro(response.data.bairro)
+      setPlain({ id: 165019, name:'Growth'})
+      setCountry('BR')
     })
+  }
+
+  async function PostUppo(){
+    let userRegister = {
+      email: mail,
+      password: password,
+      cpf: cnpj,
+      name: name
+    }
+
+      try {
+        await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/start', userRegister)
+      } catch (err) {
+        alert('Não foi possível cadastrar na upppo!')
+        
+      }
+    }
+
+  async function PostRegister(){
+    let consumerData = {
+      name: business,
+      email: mail,
+      registry_code: cnpj.replace(/\D/g, ''),
+      notes: plain.name,
+      metadata: {
+        nome_pessoa_fisica: name,
+        cargo_empresa: getcargo,
+        nro_socios: getsocios,
+        segmento: getsegmento,
+        modelo_negocio: getmodelo,
+        fase_startup: getfase,
+        recebeu_investimento: getinvestimentos,
+        tamanho_time: gettime,
+        abstartups_ajuda: getajuda,
+        end_site: site,
+        linkedin,
+        facebook,
+        instagram,
+        youtube,
+        password
+      },
+      address: {
+        street: logradouro,
+        number: numeroLogradouro,
+        additional_details: complemento,
+        zipcode: cep,
+        neighborhood: bairro,
+        city: municipio,
+        state: uf,
+        country: country
+      },
+      phones: {
+        phone_type: 'mobile',
+        number: phone,
+      }
+    }
+
+     try {
+      console.log(consumerData)
+      await axios.post( 'https://apiv1-abstartups.herokuapp.com/consumer', consumerData)
+      .then( response => {
+        setIdConsumer(response.data.customer.id)
+      })
+       
+     } catch (error) {
+       alert('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
+       
+     }
   }
 
   const defaultOptions = {
@@ -99,7 +192,9 @@ export default function FormStarter() {
 
   function getStepContent(step) {
 
-    const formStep1 = <FormControl onSubmit={handleComplete} ><Row lg="8">
+    switch (step) {
+      case 0:
+        return ( <form autoComplete="on" ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
@@ -112,6 +207,7 @@ export default function FormStarter() {
             fullWidth
             margin="normal"
             variant="outlined"
+            error={hasError.name}
           />
           <TextField
             label="Nome da Startup"
@@ -126,6 +222,7 @@ export default function FormStarter() {
             fullWidth
             margin="normal"
             variant="outlined"
+            error={hasError.business}
           />
               <div style={{ display: 'flex', width: '100%' }}>
                 <InputMask
@@ -143,13 +240,14 @@ export default function FormStarter() {
                       helperText="Apenas números"
                       vmargin="normal"
                       variant="outlined"
+                      error={hasError.cnpj}
                       />}
                 </InputMask>
 
                 <InputMask
-                  mask={ phone.length === 10 ? "(99) 9999.9999" : "(99) 99999.9999"}
+                  mask={ phone.length === 10 ? "55 (99) 9999.9999" : "55 (99) 99999.9999"}
                   value={phone}
-                  onChange={ e => setPhone(e.target.value)}
+                  onChange={ e => setPhone( e.target.value )}
                 >
                   {() => 
                     <TextField
@@ -162,6 +260,7 @@ export default function FormStarter() {
                       helperText="Telefone com DDD"
                       margin="normal"
                       variant="outlined"
+                      error={hasError.phone}
                       />}
                 </InputMask>
 
@@ -179,6 +278,7 @@ export default function FormStarter() {
                 helperText="Com este email você realizará o seu login e também receberá todos os comunicados oficiais da Abstartups"
                 margin="normal"
                 variant="outlined"
+                error={hasError.mail}
               />
               <div style={{ display: 'flex', width: '100%' }}>
               <TextField
@@ -190,10 +290,11 @@ export default function FormStarter() {
                 value={password}
                 onChange={ e => setPassword(e.target.value) }
                 style={{ margin: 8 }}
-                placeholder="Telefone para contato"
+                placeholder="Cadastre sua senha"
                 helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
                 margin="normal"
                 variant="outlined"
+                error={hasError.password}
               />
               <TextField
                 label="Confirmar senha"
@@ -207,14 +308,15 @@ export default function FormStarter() {
                 helperText="Confirmar senha"
                 vmargin="normal"
                 variant="outlined"
+                error={hasError.confirmpassword}
               />
               </div>
-            </Row>
-          </FormControl>;
-    
-    const formStep2 = <FormControl onSubmit={handleComplete} ><Row lg="8">
+            </Row></form>);
+
+        case 1: 
+          return  (<form><Row lg="8" xs="12">
         
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div style={{ display: 'flex', width: '100%' }} xs="12">
           <TextField
             id="qual-seu-cargo"
             select
@@ -229,6 +331,7 @@ export default function FormStarter() {
             }}
             helperText="Como conheceu a ABS?"
             variant="outlined"
+            error={hasError.getcargo}
           >
             {papeis.map( cargo => (
               <option key={cargo.id} value={cargo.text}>{cargo.text}</option>
@@ -249,6 +352,7 @@ export default function FormStarter() {
             }}
             helperText="Quantos sócios possui?"
             variant="outlined"
+            error={hasError.getsocios}
           >
             {time.map( time => (
               <option key={time.id} value={time.text}>{time.text}</option>
@@ -273,6 +377,7 @@ export default function FormStarter() {
               }}
               helperText="Selecione um dos modelos listados"
               variant="outlined"
+              error={hasError.getsegmento}
             >
 
               {segmentos.map( segmentos => (
@@ -295,6 +400,7 @@ export default function FormStarter() {
               }}
               helperText="Selecione uma das opções."
               variant="outlined"
+              error={hasError.getmodelo}
             >
               {negociosShort.map( negocios => (
                 <option key={negocios.id} value={negocios.text}>{negocios.text}</option>
@@ -320,6 +426,7 @@ export default function FormStarter() {
               }}
               helperText="Fase da startup"
               variant="outlined"
+              error={hasError.getfase}
             >
               {fasesShort.map( fase => (
                 <option key={fase.id} value={fase.text}>{fase.text}</option>
@@ -340,6 +447,7 @@ export default function FormStarter() {
               }}
               helperText="Já recebeu investimento?"
               variant="outlined"
+              error={hasError.getinvestimentos}
             >
               {investimentos.map( investimento => (
                 <option key={investimento.id} value={investimento.text}>{investimento.text}</option>
@@ -365,6 +473,7 @@ export default function FormStarter() {
             }}
             helperText="Quantos colaboradores possui"
             variant="outlined"
+            error={hasError.gettime}
           >
             {time.map( time => (
               <option key={time.id} value={time.text}>{time.text}</option>
@@ -384,6 +493,7 @@ export default function FormStarter() {
             }}
             helperText="Selecione uma das opções"
             variant="outlined"
+            error={hasError.getajuda}
           >
           { oquebusca.map(oquebusca => (
             <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
@@ -392,11 +502,10 @@ export default function FormStarter() {
 
           </TextField>
           </div>
-        </Row>
-      </FormControl>;
+        </Row></form>);
 
-    const formStep3 = <FormControl>
-      <Row lg="8">
+      case 2:
+        return ( <form><Row lg="8">
 
           <div style={{ display: 'flex', width: '100%' }}>
             <InputMask
@@ -414,9 +523,18 @@ export default function FormStarter() {
                     helperText="Insira o CEP"
                     margin="normal"
                     variant="outlined"
+                    error={hasError.cep}
                   />}
             </InputMask>
-          <Button variant="contained" fullWidth color="primary" style={{ margin: 8, marginBottom: 30}} onClick={getAddress}>AUTO COMPLETAR ENDEREÇO</Button>
+          <Button 
+            variant="contained"
+            fullWidth
+            color="primary"
+            style={{ margin: 8, marginBottom: 30}}
+            onClick={getAddress}>
+            AUTO COMPLETAR ENDEREÇO
+          </Button>
+
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
           <TextField
@@ -425,7 +543,8 @@ export default function FormStarter() {
             id="municipio"
             required={true}
             style={{ margin: 8, width: 200  }}
-            defaultValue={municipio}
+            placeholder={municipio}
+            value={municipio}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -436,7 +555,8 @@ export default function FormStarter() {
             id="uf"
             required={true}
             style={{ margin: 8, width: 100 }}
-            defaultValue={uf}
+            placeholder={uf}
+            value={uf}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
@@ -448,9 +568,9 @@ export default function FormStarter() {
             id="logradouro"
             label="Endereço"
             style={{ margin: 8 }}
-            placeholder="Endereço?"
             InputProps={{ readOnly: true, }}
-            defaultValue={logradouro}
+            value={logradouro}
+            placeholder={logradouro}
             helperText="Logradouro ex: Rua... Avenida"
             fullWidth
             margin="normal"
@@ -469,19 +589,20 @@ export default function FormStarter() {
             helperText="Número"
             margin="normal"
             variant="outlined"
+            error={hasError.numeroLogradouro}
           />
           <TextField
             label="Complemento"
             id="complemento"
             fullWidth
             type='text'
-            required={true}
             style={{ margin: 8 }}
             value={complemento}
             onChange={ e => setComplemento(e.target.value)}
             helperText="UF"
             vmargin="normal"
             variant="outlined"
+            error={hasError.complemento}
           />
           </div>
 
@@ -554,17 +675,7 @@ export default function FormStarter() {
             variant="outlined"
           />
           </div>
-        </Row>
-
-        </FormControl>;
-
-    switch (step) {
-      case 0:
-        return formStep1;
-      case 1:
-        return  formStep2;
-      case 2:
-        return formStep3;
+        </Row></form>);
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -588,14 +699,190 @@ export default function FormStarter() {
     return completedSteps() === totalSteps();
   };
 
-  const handleNext = () => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    setActiveStep(newActiveStep);
+  const handleNext = async () => {
+    //Inputar validações aqui
+    const newActiveStep = isLastStep() && !allStepsCompleted()
+    
+      ? steps.findIndex((step, i) => !(i in completed))
+      : activeStep + 1;
+      
+    if (newActiveStep === 1){
+      console.log(`Post Uppo`)
+      window.scrollTo({top: 0, behavior: 'smooth'});
+
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          business: Yup.string().required(),
+          cnpj: Yup.string().required().min(14),
+          phone: Yup.string().required().min(11),
+          mail: Yup.string().email().required(),
+          password: Yup.string().required(),
+          confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
+        });
+
+        const data = {
+          name,
+          business,
+          cnpj,
+          phone,
+          mail,
+          password,
+          confirmpassword
+        }
+        await schema.validate(data, {
+          abortEarly: false
+        })
+        PostUppo();
+
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        setActiveStep(newActiveStep);
+        
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errorMessages = {};
+          err.inner.forEach(error => {
+            errorMessages[error.path] = true;
+          });
+          const { 
+            name,
+            business,
+            cnpj,
+            phone,
+            mail,
+            password,
+            confirmpassword 
+          } = errorMessages;
+          setHasError(
+            {
+              ...hasError, 
+              name,
+              business,
+              cnpj,
+              phone,
+              mail,
+              password,
+              confirmpassword
+            })
+        }
+      }
+    }
+    if (newActiveStep === 2){
+      console.log(`Validar passo 2`)
+      window.scrollTo({top: 0, behavior: 'smooth'});
+
+      try {
+        const schema = Yup.object().shape({
+          getcargo: Yup.string().ensure().required(),
+          getsocios: Yup.string().ensure().required(),
+          getsegmento: Yup.string().ensure().required(),
+          getmodelo: Yup.string().ensure().required(),
+          getfase: Yup.string().ensure().required(),
+          getinvestimentos: Yup.string().ensure().required(),
+          gettime: Yup.string().ensure().required(),
+          getajuda: Yup.string().ensure().required(),
+        });
+
+        const data = {
+          getcargo,
+          getsocios,
+          getsegmento,
+          getmodelo,
+          getfase,
+          getinvestimentos,
+          gettime,
+          getajuda
+        };
+
+        await schema.validate(data, {
+          abortEarly: false
+        });
+
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        setActiveStep(newActiveStep);
+
+      } catch(err) {
+        if(err instanceof Yup.ValidationError){
+          const errorMessages = {};
+          err.inner.forEach(error => {
+            errorMessages[error.path] = true;
+          });
+          const { 
+            getcargo,
+            getsocios,
+            getsegmento,
+            getmodelo,
+            getfase,
+            getinvestimentos,
+            gettime,
+            getajuda
+          } = errorMessages;
+          setHasError(
+            { ...hasError, 
+              getcargo,
+              getsocios,
+              getsegmento,
+              getmodelo,
+              getfase,
+              getinvestimentos,
+              gettime,
+              getajuda
+            }
+          );
+        }
+      }
+      
+    } 
+    if (newActiveStep === 3) {
+      console.log(`Validar passo 3`)
+      window.scrollTo({top: 0, behavior: 'smooth'});
+
+      try {
+
+        const schema = Yup.object().shape({
+          cep: Yup.string().required(),
+          numeroLogradouro: Yup.string().required(),
+          complemento: Yup.string().required()
+        });
+
+        const data = {
+          cep,
+          numeroLogradouro,
+          complemento
+        };
+        await schema.validate(data, {
+          abortEarly: false
+        });
+
+        PostRegister();
+        // handleRegisterVindi()
+        // handleRegisterUppo()
+        sessionStorage.setItem('customer_id', idConsumer);
+        sessionStorage.setItem('plan_id', plain.id);
+
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        setActiveStep(newActiveStep);
+
+      } catch (err) {
+        if(err instanceof Yup.ValidationError){
+          const errorMessages = {};
+          err.inner.forEach(error => {
+            errorMessages[error.path] = true;
+          });
+          console.log(errorMessages)
+          const { cep, numeroLogradouro, complemento } = errorMessages;
+          setHasError({
+            ...hasError, cep, numeroLogradouro, complemento
+          })
+        }
+      }
+    }
   };
 
   const handleBack = () => {
@@ -608,9 +895,6 @@ export default function FormStarter() {
 
   function handleComplete (e) {
     e.preventDefault();
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
     handleNext();
   };
 
@@ -618,8 +902,8 @@ export default function FormStarter() {
     <Col lg="8">
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
-          <Step key={label}> este é para teste
-            <StepButton onClick={handleStep(index)} completed={completed[index]}>
+          <Step key={label}>
+            <StepButton onClick={ handleStep(index)} completed={completed[index] }>
               {label}
             </StepButton>
           </Step>
@@ -641,6 +925,7 @@ export default function FormStarter() {
               <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
+
         ) : (
           <div>
             <p className={classes.instructions}></p>
@@ -649,14 +934,13 @@ export default function FormStarter() {
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button} variant="contained">
                 <NavigateBeforeIcon/> Voltar
               </Button>
-
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" className={classes.completed}>
                     O passo {activeStep + 1} está completo.
                   </Typography>
                 ) : (
-                  <Button variant="contained" color="primary" onClick={handleComplete}>
+                  <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo'} <NavigateNextIcon/>
                   </Button>
                 ))}

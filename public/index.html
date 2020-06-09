@@ -28,3 +28,20 @@
     <div id="root"></div>
   </body>
 </html>
+
+<script src="https://unpkg.com/blip-chat-widget" type="text/javascript">
+</script>
+<script src="https://unpkg.com/blip-chat-widget" type="text/javascript">
+</script>
+<script>
+    (function () {
+        window.onload = function () {
+            new BlipChat()
+            .withAppKey('YXRlbmRpbWVudG9hYnM6NzM3NWM4YWEtMmIzNy00ZThlLWFhZTktYmE4NDFlZjdlZWU1')
+            .withButton({"color":"#2CC3D5","icon":"https://s3-sa-east-1.amazonaws.com/msging.net/Services/Images/d9787338-2045-43c7-87c5-e0ec4eab1efd"})
+            .withCustomCommonUrl('https://chat.blip.ai/')
+            .build();
+        }
+    })();
+</script>
+                                

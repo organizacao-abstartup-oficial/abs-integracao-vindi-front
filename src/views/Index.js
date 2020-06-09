@@ -1,20 +1,33 @@
 import React from "react";
 
-import { Container, Card, Row, Col, CardImg, CardBody, Button, UncontrolledCollapse } from 'reactstrap';
+import { Container } from 'reactstrap';
+import Lottie from 'react-lottie';
 
 import { Link } from 'react-router-dom'
+
+import animationData from '../components/Animation/23896-ui-interaction.json';
 
 
 import Footer from "components/Footers/";
 
 import Header from 'components/Header';
 
+import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
 
 
 
 
 export default function StarterForm() {
+
+    const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
 
   return (
@@ -25,12 +38,48 @@ export default function StarterForm() {
           <br/>
           
             <center>
-              <h2 className="display-3">Selecione o Plano</h2>
+              <h2 className="display-3">Espaço exclusivo para cadastro de novos assinantes.</h2>
+              <br/>
+                <div>
+                 <Lottie options={defaultOptions}
+                    height={500}
+                    width={500}
+                  />
+                </div>
             </center>
+            <br/>
+
+            <Row>
+              <Col>
+                <center>
+                  <Link to="/start">
+                    <Button 
+                      fullwidth
+                      color="default"
+                      type="button">
+                      Assinar plano Start
+                    </Button>
+                  </Link>
+                </center>
+              </Col>
+
+              <Col>
+                <center>
+                  <Link to="/growth">
+                    <Button 
+                      fullwidth
+                      color="default"
+                      type="button">
+                      Assinar plano Growth
+                    </Button>
+                  </Link>
+                </center>
+              </Col>
+            </Row>
           
-          <br/>
+          <hr/>
          
-          <Container className="container-lg">
+          {/* <Container className="container-lg">
             <Row>
               <Col className="mb-5 mb-md-0" md="4">
                 <Card className="card-lift--hover shadow border-0">
@@ -130,7 +179,7 @@ export default function StarterForm() {
                   </UncontrolledCollapse>
               </Col>
             </Row>
-          </Container>
+          </Container> */}
         </Container>
         <Footer />
         

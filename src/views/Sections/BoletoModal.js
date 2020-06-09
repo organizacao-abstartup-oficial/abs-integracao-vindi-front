@@ -1,123 +1,31 @@
-import React, { Component } from "react";
-import axios from 'axios';
-import { uuid } from 'uuidv4';
+import React, { useState } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-import { CopyToClipboard } from "react-copy-to-clipboard"; 
+const BoletoModal = (props) => {
+  const {
+    buttonLabel,
+    className
+  } = props;
 
-import {
-  Button,
-  Modal,
-  Row,
-  Col
-} from "reactstrap";
+  const [modal, setModal] = useState(false);
 
-import CropFreeIcon from '@material-ui/icons/CropFree';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import PrintIcon from '@material-ui/icons/Print';
+  const toggle = () => setModal(!modal);
 
-
-
-const URLBoleto = sessionStorage.getItem('banksliplink');
-const BoletoNumber = sessionStorage.getItem('bankslipcode');
-
-const BankSlipData = {
-  plan_id: sessionStorage.getItem('plan_id'),
-  customer_id: sessionStorage.getItem('customer_id'),
-  payment_method_code: 'bank_slip',
-  metadata: uuid(),
-  invoice_split: false
-
-
-}
-
-async function SetPaymentBankSlip(){
-  await axios.post( 'https://apiv1-abstartups.herokuapp.com/subscription/bankslip', BankSlipData)
-  .then( response => {
-    sessionStorage.setItem('bankslipcode', response.data.subscription.code);
-    sessionStorage.setItem('banksliplink', response.data.bill.url);
-  })
-}
-
-
-class BoletoModal extends Component {
-  state = {};
-  toggleModal = state => {
-    this.setState({
-      [state]: !this.state[state]
-    });
-  };
-
-
-
-
-
-
-  render() {
-    return (
-      <>
-        <Row>
-        
-          <Col md="12">
-          <center>
-            <Button
-              block
-              // color="success"
-              type="button"
-              onClick={() => this.toggleModal("formModalBol")}
-            >
-             <CropFreeIcon/> PAGAR COM BOLETO
-            </Button>
-            </center>
-
-            <Modal
-              className="modal-dialog-centered"
-              size="sm"
-              isOpen={this.state.formModalBol}
-              toggle={() => this.toggleModal("formModalBol") ||  SetPaymentBankSlip() }
-            >
-              <div className="modal-body p-4">
-              <center>
-                <h2>BOLETO GERADO COM SUCESSO!</h2>
-                <hr/>
-                <div>
-                  <h5>{BoletoNumber}</h5>
-                </div>
-                <div>
-
-                <CopyToClipboard text={BoletoNumber}>
-                    <Button
-                    fullwidth
-                    color="default"
-                    type="button"
-                    >
-                     <FileCopyIcon/> Copiar código de barras
-                    </Button>
-                  </CopyToClipboard>
-                  
-                  <hr/>
-
-                  
-
-                <Button
-                    fullwidth
-                    color="default"
-                    type="button"
-                    onClick={() => window.open(URLBoleto, '_blank')}
-                  >
-                  <PrintIcon/> Clique aqui para imprimir
-                </Button>
-
-
-                </div>
-              </center>
-              <br/>
-              </div>
-            </Modal>
-          </Col>
-        </Row>
-      </>
-    );
-  }
+  return (
+    <div>
+      <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalBody>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
 }
 
 export default BoletoModal;
