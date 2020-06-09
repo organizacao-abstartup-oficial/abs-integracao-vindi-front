@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Lottie from 'react-lottie';
 import axios from 'axios';
 import * as Yup from 'yup';
+// import { cnpj } from 'cpf-cnpj-validator';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -14,14 +15,12 @@ import TextField from '@material-ui/core/TextField';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import InputMask from "react-input-mask";
-// import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Col, Row } from 'reactstrap';
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
-// import { Vindi, Uppo } from '../../Data/Keys';
-import animationData from '../../components/Animation/lf30_editor_TBeJvw.json'
+import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 import CardModal from './CardModal';
-import BoletoModal from './BoletoModal'
+import BoletoModal from './BoletoModal';
 
 
 
@@ -703,6 +702,7 @@ export default function FormStarter() {
       
     if (newActiveStep === 1){
       console.log(`Post Uppo`)
+      window.scrollTo({top: 0, behavior: 'smooth'});
 
       try {
         const schema = Yup.object().shape({
@@ -765,6 +765,7 @@ export default function FormStarter() {
     }
     if (newActiveStep === 2){
       console.log(`Validar passo 2`)
+      window.scrollTo({top: 0, behavior: 'smooth'});
 
       try {
         const schema = Yup.object().shape({
@@ -832,6 +833,7 @@ export default function FormStarter() {
     } 
     if (newActiveStep === 3) {
       console.log(`Validar passo 3`)
+      window.scrollTo({top: 0, behavior: 'smooth'});
 
       try {
 
