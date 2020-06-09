@@ -1,31 +1,50 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import axios from 'axios';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
-const BoletoModal = (props) => {
+export default function BoletoModal(props)  {
   const {
     buttonLabel,
     className
   } = props;
 
   const [modal, setModal] = useState(false);
+  const [statusBoleto, setStatusBoleto] = useState('');
 
   const toggle = () => setModal(!modal);
 
+  const BankSlipData = {
+    plan_id: 151756,
+    customer_id: 14702348,
+    payment_method_code: 'bank_slip',
+    metadata: 'nome da informação extra',
+    invoice_split: false
+  }
+
+  async function SetPaymentBankSlip(){
+    console.log(BankSlipData)
+    setStatusBoleto('Chama disparada')
+
+    // await axios.post( 'https://apiv1-abstartups.herokuapp.com/subscription/bankslip', BankSlipData)
+    // .then( response => {
+    //   setBankslipcode(response.data.subscription.code);
+    //   setBanksliplink(response.data.bill.url);
+    //   setStatusCall(response.status);
+    // })
+  }
+
   return (
     <div>
-      <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
+      <Button color="danger" onClick={toggle}>{buttonLabel}>PAGAR COM BOLETO</Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalHeader toggle={toggle}>Pagamento com Boleto</ModalHeader>
         <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        INFORMAÇÕES ADICIONAIS
+
+        <Button onClick={SetPaymentBankSlip}>Gerar Boleto</Button>
+        <h1>{statusBoleto? 'Chamada disparada' : 'Erro na solicitação'}</h1>
         </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
       </Modal>
     </div>
-  );
+  )
 }
-
-export default BoletoModal;
