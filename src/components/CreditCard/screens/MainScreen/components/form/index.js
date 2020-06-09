@@ -25,6 +25,7 @@ export default function CForm({
     const [ cardName, setCardName ] = useState('');
     const [ cardMothExpiration, setCardMonthExpiration ] = useState('');
     const [ cardYearExpiration, setCardYearExpiration ] = useState('');
+    const [ installmentValue, setInstallmentValue ] = useState('')
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
@@ -81,9 +82,10 @@ export default function CForm({
             card_expiration: cardDateRef,
             card_number: cardNumber,
             card_cvv: cardCvv,
+            installments: installmentValue,
             payment_method_code: 'credit_card',
             payment_company_code: 'cardType',
-            customer_id: 234567898765
+            customer_id: 14691784
         }
         
         await console.log(paymentProfile)
