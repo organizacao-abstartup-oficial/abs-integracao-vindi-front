@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Button } from 'reactstrap';
 
 
@@ -79,16 +80,22 @@ export default function CForm({
     async function postPayment(){
         const paymentProfile = {
             holder_name: cardName,
-            card_expiration: cardDateRef,
+            card_expiration: '12/2021',
             card_number: cardNumber,
             card_cvv: cardCvv,
             installments: installmentValue,
             payment_method_code: 'credit_card',
             payment_company_code: 'cardType',
-            customer_id: 14691784
+            customer_id: 14702348
         }
-        
-        await console.log(paymentProfile)
+        try {
+            console.log(paymentProfile)
+            const response = await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile);
+            console.log(response.data);
+        } catch (err) {
+            console.log('erro', err);
+            alert('caiu aqui')
+        }
     }
 
     return (
