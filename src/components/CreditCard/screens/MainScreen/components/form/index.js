@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { uuid } from 'uuidv4';
+import axios from 'axios';
 import { Button } from 'reactstrap';
+
 
 
 const currentYear = new Date().getFullYear();
@@ -77,18 +80,44 @@ export default function CForm({
 
 
     async function postPayment(){
+        const consumer = localStorage.getItem('consumer_id');
         const paymentProfile = {
             holder_name: cardName,
-            card_expiration: cardDateRef,
+            card_expiration: '12/21',
             card_number: cardNumber,
             card_cvv: cardCvv,
             installments: installmentValue,
             payment_method_code: 'credit_card',
             payment_company_code: 'cardType',
-            customer_id: 14691784
+            customer_id: parseInt(consumer)
         }
-        
-        await console.log(paymentProfile)
+        try {
+            await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile).then(response => {
+                if(response.status === 201) {
+                    try {
+                        const sub = {
+                            plan_id: 160505,
+                            customer_id: consumer,
+                            code: uuid(),
+                            payment_method_code: 'credit_card',
+                            installments: installmentValue,
+                            metadata: uuid(),
+                            payment_profile: {
+                                id: response.data.payment_profile.id
+                            },
+                            invoice_split: false
+                        }
+                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub).then(res => alert(res.status))
+                    } catch(err) {
+                        alert('deu ruim no sub')
+                    }
+                } else {
+                    alert('deu ruim no profile')
+                }
+            })
+        } catch (err) {
+            alert('caiu aqui')
+        }
     }
 
     return (
