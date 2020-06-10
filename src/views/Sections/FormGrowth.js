@@ -62,6 +62,7 @@ export default function FormStarter() {
     cep: false,
     numeroLogradouro: false,
   });
+
   const [ activeStep, setActiveStep ] = useState(0);
   const [ completed, setCompleted ] = useState({});
   const [ name, setName ] = useState('');
@@ -93,8 +94,6 @@ export default function FormStarter() {
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
-
-
 
   const steps = getSteps();
 
@@ -168,7 +167,9 @@ export default function FormStarter() {
       console.log(consumerData)
       await axios.post( 'https://apiv1-abstartups.herokuapp.com/consumer', consumerData)
       .then( response => {
-        setIdConsumer(response.data.customer.id)
+        localStorage.removeItem('id_consumer');
+        setIdConsumer(response.data.customer.id);
+        localStorage.setItem('consumer_id', JSON.stringify(response.data.customer.id));
       })
        
      } catch (error) {
@@ -545,7 +546,7 @@ export default function FormStarter() {
             style={{ margin: 8, width: 200  }}
             placeholder={municipio}
             value={municipio}
-            helperText="UF"
+            helperText="Cidade"
             vmargin="normal"
             variant="outlined"
           />
@@ -599,7 +600,7 @@ export default function FormStarter() {
             style={{ margin: 8 }}
             value={complemento}
             onChange={ e => setComplemento(e.target.value)}
-            helperText="UF"
+            helperText="Ex: Casa, Apartamento ..."
             vmargin="normal"
             variant="outlined"
             error={hasError.complemento}
@@ -708,7 +709,8 @@ export default function FormStarter() {
       
     if (newActiveStep === 1){
       console.log(`Post Uppo`)
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 100, behavior: 'smooth'});
+      localStorage.removeItem('consumer_id');
 
       try {
         const schema = Yup.object().shape({
@@ -771,7 +773,7 @@ export default function FormStarter() {
     }
     if (newActiveStep === 2){
       console.log(`Validar passo 2`)
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 100, behavior: 'smooth'});
 
       try {
         const schema = Yup.object().shape({
@@ -838,9 +840,7 @@ export default function FormStarter() {
       
     } 
     if (newActiveStep === 3) {
-      console.log(`Validar passo 3`)
-      window.scrollTo({top: 0, behavior: 'smooth'});
-      localStorage.setItem('id_consumer', idConsumer)
+      
 
       try {
 
@@ -862,6 +862,8 @@ export default function FormStarter() {
         PostRegister();
         // handleRegisterVindi()
         // handleRegisterUppo()
+
+        window.scrollTo({top: 100, behavior: 'smooth'});
 
         const newCompleted = completed;
         newCompleted[activeStep] = true;

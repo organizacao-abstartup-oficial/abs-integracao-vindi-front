@@ -21,8 +21,6 @@ import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oque
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 
 
-
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -93,8 +91,6 @@ export default function FormStarter() {
   const [ plain, setPlain ] = useState({ id: 1, name:'Starter', price: '0,00', info: 'Grátis'})
   const [ idConsumer, setIdConsumer ] = useState('')
 
-
-
   const steps = getSteps();
 
   async function  getAddress(){
@@ -107,6 +103,15 @@ export default function FormStarter() {
       setPlain({ id: 165019, name:'Growth'})
       setCountry('BR')
     })
+  }
+
+  function SetStorage(){
+
+    let nameLocal = name
+    localStorage.setItem('chave', nameLocal);
+    localStorage.setItem('chave1', 'valor1');
+    localStorage.setItem('chave2', 'valor2');
+    localStorage.setItem('plain', plain.name);
   }
 
   async function PostUppo(){
@@ -170,6 +175,10 @@ export default function FormStarter() {
       .then( response => {
         setIdConsumer(response.data.customer.id)
       })
+
+      let StorageConsumerID = idConsumer
+
+      localStorage.setItem('consumer_id', StorageConsumerID)
        
      } catch (error) {
        alert('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
@@ -708,7 +717,8 @@ export default function FormStarter() {
       
     if (newActiveStep === 1){
       console.log(`Post Uppo`)
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 100, behavior: 'smooth'});
+      SetStorage()
 
       try {
         const schema = Yup.object().shape({
@@ -771,7 +781,7 @@ export default function FormStarter() {
     }
     if (newActiveStep === 2){
       console.log(`Validar passo 2`)
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 100, behavior: 'smooth'});
 
       try {
         const schema = Yup.object().shape({
@@ -839,30 +849,25 @@ export default function FormStarter() {
     } 
     if (newActiveStep === 3) {
       console.log(`Validar passo 3`)
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 100, behavior: 'smooth'});
 
       try {
 
         const schema = Yup.object().shape({
           cep: Yup.string().required(),
           numeroLogradouro: Yup.string().required(),
-          complemento: Yup.string().required()
         });
 
         const data = {
           cep,
-          numeroLogradouro,
-          complemento
+          numeroLogradouro
         };
         await schema.validate(data, {
           abortEarly: false
         });
 
         PostRegister();
-        // handleRegisterVindi()
-        // handleRegisterUppo()
-        sessionStorage.setItem('customer_id', idConsumer);
-        sessionStorage.setItem('plan_id', plain.id);
+      
 
         const newCompleted = completed;
         newCompleted[activeStep] = true;
@@ -876,9 +881,9 @@ export default function FormStarter() {
             errorMessages[error.path] = true;
           });
           console.log(errorMessages)
-          const { cep, numeroLogradouro, complemento } = errorMessages;
+          const { cep, numeroLogradouro } = errorMessages;
           setHasError({
-            ...hasError, cep, numeroLogradouro, complemento
+            ...hasError, cep, numeroLogradouro
           })
         }
       }
