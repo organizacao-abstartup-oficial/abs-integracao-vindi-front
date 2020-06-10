@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { uuid } from 'uuidv4';
 import { Button } from 'reactstrap';
 
 
@@ -78,22 +79,42 @@ export default function CForm({
 
 
     async function postPayment(){
+        const consumer = localStorage.getItem('consumer_id');
         const paymentProfile = {
             holder_name: cardName,
-            card_expiration: '12/2021',
+            card_expiration: '12/21',
             card_number: cardNumber,
             card_cvv: cardCvv,
             installments: installmentValue,
             payment_method_code: 'credit_card',
             payment_company_code: 'cardType',
-            customer_id: 14702348
+            customer_id: parseInt(consumer)
         }
         try {
-            console.log(paymentProfile)
-            const response = await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile);
-            console.log(response.data);
+            await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile).then(response => {
+                if(response.status === 201) {
+                    try {
+                        const sub = {
+                            plan_id: 160505,
+                            customer_id: consumer,
+                            code: uuid(),
+                            payment_method_code: 'credit_card',
+                            installments: installmentValue,
+                            metadata: uuid(),
+                            payment_profile: {
+                                id: response.data.payment_profile.id
+                            },
+                            invoice_split: false
+                        }
+                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub).then(res => alert(res.status))
+                    } catch(err) {
+                        alert('deu ruim no sub')
+                    }
+                } else {
+                    alert('deu ruim no profile')
+                }
+            })
         } catch (err) {
-            console.log('erro', err);
             alert('caiu aqui')
         }
     }

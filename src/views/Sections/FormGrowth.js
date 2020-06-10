@@ -24,7 +24,6 @@ import BoletoModal from './BoletoModal';
 
 
 
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -840,7 +839,6 @@ export default function FormStarter() {
     if (newActiveStep === 3) {
       console.log(`Validar passo 3`)
       window.scrollTo({top: 0, behavior: 'smooth'});
-      localStorage.setItem('id_consumer', idConsumer)
 
       try {
 
