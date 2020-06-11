@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import axios from 'axios';
 import * as Yup from 'yup';
@@ -125,7 +126,7 @@ export default function FormStarter() {
       try {
         await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/start', userRegister)
       } catch (err) {
-        alert('Não foi possível cadastrar na upppo!')
+        toast.error('Não foi possível cadastrar na upppo!')
         
       }
     }
@@ -181,7 +182,7 @@ export default function FormStarter() {
       localStorage.setItem('consumer_id', StorageConsumerID)
        
      } catch (error) {
-       alert('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
+       toast.error('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
        
      }
   }

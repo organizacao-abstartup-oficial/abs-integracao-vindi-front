@@ -1,5 +1,6 @@
 
 import React from "react";
+import { ToastContainer } from 'react-toastify';
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -14,6 +15,7 @@ import Impact from "views/pages/Impact.js";
 
 ReactDOM.render(
   <BrowserRouter>
+    <ToastContainer autoClose={3000} />
     <Switch>
       <Route
         path="/" 

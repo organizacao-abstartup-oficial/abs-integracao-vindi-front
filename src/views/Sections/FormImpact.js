@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -104,9 +106,9 @@ export default function FormStarter() {
     try {
       const response = await axios.post('https://api.uppo.com.br/abstartups/integration/register', data)
       
-      alert(`Olá, ${response.data.name}. Seja bem vindo!`)
+      toast.success(`Olá, ${response.data.name}. Seja bem vindo!`)
     } catch (err) {
-      alert('Erro, por favor tente novamente.')
+      toast.error('Erro, por favor tente novamente.')
     }
   }
 

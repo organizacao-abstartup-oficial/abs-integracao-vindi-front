@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { uuid } from 'uuidv4';
 import axios from 'axios';
 import { Button } from 'reactstrap';
+import { toast } from 'react-toastify';
 
 
 
@@ -82,21 +83,21 @@ export default function CForm({
     async function postPayment(){
         const consumer = localStorage.getItem('consumer_id');
         const paymentProfile = {
-            holder_name: cardName,
-            card_expiration: '12/21',
+            holder_name: "Douglas da silva",
+            card_expiration: '12/2021',
             card_number: cardNumber,
             card_cvv: cardCvv,
             installments: installmentValue,
             payment_method_code: 'credit_card',
-            payment_company_code: 'cardType',
+            payment_company_code: 'mastercard',
             customer_id: parseInt(consumer)
         }
         try {
             await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile).then(response => {
-                if(response.status === 201) {
+                if(response.status === 200) {
                     try {
                         const sub = {
-                            plan_id: 160505,
+                            plan_id: 150698,
                             customer_id: consumer,
                             code: uuid(),
                             payment_method_code: 'credit_card',
@@ -107,16 +108,16 @@ export default function CForm({
                             },
                             invoice_split: false
                         }
-                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub).then(res => alert(res.status))
+                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub).then(res => toast.success('Pagamento realizado com sucesso!'))
                     } catch(err) {
-                        alert('deu ruim no sub')
+                        toast.error('Houve um problema ao efeturar o pagamento. Verifique seus dados e tente novamente.')
                     }
                 } else {
-                    alert('deu ruim no profile')
+                    toast.error('Houve um problema ao efeturar o pagamento. Verifique seus dados e tente novamente.')
                 }
             })
         } catch (err) {
-            alert('caiu aqui')
+            toast.error('Houve um problema ao efeturar o pagamento. Verifique seus dados e tente novamente.')
         }
     }
 

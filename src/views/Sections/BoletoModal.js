@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { uuid } from 'uuidv4';
 
@@ -31,19 +33,15 @@ export default function BoletoModal(props)  {
   }
 
   async function SetPaymentBankSlip(){
-    
-    console.log(BankSlipData)
-    alert(BankSlipData)
-
       try {
-      await axios.post( 'https://apiv1-abstartups.herokuapp.com/subscription/bankslip', BankSlipData)
-      .then( response => {
-        setBankSlipCode(response.data.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
-        setBankSlipLink(response.data.bill.charges[0].print_url);
-      })
+        await axios.post( 'https://apiv1-abstartups.herokuapp.com/subscription/bankslip', BankSlipData)
+        .then( response => {
+          setBankSlipCode(response.data.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
+          setBankSlipLink(response.data.bill.charges[0].print_url);
+        })
         
       } catch (error) {
-        alert('Houve um erro ao gerar seu boleto.')
+        toast.error('Houve um erro ao gerar seu boleto.')
         
       }
     }
