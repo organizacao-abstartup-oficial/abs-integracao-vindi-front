@@ -1,60 +1,79 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 
-import {
-  Button,
-  Card,
-  Modal,
-  Row,
-  Col
-} from "reactstrap";
+import Lottie from 'react-lottie';
 
+import { Button, Modal, ModalHeader, ModalBody, Col } from 'reactstrap';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 
 import CreditCard from '../../components/CreditCard';
+import animationData from '../../components/Animation/9917-success.json';
 
-class CardModal extends Component {
-  state = {};
-  toggleModal = state => {
-    this.setState({
-      [state]: !this.state[state]
-    });
+export default function BoletoModal(props)  {
+  const {
+    className
+  } = props;
+
+  const [modal, setModal] = useState(false);
+  const [TransactionState, setTransactionState] = useState(localStorage.getItem('paymentSubmited'));
+
+  const toggle = () => setModal(!modal);
+
+  const PaymentStatus = TransactionState
+
+    const animationSuccess = {
+    loop: false,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
   };
 
-  render() {
-    return (
-      <>
-        <Row>
-        
-          <Col md="12">
-          <center>
-            <Button
-              block
-              color="default"
-              type="button"
-              onClick={() => this.toggleModal("formModalCredit")}
-            >
-             <CreditCardIcon/> PAGAR COM CARTÃO DE CRÉDITO
-            </Button>
-            </center>
-            <Modal
-              className="modal-dialog-centered"
-              size="fluid"
-              isOpen={this.state.formModalCredit}
-              toggle={() => this.toggleModal("formModalCredit")}
-            >
-              <div className="modal-body p-0">
-                <Card className="border-0 center">
-                
-                  <CreditCard/>
-                
-                </Card>
-              </div>
-            </Modal>
-          </Col>
-        </Row>
-      </>
-    );
-  }
-}
+  setInterval(() => {
+    setTransactionState(localStorage.getItem('paymentSubmited'))
+  }, 1000);
 
-export default CardModal;
+
+
+  const CreditCardForm = (
+    <>
+      <Col md="12">
+        <CreditCard/>
+      </Col>
+    </>
+
+    )
+
+  const CredidCardAdded = (
+    <>
+      <Col md="12">
+        <center>
+
+          <Lottie options={animationSuccess}
+            height={100}
+            width={100}
+          />
+          <br/>
+          <p><b>Seu cartão foi adicionado com sucesso!</b></p>
+          <p>Em alguns minutos você recebrá um email de confirmação, não esqueça de conferir sua caixa de Spam.</p>
+        </center>
+      </Col>
+    </>
+
+    )
+
+  return (
+    <div>
+      <Col md="12">
+        <Button  block color="default" type="button" onClick={toggle}> <CreditCardIcon/> PAGAR COM CARTÃO </Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>Pagamento com Cartão de Crédito</ModalHeader>
+          <ModalBody>
+            { PaymentStatus === 'true' ? CredidCardAdded : CreditCardForm }
+          </ModalBody>
+        </Modal>
+      </Col>
+    </div>
+  )
+}

@@ -27,9 +27,6 @@ export default function CForm({
 }) {
     const [ cardNumber, setCardNumber ] = useState('');
     const [ cardName, setCardName ] = useState('');
-    const [ cardMothExpiration, setCardMonthExpiration ] = useState('');
-    const [ cardYearExpiration, setCardYearExpiration ] = useState('');
-    const [ installmentValue, setInstallmentValue ] = useState('')
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
@@ -38,10 +35,9 @@ export default function CForm({
     };
     const plainValue = 499
 
-    const installments = [ 
-        { id: 1, value: 1, label: `1x de ${plainValue}` }, 
-        { id: 2, value: 5, label: `5x de ${plainValue /5}` },
-        { id: 3, value: 10, label: `10x de ${plainValue /10}` }]
+    const installments = [  
+        { id: 2, value: 6, label: `6x de R$: ${ plainValue /6 }` },
+        { id: 3, value: 12, label: `12x de R$: ${ plainValue /12 }` }]
 
     // TODO: We can improve the regex check with a better approach like in the card component.
     const onCardNumberChange = (event) => {
@@ -65,10 +61,13 @@ export default function CForm({
                 .replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ');
         }
 
+        sessionStorage.setItem('Chave', 'value')
+
         setCardNumber(cardNumber.trimRight());
         onUpdateState(name, cardNumber);
 
-        sessionStorage.setItem('cardNumber', cardNumber);
+        const carnumberStorage = cardNumber
+        sessionStorage.setItem('cardNumber', carnumberStorage);
     };
 
     const onCvvFocus = (event) => {
@@ -82,14 +81,19 @@ export default function CForm({
 
     async function postPayment(){
         const consumer = localStorage.getItem('consumer_id');
+        const cardNumberStorage = localStorage.getItem('cardNumber');
+        const cardHolderStorage = localStorage.getItem('cardHolder');
+        const cardValidateStorage = localStorage.getItem('cardValidate');
+        const companyCodeStorage = localStorage.getItem('companyCode');
+
         const paymentProfile = {
-            holder_name: "Douglas da silva",
-            card_expiration: '12/2021',
-            card_number: cardNumber,
+            holder_name: cardHolderStorage,
+            card_expiration: cardValidateStorage,
+            card_number: cardNumberStorage,
             card_cvv: cardCvv,
-            installments: installmentValue,
+            installments: 12,
             payment_method_code: 'credit_card',
-            payment_company_code: 'mastercard',
+            payment_company_code: companyCodeStorage,
             customer_id: parseInt(consumer)
         }
         try {
@@ -101,14 +105,24 @@ export default function CForm({
                             customer_id: consumer,
                             code: uuid(),
                             payment_method_code: 'credit_card',
-                            installments: installmentValue,
+                            installments: 12,
                             metadata: uuid(),
                             payment_profile: {
                                 id: response.data.payment_profile.id
                             },
                             invoice_split: false
                         }
-                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub).then(res => toast.success('Pagamento realizado com sucesso!'))
+                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub)
+                        .then(res => {
+                            toast.success('Pagamento realizado com sucesso!')
+                            localStorage.removeItem('cardNumber')
+                            localStorage.removeItem('cardHolder')
+                            localStorage.removeItem('cardValidate')
+                            localStorage.removeItem('cardCvv')
+                            localStorage.removeItem('companyCode')
+                            localStorage.setItem('paymentSubmited', true)
+                            }
+                        )
                     } catch(err) {
                         toast.error('Houve um problema ao efeturar o pagamento. Verifique seus dados e tente novamente.')
                     }
@@ -137,7 +151,7 @@ export default function CForm({
                         onChange={onCardNumberChange}
                         maxLength="19"
                         ref={cardNumberRef}
-                        onFocus={(e) => onCardInputFocus(e, 'cardNumber')}
+                        onFocus={ e => onCardInputFocus(e, 'cardNumber')}
                         onBlur={onCardInputBlur}
                         value={cardNumber}
                     />
@@ -152,6 +166,7 @@ export default function CForm({
                         className="card-input__input"
                         autoComplete="off"
                         name="cardHolder"
+                        value={cardName}
                         onChange={handleFormChange}
                         ref={cardHolderRef}
                         onFocus={ e => setCardName(e.target.value)}

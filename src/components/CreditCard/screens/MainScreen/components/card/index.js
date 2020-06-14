@@ -43,6 +43,7 @@ const Card = ({
         for (const [card, pattern] of Object.entries(CARDS)) {
             re = new RegExp(pattern);
             if (number.match(re) != null) {
+                localStorage.setItem('companyCode', card)
                 return card;
             }
         }

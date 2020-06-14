@@ -21,6 +21,12 @@ const MainScreen = () => {
                 ...state,
                 [keyName]: value || initialState[keyName]
             });
+
+            localStorage.setItem('cardNumber', state.cardNumber)
+            localStorage.setItem('cardHolder', state.cardHolder)
+            localStorage.setItem('cardValidate', state.cardMonth + '/' + state.cardYear )
+            localStorage.setItem('cardCvv', state.cardCvv )
+            localStorage.setItem('paymentSubmited', false);
         },
         [state]
     );
