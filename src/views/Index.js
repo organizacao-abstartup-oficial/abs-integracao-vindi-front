@@ -5,7 +5,9 @@ import Lottie from 'react-lottie';
 
 import { Link } from 'react-router-dom'
 
-import animationData from '../components/Animation/23896-ui-interaction.json';
+import startLottie from '../components/Animation/17056-smartsharp-animations-volume-2.json';
+import growthLottie from '../components/Animation/17054-smartsharp-animations-volume-1.json';
+
 
 
 import Footer from "components/Footers/";
@@ -20,14 +22,23 @@ import { Button, Col, Row } from 'reactstrap'
 
 export default function StarterForm() {
 
-    const defaultOptions = {
+    const startAnimation = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData: startLottie,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
+      }
+    };
+
+    const growthAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: growthLottie,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+      }
+    };
 
 
   return (
@@ -39,20 +50,24 @@ export default function StarterForm() {
           
             <center>
               <h2 className="display-3">Espaço exclusivo para cadastro de novos assinantes.</h2>
+              <p>Estamos ansiosos para compartilhar os benefícios exclusivos reservados com muito empenho para os nossos associados, mas primeiro, precisamos conhecê-lo melhor, faça o seu cadastro ;)</p>
               <br/>
-                <div>
-                 <Lottie options={defaultOptions}
-                    height={500}
-                    width={500}
-                  />
-                </div>
             </center>
             <br/>
 
             <Row>
-              <Col>
+              <Col md="6">
                 <center>
-                  <Link to="/start">
+
+                    <div>
+                    <Lottie options={startAnimation}
+                        height={200}
+                        width={200}
+                      />
+                    </div>
+                    <br/>
+                    <p>Para quem está iniciando sua startup, mas tem grandes ambições e precisa da quele "empurrãozinho".</p>
+                    <Link to="/start">
                     <Button 
                       fullwidth
                       color="default"
@@ -65,6 +80,14 @@ export default function StarterForm() {
 
               <Col>
                 <center>
+                    <div>
+                      <Lottie options={growthAnimation}
+                        height={200}
+                        width={200}
+                      />
+                    </div>
+                    <br/>
+                    <p>Para quem quer voar baixo e avançar para o próximo nível no empreendedorismo.</p>
                   <Link to="/growth">
                     <Button 
                       fullwidth
