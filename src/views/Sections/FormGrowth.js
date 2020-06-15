@@ -129,17 +129,16 @@ export default function FormStarter() {
 
   async function CNPJvalidate(){
 
-    let cnpjValidate = cnpj.replace(/\D/g, '')
+    let cnpjValidate = {
+      cnpj: cnpj.replace(/\D/g, '')
+    }
 
       try {
-        await axios.get(`https://www.receitaws.com.br/v1/cnpj/${cnpjValidate}`, {
-          headers: {
-            'Authorization': 'Bearer ef098d77e45cd6661d0a84f1f453b32cb999aba7a4334eff20903c949f065c55'
-          }
-        })
+         await axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate)
         .then( response => {
           setRazaoSocial(response.data.nome)
           console.log(response.data)
+          console.log(cnpjValidate)
           toast.success('CNPJ Válido')
         })
 
