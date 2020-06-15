@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
+
 import Lottie from 'react-lottie';
 import axios from 'axios';
 import * as Yup from 'yup';
+import {  } from 'react-toastify'
 // import { cnpj } from 'cpf-cnpj-validator';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,8 +20,6 @@ import { Col, Row } from 'reactstrap';
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
-import CardModal from './CardModal';
-import BoletoModal from './BoletoModal';
 
 
 
@@ -95,6 +93,8 @@ export default function FormStarter() {
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
+  const [ plain, SetPlain ] = useState('') 
+  
 
   const steps = getSteps();
 
@@ -119,9 +119,9 @@ export default function FormStarter() {
     }
 
       try {
-        await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/associate', userRegister)
+        await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/start', userRegister)
       } catch (err) {
-        toast.error('Não foi possível cadastrar na upppo!')
+        alert('Não foi possível cadastrar na upppo!')
         
       }
     }
@@ -170,11 +170,13 @@ export default function FormStarter() {
       .then( response => {
         localStorage.removeItem('id_consumer');
         setIdConsumer(response.data.customer.id);
+        SetPlain({ id: 160505, name: 'Start'})
         localStorage.setItem('consumer_id', JSON.stringify(response.data.customer.id));
+        console.log(idConsumer)
       })
        
      } catch (error) {
-       toast.error('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
+       alert('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
        
      }
   }
@@ -744,7 +746,6 @@ export default function FormStarter() {
         setActiveStep(newActiveStep);
         
       } catch (err) {
-        toast.error('Por favor, preencha todos os campos obrigatórios.')
         if (err instanceof Yup.ValidationError) {
           const errorMessages = {};
           err.inner.forEach(error => {
@@ -810,7 +811,6 @@ export default function FormStarter() {
         setActiveStep(newActiveStep);
 
       } catch(err) {
-        toast.error('Por favor, preencha todos os campos obrigatórios.')
         if(err instanceof Yup.ValidationError){
           const errorMessages = {};
           err.inner.forEach(error => {
@@ -874,7 +874,6 @@ export default function FormStarter() {
         setActiveStep(newActiveStep);
 
       } catch (err) {
-        toast.error('Por favor, preencha todos os campos obrigatórios.')
         if(err instanceof Yup.ValidationError){
           const errorMessages = {};
           err.inner.forEach(error => {
@@ -919,19 +918,15 @@ export default function FormStarter() {
           <div>
             <center>
 
-            <Lottie options={defaultOptions}
-              height={100}
-              width={100}
-            />
+              <Lottie options={defaultOptions}
+                height={100}
+                width={100}
+              />
+              <h2 className={classes.instructions}>{name}, não tem nada aqui para pagar!</h2>
+              <h3 className={classes.instructions}>Basta clicar no botão abaixo e ser feliz, { business } vai decolar :)</h3>
+              <p>O Plano Contratado é o: <b>{ plain.name }</b></p>
 
-              <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
-              <hr/>
-              <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
-              { idConsumer ? `${idConsumer}` : 'sem resposta'}
-              <p>O Plano Contratado é o: <b>Growth</b></p>
-              <h2>Obrigado!</h2>
-              <CardModal />
-              <BoletoModal/>
+              <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
 

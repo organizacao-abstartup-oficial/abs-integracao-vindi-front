@@ -79,6 +79,7 @@ export default function FormStarter() {
   const [ mail, setMail ] = useState('');
   const [ business, setBusiness ] = useState('');
   const [ cnpj, setCnpj ] = useState('');
+  const [ razaoSocial, setRazaoSocial ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ confirmpassword, setConfirmpassword ] = useState('');
   const [ getcargo, setGetCargo ] = useState('');
@@ -124,7 +125,30 @@ export default function FormStarter() {
         toast.error('Não foi possível cadastrar na upppo!')
         
       }
-    }
+  }
+
+  async function CNPJvalidate(){
+
+    let cnpjValidate = cnpj.replace(/\D/g, '')
+
+      try {
+        await axios.get(`https://www.receitaws.com.br/v1/cnpj/${cnpjValidate}`, {
+          headers: {
+            'Authorization': 'Bearer ef098d77e45cd6661d0a84f1f453b32cb999aba7a4334eff20903c949f065c55'
+          }
+        })
+        .then( response => {
+          setRazaoSocial(response.data.nome)
+          console.log(response.data)
+          toast.success('CNPJ Válido')
+        })
+
+      } catch (err) {
+        toast.error('CNPJ inválido')
+        setHasError(cnpj)
+        
+      }
+  }
 
   async function PostRegister(){
     let consumerData = {
@@ -132,6 +156,7 @@ export default function FormStarter() {
       email: mail,
       registry_code: cnpj.replace(/\D/g, ''),
       metadata: {
+        razao_social: razaoSocial,
         nome_pessoa_fisica: name,
         cargo_empresa: getcargo,
         nro_socios: getsocios,
@@ -709,9 +734,9 @@ export default function FormStarter() {
       : activeStep + 1;
       
     if (newActiveStep === 1){
-      console.log(`Post Uppo`)
       window.scrollTo({top: 100, behavior: 'smooth'});
       localStorage.removeItem('consumer_id');
+      CNPJvalidate()
 
       try {
         const schema = Yup.object().shape({
