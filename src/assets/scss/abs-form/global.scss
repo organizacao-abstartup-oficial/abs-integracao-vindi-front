@@ -12,6 +12,21 @@
 .float-subscription--buttom:hover{
     background: #E86C0C;
     transition: ease-in-out 1s;
+}
+
+.Submit-button--add{
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 10px;
+    background: #3376d2;
+    border: #3376d2;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.Submit-button--add:hover{
+    background: #00C853;
+    transition: ease-in-out 1s;
 
 }
 
