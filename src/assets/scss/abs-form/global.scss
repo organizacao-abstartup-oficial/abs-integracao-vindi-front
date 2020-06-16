@@ -225,3 +225,15 @@
 		transform:translatey(-20px)
 	}
 }
+
+// media quuery
+
+@media (max-width: 600px) 
+{
+    .MuiStepper-root {
+        display: none;
+    }
+    .MuiStepper-horizontal{
+        display: none;
+    }
+}

@@ -38,6 +38,7 @@ export default function BoletoModal(props)  {
         .then( response => {
           setBankSlipCode(response.data.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
           setBankSlipLink(response.data.bill.charges[0].print_url);
+          localStorage.setItem('paymentSubmited', 'true')
         })
         
       } catch (error) {
@@ -68,6 +69,7 @@ export default function BoletoModal(props)  {
     <>
       <Col md="12">
       <center>
+      {bankSlipCode}
         <CopyToClipboard text={bankSlipCode}>
             <Button
             block
