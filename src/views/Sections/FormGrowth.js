@@ -765,9 +765,23 @@ export default function FormStarter() {
           password,
           confirmpassword
         }
+
         await schema.validate(data, {
           abortEarly: false
         })
+
+        
+
+        if(!validaCnpj) {
+          toast.error('Digite um CNPJ válido.');
+          setHasError(
+            {
+              ...hasError, 
+              cnpj: true,
+            });
+            return;
+        }
+
         PostUppo();
 
         const newCompleted = completed;
@@ -802,21 +816,7 @@ export default function FormStarter() {
               password,
               confirmpassword
             })
-
-          if(!validaCnpj) {
-            toast.error('Digite um CNPJ válido.');
-            setHasError(
-              {
-                ...hasError, 
-                name,
-                business,
-                cnpj: true,
-                phone,
-                mail,
-                password,
-                confirmpassword
-              })
-          }
+          
         }
       }
     }
@@ -927,7 +927,6 @@ export default function FormStarter() {
           err.inner.forEach(error => {
             errorMessages[error.path] = true;
           });
-          console.log(errorMessages)
           const { cep, numeroLogradouro, complemento } = errorMessages;
           setHasError({
             ...hasError, cep, numeroLogradouro, complemento
