@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 import startLottie from '../components/Animation/17056-smartsharp-animations-volume-2.json';
 import growthLottie from '../components/Animation/17054-smartsharp-animations-volume-1.json';
+import impactLottie from '../components/Animation/17053-smartsharp-animations-volume-1.json';
 
 
 
@@ -14,11 +15,21 @@ import Footer from "components/Footers/";
 
 import Header from 'components/Header';
 
+
+
 import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
 
 
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import StarIcon from '@material-ui/icons/Star';
+import Typography from '@material-ui/core/Typography';
 
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 export default function StarterForm() {
 
@@ -40,6 +51,15 @@ export default function StarterForm() {
       }
     };
 
+    const impactAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: impactLottie,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+      }
+    };
+
 
   return (
     
@@ -49,55 +69,334 @@ export default function StarterForm() {
           <br/>
           
             <center>
-              <h2 className="display-3">Espaço exclusivo para cadastro de novos assinantes.</h2>
-              <p>Estamos ansiosos para compartilhar os benefícios exclusivos reservados com muito empenho para os nossos associados, mas primeiro, precisamos conhecê-lo melhor, faça o seu cadastro ;)</p>
+              <h2 className="display-3">Acelere seu negócio com diversos benefícios para a sua startup crescer ainda mais. Cadastre-se já!</h2>
+              <p>Se você tem um startup, não se preocupe, com a Abstartups você tem produtos e benefícios exclusivos para ajudar o seu negócio nas diferentes fases que ele se encontra. Veja abaixo os planos que oferecemos para te levar ainda mais longe ;)</p>
               <br/>
             </center>
             <br/>
 
             <Row>
-              <Col md="6">
-                <center>
+                <Col md="12">
+                  <center>
+                    <h3><b>São mais de R$500 mil em benefícios para os nossos associados.</b></h3>
+                  </center>
+                </Col>
+                <Col md="3">
+                  <center>
+                    <StarIcon/><p>Informação 1</p>
+                  </center>
+                </Col>
+                <Col md="3">
+                  <center>
+                    <StarIcon/><p>Informação 1</p>
+                  </center>
+                </Col>
+                <Col md="3">
+                  <center>
+                    <StarIcon/><p>Informação 1</p>
+                  </center>
+                </Col>
+                <Col md="3">
+                  <center>
+                    <StarIcon/><p>Informação 1</p>
+                  </center>
+                </Col>
+                <Col md="12">
+                  <center>
+                   <p><b>Networking produtos e mentorias em um só lugar. Veja tudo que a ABStartups pode te oferecer aqui!</b></p>
+                  </center>
+                </Col>
+            </Row>
+            <br/>
 
-                    <div>
+            <center>
+              <Button onClick={ () => { window.scrollTo({ top: 650, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+            </center>
+
+            <hr/>
+
+            <Row>
+
+              <Col md="4">
+                <Card>
+                  <div>
                     <Lottie options={startAnimation}
-                        height={200}
-                        width={200}
-                      />
-                    </div>
-                    <br/>
-                    <p>Para quem está iniciando sua startup, mas tem grandes ambições e precisa da quele "empurrãozinho".</p>
-                    <Link to="/start">
-                    <Button 
-                      fullwidth
-                      color="default"
-                      type="button">
-                      Assinar plano Start
-                    </Button>
-                  </Link>
-                </center>
+                      height={200}
+                      width={200}
+                    />
+                  </div>
+                    <center>
+                      <StarIcon/><StarIcon/>
+                    </center>
+                  <CardHeader
+                    title='Start'
+                    subheader= 'Para quem está começando e precisa daquele “empurrãozinho”, com diversos benefícios e auxílios, para fazer a sua startup acontecer.'
+                    titleTypographyProps={{ align: 'center' }}
+                    subheaderTypographyProps={{ align: 'center' }}
+                  />
+                  <CardContent>
+
+                        <hr/>
+
+                        <div >
+                          <Typography variant="h6" color="textPrimary" align="center">
+                            GRÁTIS <br/>
+                            Renovação anual
+                          </Typography>
+                        </div>
+
+                        <hr/>
+                        
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso ao Slack da nossa Comunidade de Associados
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nos Comitês ABStartups
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Newsletter exclusiva
+                        </Typography>
+
+                        
+                  </CardContent>
+
+                  <center>
+                    <Link to="/growth">
+                        <Button 
+                          fullwidth="true"
+                          color="default"
+                          type="button">
+                          Seja um associado Start
+                        </Button>
+                      </Link>
+                  </center>
+
+                  <CardActions>
+                  </CardActions>
+                </Card>
               </Col>
 
-              <Col>
-                <center>
-                    <div>
-                      <Lottie options={growthAnimation}
-                        height={200}
-                        width={200}
-                      />
-                    </div>
-                    <br/>
-                    <p>Para quem quer voar baixo e avançar para o próximo nível no empreendedorismo.</p>
-                  <Link to="/growth">
-                    <Button 
-                      fullwidth
-                      color="default"
-                      type="button">
-                      Assinar plano Growth
-                    </Button>
-                  </Link>
-                </center>
+              <Col md="4">
+                <Card>
+                  <div>
+                    <Lottie options={growthAnimation}
+                      height={200}
+                      width={200}
+                    />
+                  </div>
+
+                  <center>
+                    <StarIcon/><StarIcon/><StarIcon/><StarIcon/>
+                  </center>
+
+                  <CardHeader
+                    title='Growth'
+                    subheader= 'Para quem quer acelerar e fazer com que a sua startup supere os desafios do dia a dia, crescendo cada vez mais.'
+                    titleTypographyProps={{ align: 'center' }}
+                    subheaderTypographyProps={{ align: 'center' }}
+                  />
+                  <br/>
+                  <CardContent>
+                        <hr/>
+                        <div >
+                          <Typography variant="h6" color="textPrimary" align="center">
+                            12x de R$: 41,58 <br/>
+                            ou R$: 399,00 /ano
+                          </Typography>
+                        </div>
+
+                        <hr/>
+                        
+                        <Typography variant="subtitle1" align="center" >
+                         <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios exclusivos do Portal de Benefícios GROWTH
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso ao Slack da nossa Comunidade de Associados e ao grupo exclusivo de Founders no whatsapp
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nos Comitês ABStartups
+                        </Typography>
+
+                        <br/>
+                        
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Newsletter exclusiva
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nas mentorias de Pitch Training
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nas mentorias de Papo com Investidor
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação em mentorias com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> 1 Ingresso VIP para o evento CASE.
+                        </Typography>
+                  </CardContent>
+
+                  <center>
+                    <Link to="/growth">
+                        <Button 
+                          fullwidth="true"
+                          color="default"
+                          type="button">
+                          Seja um associado Growth
+                        </Button>
+                      </Link>
+                  </center>
+
+                  <CardActions>
+                    
+                  </CardActions>
+                </Card>
               </Col>
+
+              <Col md="4">
+                <Card>
+                  <div>
+                    <Lottie options={impactAnimation}
+                      height={200}
+                      width={200}
+                    />
+                  </div>
+                    <center>
+                      <StarIcon/><StarIcon/><StarIcon/><StarIcon/><StarIcon/>
+                    </center>
+                  <CardHeader
+                    title='Impact'
+                    subheader= 'Para quem quer acelerar e fazer com que a sua startup supere os desafios do dia a dia, crescendo cada vez mais.'
+                    titleTypographyProps={{ align: 'center' }}
+                    subheaderTypographyProps={{ align: 'center' }}
+                  />
+                  <br/>
+                    <CardContent>
+                        <hr/>
+
+                          <div >
+                          <Typography variant="h6" color="textPrimary" align="center">
+                            12x de R$: 149,92 <br/>
+                            ou R$: 1499,00 /ano
+                          </Typography>
+                        </div>
+
+                        <hr/>
+                        
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios exclusivos do Portal de Benefícios GROWTH
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Acesso ao Slack da nossa Comunidade de Associados e ao grupo exclusivo de Founders no whatsapp
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nos Comitês ABStartups
+                        </Typography>
+
+                        <br/>
+                        
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Newsletter exclusiva
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nas mentorias de Pitch Training
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nas mentorias de Papo com Investidor
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação em mentorias com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> 1 Ingresso VIP para o evento CASE + Jantar Pré-evento
+                        </Typography>
+
+                        <br/>
+
+                        <Typography variant="subtitle1" align="center" >
+                          <CheckCircleOutlineIcon/> Participação nos eventos exclusivos de nettworking  como o Jantar Impact e Happy Hour
+                        </Typography>
+
+                    </CardContent>
+
+                    <center>
+                      <Link to="/impact">
+                          <Button 
+                            fullwidth="true"
+                            color="default"
+                            type="button">
+                            Seja um associado Impact
+                          </Button>
+                        </Link>
+                    </center>
+
+                  <CardActions>        
+                  </CardActions>
+                </Card>
+              </Col>
+
+
+
             </Row>
           
           <hr/>

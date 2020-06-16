@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
@@ -63,9 +63,9 @@ export default function FormStarter() {
     cep: false,
     numeroLogradouro: false,
   });
-
   const [ activeStep, setActiveStep ] = useState(0);
-  const [ completed, setCompleted ] = useState({});
+  const [validaCnpj, setValidaCnpj] = useState(false);
+  const[ completed, setCompleted ] = useState({});
   const [ name, setName ] = useState('');
   const [ cep, setCep ] = useState('');
   const [ uf, setUf ] = useState('UF');
@@ -127,27 +127,33 @@ export default function FormStarter() {
       }
   }
 
-  async function CNPJvalidate(){
-
+  useEffect(() => {
     let cnpjValidate = {
       cnpj: cnpj.replace(/\D/g, '')
     }
 
       try {
-         await axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate)
-        .then( response => {
-          setRazaoSocial(response.data.nome)
-          console.log(response.data)
-          console.log(cnpjValidate)
-          toast.success('CNPJ Válido')
-        })
-
+        if(cnpjValidate.cnpj.length === 14){
+          axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate).then(response => {
+            if(response.data.status !== 400) {
+              setRazaoSocial(response.data.nome)
+              setValidaCnpj(true);
+              setHasError({cnpj: false})
+              return;
+            }
+            setHasError({cnpj:true})
+          })
+        }
       } catch (err) {
-        toast.error('CNPJ inválido')
-        setHasError(cnpj)
+        toast.error('Problemas ao conectar-se com o servidor.')
         
       }
-  }
+  }, [cnpj])
+
+  // function CNPJvalidate(){
+
+    
+  // }
 
   async function PostRegister(){
     let consumerData = {
@@ -735,7 +741,6 @@ export default function FormStarter() {
     if (newActiveStep === 1){
       window.scrollTo({top: 100, behavior: 'smooth'});
       localStorage.removeItem('consumer_id');
-      CNPJvalidate()
 
       try {
         const schema = Yup.object().shape({
@@ -747,6 +752,9 @@ export default function FormStarter() {
           password: Yup.string().required(),
           confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
         });
+
+        
+        //CNPJvalidate()
 
         const data = {
           name,
@@ -794,6 +802,21 @@ export default function FormStarter() {
               password,
               confirmpassword
             })
+
+          if(!validaCnpj) {
+            toast.error('Digite um CNPJ válido.');
+            setHasError(
+              {
+                ...hasError, 
+                name,
+                business,
+                cnpj: true,
+                phone,
+                mail,
+                password,
+                confirmpassword
+              })
+          }
         }
       }
     }
