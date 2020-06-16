@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Lottie from 'react-lottie';
@@ -34,7 +34,13 @@ export default function BoletoModal(props)  {
     setTransactionState(localStorage.getItem('paymentSubmited'))
   }, 1000);
 
-
+  useEffect(() => {
+    if(PaymentStatus === "true") {
+      setTimeout(() => {
+        setModal(false);
+      }, 5000);
+    }
+  }, [PaymentStatus])
 
   const CreditCardForm = (
     <>
@@ -45,7 +51,7 @@ export default function BoletoModal(props)  {
 
     )
 
-  const CredidCardAdded = (
+  const CreditCardAdded = (
     <>
       <Col md="12">
         <center>
@@ -60,8 +66,7 @@ export default function BoletoModal(props)  {
         </center>
       </Col>
     </>
-
-    )
+  )
 
   return (
     <div>
@@ -70,7 +75,7 @@ export default function BoletoModal(props)  {
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Pagamento com Cartão de Crédito</ModalHeader>
           <ModalBody>
-            { PaymentStatus === 'true' ? CredidCardAdded : CreditCardForm }
+            { PaymentStatus === 'true' ? CreditCardAdded : CreditCardForm }
           </ModalBody>
         </Modal>
       </Col>
