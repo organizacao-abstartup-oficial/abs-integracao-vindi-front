@@ -302,11 +302,10 @@ export default function StarterForm() {
                     </center>
                   <CardHeader
                     title='Impact'
-                    subheader= 'Para quem quer acelerar e fazer com que a sua startup supere os desafios do dia a dia, crescendo cada vez mais.'
+                    subheader= 'Para quem quer desenvolver seus conhecimentos, fomentar seu networking e melhorar ainda mais os seus números.'
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
                   />
-                  <br/>
                     <CardContent>
                         <hr/>
 
