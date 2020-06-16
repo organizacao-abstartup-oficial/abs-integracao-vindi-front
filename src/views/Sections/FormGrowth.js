@@ -219,7 +219,7 @@ export default function FormStarter() {
   };
 
   function getSteps() {
-  return ['Dados do Contato', 'Modelo de negócio', 'Contato'];
+  return ['Informações', 'Modelo de negócio', 'Contato', 'Pagamento'];
   }
 
   function getStepContent(step) {
@@ -708,6 +708,21 @@ export default function FormStarter() {
           />
           </div>
         </Row></form>);
+        case 3:
+          return ( <div>
+            <center>
+              <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
+              <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
+              {/* { idConsumer ? `${idConsumer}` : 'sem resposta'} */}
+              <p>O Plano Contratado é o: <b>Growth</b></p>
+              
+              <CardModal />
+              <br/>
+              <BoletoModal/>
+              <br/>
+            </center>
+          </div>
+          );
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -977,8 +992,6 @@ export default function FormStarter() {
               { idConsumer ? `${idConsumer}` : 'sem resposta'}
               <p>O Plano Contratado é o: <b>Growth</b></p>
               <h2>Obrigado!</h2>
-              <CardModal />
-              <BoletoModal/>
             </center>
           </div>
 
