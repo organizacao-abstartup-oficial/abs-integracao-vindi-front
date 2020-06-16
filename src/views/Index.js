@@ -395,14 +395,13 @@ export default function StarterForm() {
                     </CardContent>
 
                     <center>
-                      <Link to="/impact">
                           <Button 
+                            onClick={ () => {} }
                             fullwidth="true"
                             color="default"
                             type="button">
                             Seja um associado Impact
                           </Button>
-                        </Link>
                     </center>
 
                   <CardActions>        
