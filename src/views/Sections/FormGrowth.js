@@ -150,11 +150,6 @@ export default function FormStarter() {
       }
   }, [cnpj])
 
-  // function CNPJvalidate(){
-
-    
-  // }
-
   async function PostRegister(){
     let consumerData = {
       name: business,

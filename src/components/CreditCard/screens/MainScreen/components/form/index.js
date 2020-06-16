@@ -26,7 +26,6 @@ export default function CForm({
     children
 }) {
     const [ cardNumber, setCardNumber ] = useState('');
-    const [ cardName, setCardName ] = useState('');
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
@@ -166,10 +165,9 @@ export default function CForm({
                         className="card-input__input"
                         autoComplete="off"
                         name="cardHolder"
-                        value={cardName}
                         onChange={handleFormChange}
                         ref={cardHolderRef}
-                        onFocus={ e => setCardName(e.target.value)}
+                        onFocus={ e => (e.target.value)}
                         onBlur={onCardInputBlur}
                     />
                 </div>
