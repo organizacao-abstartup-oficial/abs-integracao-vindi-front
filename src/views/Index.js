@@ -155,8 +155,9 @@ export default function StarterForm() {
 
                         <div >
                           <Typography variant="h6" color="textPrimary" align="center">
+                            <b>
                             GRÁTIS <br/>
-                            Renovação anual
+                            Renovação anual</b>
                           </Typography>
                         </div>
 
@@ -229,8 +230,8 @@ export default function StarterForm() {
                         <hr/>
                         <div >
                           <Typography variant="h6" color="textPrimary" align="center">
-                            12x de R$: 41,58 <br/>
-                            ou R$: 399,00 /ano
+                            <b>12x de R$: 41,58 <br/>
+                            ou R$: 399,00 /ano</b>
                           </Typography>
                         </div>
 
@@ -330,8 +331,8 @@ export default function StarterForm() {
 
                           <div >
                           <Typography variant="h6" color="textPrimary" align="center">
-                            12x de R$: 149,92 <br/>
-                            ou R$: 1499,00 /ano
+                            <b>12x de R$: 149,92 <br/>
+                            ou R$: 1499,00 /ano</b>
                           </Typography>
                         </div>
 
