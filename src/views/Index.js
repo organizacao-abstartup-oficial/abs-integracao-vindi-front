@@ -187,7 +187,7 @@ export default function StarterForm() {
                   </CardContent>
 
                   <center>
-                    <Link to="/growth">
+                    <Link to="/start">
                         <Button 
                           onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
                           fullwidth="true"
@@ -290,6 +290,7 @@ export default function StarterForm() {
                   <center>
                     <Link to="/growth">
                         <Button 
+                          onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
                           fullwidth="true"
                           color="default"
                           type="button">

@@ -5,7 +5,16 @@
     height: 64px;
     width: 64px;
     animation: float 3s ease-in-out infinite;
+    background: #FFA200;
+    border: #FFA200;
 }
+
+.float-subscription--buttom:hover{
+    background: #E86C0C;
+    transition: ease-in-out 2s;
+
+}
+
 
 .section-nucleo-icons .icons-container {
     position: relative;
@@ -14,6 +23,8 @@
     margin: 0 auto;
     z-index: 1;
 }
+
+
 
 .section-nucleo-icons {
 

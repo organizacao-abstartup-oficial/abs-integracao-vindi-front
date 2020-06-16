@@ -18,10 +18,15 @@ export default function IndexSections() {
           <img src={plainLogo} alt="starter" width="200px"/>
           <br/>
           <br/>
-          <b>Plano Start - Grátis</b>
-          <p>Você selecionou o plano Start, que tal assinar o plano Growth?</p>
-          <p>Com o Growth, sua startup tem mais benefícios e conta com mais visibilidade.</p>
-          <p>Para se associar é simples, clique no botão a baixo e seja um <b>Associado Growth</b></p>
+          <h5><b>Plano Start - Grátis</b></h5>
+          <hr/>
+          <p>Tenha acesso a benefícios e descontos exclusivos da Abstartups:</p>
+          <ul>
+            <li>Acesso a todos os benefícios do Portal de Benefícios START</li>
+            <li>Acesso ao Slack da nossa Comunidade de Associados</li>
+            <li>Newsletter exclusiva</li>
+          </ul>
+          <p>Quer acelerar ainda mais sua startup com muito mais benefícios e vantagens? Conheça o nosso plano <b>Growth</b> clicando no botão abaixo.</p>
 
           <Link to="/growth"><Button variant="contained" fullWidth color="primary"> Seja um Growth </Button></Link>
 
