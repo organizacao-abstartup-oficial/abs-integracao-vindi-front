@@ -1,5 +1,12 @@
 // Nucleo icons
 
+.float-subscription--buttom{
+    border-radius: 100px;
+    height: 64px;
+    width: 64px;
+    animation: float 3s ease-in-out infinite;
+}
+
 .section-nucleo-icons .icons-container {
     position: relative;
     max-width: 100%;
@@ -178,4 +185,17 @@
 .info .info-title{
   margin: 25px 0 15px;
   font-weight: 600;
+}
+
+// animation
+
+@keyframes float{
+	0%,100%{
+		box-shadow:0 5px 15px 0 rgba(0,0,0,.6);
+		transform:translatey(0)
+	}
+	50%{
+		box-shadow:0 25px 15px 0 rgba(0,0,0,.2);
+		transform:translatey(-20px)
+	}
 }

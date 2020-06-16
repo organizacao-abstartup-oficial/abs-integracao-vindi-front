@@ -9,7 +9,11 @@ import startLottie from '../components/Animation/17056-smartsharp-animations-vol
 import growthLottie from '../components/Animation/17054-smartsharp-animations-volume-1.json';
 import impactLottie from '../components/Animation/17053-smartsharp-animations-volume-1.json';
 
-
+import logoAWS from '../assets/img/brand/aws.png';
+import logoContaAzul from '../assets/img/brand/Logo_ContaAzul_Azul.png';
+import logoPipedrive from '../assets/img/brand/pipedrive.png';
+import logoHubSpot from '../assets/img/brand/hubspot.png';
+import logoGCloud from '../assets/img/brand/google-cloud.png';
 
 import Footer from "components/Footers/";
 
@@ -78,27 +82,32 @@ export default function StarterForm() {
             <Row>
                 <Col md="12">
                   <center>
-                    <h3><b>São mais de R$500 mil em benefícios para os nossos associados.</b></h3>
+                    <h2><b>São mais de R$ 500 mil em benefícios para associados</b></h2>
                   </center>
                 </Col>
-                <Col md="3">
+                <Col md="2" className="m-3">
                   <center>
-                    <StarIcon/><p>Informação 1</p>
+                    <img src={logoGCloud} alt="Google Cloud Plataform" width="150px" height="auto"/>
                   </center>
                 </Col>
-                <Col md="3">
+                <Col md="2" className="m-3">
                   <center>
-                    <StarIcon/><p>Informação 1</p>
+                    <img src={logoHubSpot} alt="HubSpot" width="150px" height="auto"/>
                   </center>
                 </Col>
-                <Col md="3">
+                <Col md="2" className="m-3">
                   <center>
-                    <StarIcon/><p>Informação 1</p>
+                    <img src={logoContaAzul} alt="Conta Azul" width="150px" height="auto"/>
                   </center>
                 </Col>
-                <Col md="3">
+                <Col md="2" className="m-3">
                   <center>
-                    <StarIcon/><p>Informação 1</p>
+                    <img src={logoPipedrive} alt="Pipedrive" width="150px" height="auto"/>
+                  </center>
+                </Col>
+                <Col md="2" className="m-3">
+                  <center>
+                    <img src={logoAWS} alt="Amazon AWS" width="150px" height="auto"/>
                   </center>
                 </Col>
                 <Col md="12">
@@ -110,8 +119,13 @@ export default function StarterForm() {
             <br/>
 
             <center>
-              <Button onClick={ () => { window.scrollTo({ top: 650, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+            <h5><b>Cadastre-se</b></h5>
+            <br/>
+            
+              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.scrollTo({ top: 790, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
             </center>
+            <br/>
+            <br/>
 
             <hr/>
 
@@ -147,7 +161,7 @@ export default function StarterForm() {
 
                         <hr/>
                         
-                        <Typography variant="subtitle1" align="center" >
+                        <Typography variant="subtitle1" color="textPrimary" align="center" >
                           <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
                         </Typography>
 
@@ -175,6 +189,7 @@ export default function StarterForm() {
                   <center>
                     <Link to="/growth">
                         <Button 
+                          onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
                           fullwidth="true"
                           color="default"
                           type="button">
