@@ -122,7 +122,8 @@ export default function StarterForm() {
             <h5><b>Cadastre-se</b></h5>
             <br/>
             
-              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.scrollTo({ top: 850, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 850, behavior: 'smooth' }) : window.scrollTo({ top: 1850, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+
             </center>
             <br/>
             <br/>
