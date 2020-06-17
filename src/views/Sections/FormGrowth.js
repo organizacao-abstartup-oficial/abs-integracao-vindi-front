@@ -96,8 +96,18 @@ export default function FormStarter() {
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
+  const [isLastStepCompleted, setIsLastStepCompleted] = useState(localStorage.setItem('isLastStep', "false"));
 
   const steps = getSteps();
+
+
+  setInterval(() => {
+    setIsLastStepCompleted(localStorage.getItem('isLastStep'))
+    if(isLastStepCompleted === "true") {
+      handleNext();
+    }
+  }, 1000);
+
 
   async function  getAddress(){
     await axios.get(`https://viacep.com.br/ws/${cep.replace(/-\s/g,"")}/json/`)
@@ -221,8 +231,7 @@ export default function FormStarter() {
 
     switch (step) {
       case 0:
-        return ( <form autoComplete="on" >
-        <Row lg="8">
+        return ( <form autoComplete="on" ><Row lg="8">
           <TextField
             label="Nome"
             required={true}
@@ -706,26 +715,50 @@ export default function FormStarter() {
         </Row></form>);
         case 3:
           return (
-            <div>
-              <center>
-                <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
-                <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
-                {/* { idConsumer ? `${idConsumer}` : 'sem resposta'} */}
-                <p>O Plano Contratado é o: <b>Growth</b></p>
-                
-                <CardModal />
-                <br/>
-                <BoletoModal/>
-                <br/>
-              </center>
-            </div>
-          );
+            <>
+              { isLastStepCompleted === "true" ? Thanks : FormPayment }
+            </>
+          )
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
   }
 
-  
+  const Thanks = (
+    <div>
+      <center>
+
+      <Lottie options={defaultOptions}
+        height={100}
+        width={100}
+      />
+
+        <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
+        <hr/>
+        <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
+        <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
+        { idConsumer ? `${idConsumer}` : 'sem resposta'}
+        <p>O Plano Contratado é o: <b>Growth</b></p>
+        <h2>Obrigado!</h2>
+      </center>
+    </div>
+  )
+
+  const FormPayment = (
+    <div>
+      <center>
+        <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
+        <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
+        {/* { idConsumer ? `${idConsumer}` : 'sem resposta'} */}
+        <p>O Plano Contratado é o: <b>Growth</b></p>
+        
+        <CardModal />
+        <br/>
+        <BoletoModal/>
+        <br/>
+      </center>
+    </div>
+  );
 
   const totalSteps = () => {
     return steps.length;
@@ -944,6 +977,23 @@ export default function FormStarter() {
             ...hasError, cep, numeroLogradouro, complemento
           })
         }
+      }
+    }
+    if (newActiveStep === 4) {
+      try {
+
+        window.scrollTo({top: 100, behavior: 'smooth'});
+
+        if(isLastStepCompleted === "true") {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
+          setActiveStep(newActiveStep);
+        }
+
+        
+
+      } catch (err) {
       }
     }
   };
