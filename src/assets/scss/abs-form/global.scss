@@ -11,7 +11,22 @@
 
 .float-subscription--buttom:hover{
     background: #E86C0C;
-    transition: ease-in-out 2s;
+    transition: ease-in-out 1s;
+}
+
+.Submit-button--add{
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 10px;
+    background: #3376d2;
+    border: #3376d2;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.Submit-button--add:hover{
+    background: #00C853;
+    transition: ease-in-out 1s;
 
 }
 
@@ -209,4 +224,16 @@
 		box-shadow:0 25px 15px 0 rgba(0,0,0,.2);
 		transform:translatey(-20px)
 	}
+}
+
+// media quuery
+
+@media (max-width: 600px) 
+{
+    .MuiStepper-root {
+        display: none;
+    }
+    .MuiStepper-horizontal{
+        display: none;
+    }
 }

@@ -122,7 +122,8 @@ export default function StarterForm() {
             <h5><b>Cadastre-se</b></h5>
             <br/>
             
-              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.scrollTo({ top: 790, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 850, behavior: 'smooth' }) : window.scrollTo({ top: 1850, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+
             </center>
             <br/>
             <br/>
@@ -154,8 +155,9 @@ export default function StarterForm() {
 
                         <div >
                           <Typography variant="h6" color="textPrimary" align="center">
+                            <b>
                             GRÁTIS <br/>
-                            Renovação anual
+                            Renovação anual</b>
                           </Typography>
                         </div>
 
@@ -190,6 +192,7 @@ export default function StarterForm() {
                     <Link to="/start">
                         <Button 
                           onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
+                          className="Submit-button--add"
                           fullwidth="true"
                           color="default"
                           type="button">
@@ -213,7 +216,7 @@ export default function StarterForm() {
                   </div>
 
                   <center>
-                    <StarIcon/><StarIcon/><StarIcon/><StarIcon/>
+                    <StarIcon/><StarIcon/><StarIcon/>
                   </center>
 
                   <CardHeader
@@ -227,8 +230,8 @@ export default function StarterForm() {
                         <hr/>
                         <div >
                           <Typography variant="h6" color="textPrimary" align="center">
-                            12x de R$: 41,58 <br/>
-                            ou R$: 399,00 /ano
+                            <b>12x de R$: 41,58 <br/>
+                            ou R$: 399,00 /ano</b>
                           </Typography>
                         </div>
 
@@ -291,6 +294,7 @@ export default function StarterForm() {
                     <Link to="/growth">
                         <Button 
                           onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
+                          className="Submit-button--add"
                           fullwidth="true"
                           color="default"
                           type="button">
@@ -327,8 +331,8 @@ export default function StarterForm() {
 
                           <div >
                           <Typography variant="h6" color="textPrimary" align="center">
-                            12x de R$: 149,92 <br/>
-                            ou R$: 1499,00 /ano
+                            <b>12x de R$: 149,92 <br/>
+                            ou R$: 1499,00 /ano</b>
                           </Typography>
                         </div>
 
@@ -395,14 +399,14 @@ export default function StarterForm() {
                     </CardContent>
 
                     <center>
-                      <Link to="/impact">
                           <Button 
+                            onClick={ () => window.open('https://abstartups.com.br/associados-impact/', '_blank') }
+                            className="Submit-button--add"
                             fullwidth="true"
                             color="default"
                             type="button">
                             Seja um associado Impact
                           </Button>
-                        </Link>
                     </center>
 
                   <CardActions>        
