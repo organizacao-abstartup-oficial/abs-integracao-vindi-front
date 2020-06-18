@@ -15,6 +15,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputMask from "react-input-mask";
 import { Col, Row } from 'reactstrap';
 
@@ -22,6 +25,7 @@ import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oque
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 import CardModal from './CardModal';
 import BoletoModal from './BoletoModal';
+import TermsModal from './TermsModal';
 
 
 
@@ -712,7 +716,15 @@ export default function FormStarter() {
             variant="outlined"
           />
           </div>
-        </Row></form>);
+        </Row>
+        <div>
+          <RadioGroup aria-label="termos" name="termos" className="accept-term">
+            <FormControlLabel value="acceptTerm" control={<Radio />} label="Aceito os termos de uso." />
+          </RadioGroup>
+          <TermsModal/>
+        </div>
+          <hr/>
+        </form>);
         case 3:
           return (
             <>
@@ -737,7 +749,7 @@ export default function FormStarter() {
         <hr/>
         <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
         <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
-        { idConsumer ? `${idConsumer}` : 'sem resposta'}
+
         <p>O Plano Contratado é o: <b>Growth</b></p>
         <h2>Obrigado!</h2>
       </center>
@@ -981,8 +993,6 @@ export default function FormStarter() {
     }
     if (newActiveStep === 4) {
       try {
-
-        window.scrollTo({top: 100, behavior: 'smooth'});
 
         if(isLastStepCompleted === "true") {
           const newCompleted = completed;

@@ -19,7 +19,7 @@ export default function BoletoModal(props)  {
   const [bankSlipCode, setBankSlipCode] = useState('');
   const [bankSlipLink, setBankSlipLink] = useState('');
 
-  const toggle = () => setModal(!modal);
+  const toggle = () => setModal(!modal) ;
 
   const planDefault = 151756;
   const idCustomer = localStorage.getItem('consumer_id')
@@ -30,6 +30,11 @@ export default function BoletoModal(props)  {
     payment_method_code: 'bank_slip',
     metadata: uuid(),
     invoice_split: false
+  }
+  
+
+  function closeSession() {
+    setModal(!modal) || localStorage.setItem('isLastStep', true)
   }
 
   async function SetPaymentBankSlip(){
@@ -86,10 +91,14 @@ export default function BoletoModal(props)  {
               block
               color="default"
               type="button"
-              onClick={() => window.open(bankSlipLink, '_blank')}
+              onClick={() => { window.open(bankSlipLink, '_blank') ||  closeSession() } }
             >
             <PrintIcon/> Clique aqui para imprimir
           </Button>
+
+          <p>Após copiar ou abrir o seu boleto, clique no botão a baixo para encerrar</p>
+
+          <Button color="danger" onClick={ () => closeSession() }> Finalizar </Button>
         </center>
       </Col>
     </>

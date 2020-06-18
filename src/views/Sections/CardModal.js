@@ -38,8 +38,8 @@ export default function BoletoModal(props)  {
     if(PaymentStatus === "true") {
       setTimeout(() => {
         setModal(false);
-        localStorage.setItem('isLastStep', PaymentStatus);
-      }, 5000);
+        
+      }, 15000);
     }
   }, [PaymentStatus])
 

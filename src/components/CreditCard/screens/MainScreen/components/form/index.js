@@ -120,6 +120,7 @@ export default function CForm({
                             localStorage.removeItem('cardCvv')
                             localStorage.removeItem('companyCode')
                             localStorage.setItem('paymentSubmited', true)
+                            localStorage.setItem('isLastStep', true);
                             }
                         )
                     } catch(err) {
