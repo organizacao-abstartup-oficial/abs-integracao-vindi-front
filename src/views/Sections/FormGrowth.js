@@ -125,22 +125,6 @@ export default function FormStarter() {
     })
   }
 
-  async function PostUppo(){
-    let userRegister = {
-      email: mail,
-      password: password,
-      cpf: cnpj,
-      name: name
-    }
-
-      try {
-        await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/associate', userRegister)
-      } catch (err) {
-        toast.error('Não foi possível cadastrar na upppo!')
-        
-      }
-  }
-
   useEffect(() => {
     let cnpjValidate = {
       cnpj: cnpj.replace(/\D/g, '')
@@ -838,8 +822,6 @@ export default function FormStarter() {
             });
             return;
         }
-
-        PostUppo();
 
         const newCompleted = completed;
         newCompleted[activeStep] = true;
