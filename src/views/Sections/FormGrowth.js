@@ -680,7 +680,7 @@ export default function FormStarter() {
               <option key={time.id} value={time.text}>{time.text}</option>
             ))}
           </TextField>
-          <TextField
+          {/* <TextField
             id="ajuda"
             select
             fullWidth
@@ -699,9 +699,10 @@ export default function FormStarter() {
           { oquebusca.map(oquebusca => (
             <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
           ))}
-            {/* <option value="0">Mentorias</option> */}
+             <option value="0">Mentorias</option> 
 
-          </TextField>
+          </TextField> */}
+          
           </div>
         </Row>
             
@@ -913,7 +914,6 @@ export default function FormStarter() {
           getfase: Yup.string().ensure().required(),
           getinvestimentos: Yup.string().ensure().required(),
           gettime: Yup.string().ensure().required(),
-          getajuda: Yup.string().ensure().required(),
         });
 
         const data = {
@@ -924,7 +924,6 @@ export default function FormStarter() {
           getfase,
           getinvestimentos,
           gettime,
-          getajuda
         };
 
         await schema.validate(data, {
@@ -965,7 +964,6 @@ export default function FormStarter() {
             getfase,
             getinvestimentos,
             gettime,
-            getajuda,
             checkedTerm
           } = errorMessages;
           setHasError(
@@ -977,7 +975,6 @@ export default function FormStarter() {
               getfase,
               getinvestimentos,
               gettime,
-              getajuda,
               checkedTerm
             }
           );
