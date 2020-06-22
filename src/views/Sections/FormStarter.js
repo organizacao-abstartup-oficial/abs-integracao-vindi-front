@@ -729,7 +729,7 @@ export default function FormStarter() {
         </Row>
 
         <RadioGroup aria-label="termos" name="termos" className="accept-term">
-          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Aceito os termos de uso." />{' '}<TermsModal/> 
+          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Eu aceito os termos de uso." />{' '}<TermsModal/> 
         </RadioGroup>
 
         <hr/>
