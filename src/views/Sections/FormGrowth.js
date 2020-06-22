@@ -21,7 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputMask from "react-input-mask";
 import { Col, Row } from 'reactstrap';
 
-import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 import CardModal from './CardModal';
 import BoletoModal from './BoletoModal';
@@ -63,7 +63,6 @@ export default function FormStarter() {
     getfase: false,
     getinvestimentos: false,
     gettime: false,
-    getajuda: false,
     cep: false,
     numeroLogradouro: false,
     checkedTerm: checked
@@ -94,7 +93,6 @@ export default function FormStarter() {
   const [ getfase, setGetFase ] = useState('');
   const [ getinvestimentos, setGetInvestimento ] = useState('');
   const [ gettime, setGetTime ] = useState('');
-  const [ getajuda, setGetAjuda ] = useState('');
   const [ site, setSite ] = useState('');
   const [ linkedin, setLinkedin ] = useState('');
   const [ facebook, setFacebook ] = useState('');
@@ -164,7 +162,6 @@ export default function FormStarter() {
         fase_startup: getfase,
         recebeu_investimento: getinvestimentos,
         tamanho_time: gettime,
-        abstartups_ajuda: getajuda,
         end_site: site,
         linkedin,
         facebook,
@@ -706,12 +703,10 @@ export default function FormStarter() {
           </div>
         </Row>
             
-      <div>
-        <TermsModal/>
         <RadioGroup aria-label="termos" name="termos" className="accept-term">
-          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Aceito os termos de uso." />
+          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Aceito os termos de uso." />{' '}<TermsModal/> 
         </RadioGroup>
-      </div>
+      
         <hr/>
         </form>);
         case 3:

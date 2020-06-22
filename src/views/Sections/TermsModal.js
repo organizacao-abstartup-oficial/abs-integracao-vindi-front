@@ -161,7 +161,7 @@ Caso esteja plenamente de acordo com estes termos e condições, clique em ACEIT
   return (
     <div>
       <Col md="12">
-        <Link onClick={toggle} > Leia os termos de uso.</Link>
+        <Link onClick={toggle} > Clique qui para ler o termo.</Link>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalBody>
             { termsOfUse }

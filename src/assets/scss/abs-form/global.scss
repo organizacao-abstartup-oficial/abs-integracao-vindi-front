@@ -6,6 +6,26 @@
     align-items: baseline;
 }
 
+.MuiFormGroup-root {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: unset !important;
+}
+
+.MuiFormGroup-root {
+    margin-left: 0px !important;
+}
+
+.accept-term{
+    display: flex !important;
+    a{
+        margin-left: -20px;
+        line-height: 2.6;
+        
+    }
+    
+}
+
 .landingpage-benefits{
     p, span, h6{
         font-family: 'Montserrat', sans-serif;
