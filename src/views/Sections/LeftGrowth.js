@@ -12,8 +12,7 @@ export default function IndexSections() {
             NOVO CADASTRO
           </h3>
           
-          <p>Informe seus dados pessoais para criar a sua conta. <br/>
-          Você irá utilizar este login para todas as nossas atividades.</p>
+          <p>Informe seus dados pessoais para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
 
           <img src={plainLogo} alt="growth" width="200px"/>
           <br/>

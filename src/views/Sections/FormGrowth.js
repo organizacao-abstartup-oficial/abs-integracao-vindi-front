@@ -220,6 +220,7 @@ export default function FormStarter() {
     switch (step) {
       case 0:
         return ( <form autoComplete="on" ><Row lg="8">
+        <CardModal/>
           <TextField
             label="Nome"
             required={true}
