@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Link } from 'react-router-dom';
 import { Modal,  ModalBody, Col } from 'reactstrap';
-import PersonIcon from '@material-ui/icons/Person';
 
 export default function Terms(props)  {
   const {
