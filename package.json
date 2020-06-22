@@ -59,6 +59,7 @@
     "react-dev-utils": "~10.1.0",
     "react-dom": "^16.13.1",
     "react-final-form": "^6.4.0",
+    "react-iframe": "^1.8.0",
     "react-input-mask": "^2.0.4",
     "react-lottie": "^1.2.3",
     "react-material-ui-form-validator": "^2.0.10",
