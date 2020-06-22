@@ -21,11 +21,6 @@ export default function IndexSections() {
           <h5><b>Plano Start - Grátis</b></h5>
           <hr/>
           <p>Tenha acesso a benefícios e descontos exclusivos da Abstartups:</p>
-          <ul>
-            <li>Acesso a todos os benefícios do Portal de Benefícios START</li>
-            <li>Acesso ao Slack da nossa Comunidade de Associados</li>
-            <li>Newsletter exclusiva</li>
-          </ul>
           <p>Quer acelerar ainda mais sua startup com muito mais benefícios e vantagens? Conheça o nosso plano <b>Growth</b> clicando no botão abaixo.</p>
 
           <Link to="/growth"><Button variant="contained" fullWidth color="primary"> Seja um Growth </Button></Link>

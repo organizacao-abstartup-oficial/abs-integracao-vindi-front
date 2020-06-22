@@ -108,7 +108,7 @@ export default function BoletoModal(props)  {
   return (
     <div>
       <Col md="12">
-        <Button  block color="danger" onClick={toggle}> <PrintIcon/> PAGAR COM BOLETO</Button>
+        <div className="bankslip--act"><p><b>Você também pode fazer o pagamento via boleto</b> {' '}</p> <Button color="default" onClick={toggle}> <PrintIcon/> PAGAR COM BOLETO</Button></div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Pagamento com Boleto</ModalHeader>
           <ModalBody>

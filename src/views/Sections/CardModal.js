@@ -72,7 +72,7 @@ export default function BoletoModal(props)  {
   return (
     <div>
       <Col md="12">
-        <Button  block color="default" type="button" onClick={toggle}> <CreditCardIcon/> PAGAR COM CARTÃO </Button>
+        <Button  block color="danger" type="button" onClick={toggle}> <CreditCardIcon/> PAGAR COM CARTÃO </Button>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Pagamento com Cartão de Crédito</ModalHeader>
           <ModalBody>
