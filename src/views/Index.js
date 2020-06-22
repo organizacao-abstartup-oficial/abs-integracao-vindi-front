@@ -3,7 +3,8 @@ import React from "react";
 import { Container } from 'reactstrap';
 import Lottie from 'react-lottie';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 import startLottie from '../components/Animation/17056-smartsharp-animations-volume-2.json';
 import growthLottie from '../components/Animation/17054-smartsharp-animations-volume-1.json';
@@ -78,7 +79,6 @@ export default function StarterForm() {
               <br/>
             </center>
             <br/>
-
             <Row>
                 <Col md="12">
                   <center>
@@ -130,6 +130,8 @@ export default function StarterForm() {
 
             <hr/>
 
+            
+            <ScrollAnimation animateIn='bounceInRight' animateOut='bounceOutLeft'>
             <Row>
 
               <Col md="4">
@@ -417,7 +419,7 @@ export default function StarterForm() {
 
 
             </Row>
-          
+            </ScrollAnimation>
           <hr/>
          
           {/* <Container className="container-lg">
@@ -522,7 +524,11 @@ export default function StarterForm() {
             </Row>
           </Container> */}
         </Container>
+        
+        <ScrollAnimation animateIn='bounceInRight'
+  animateOut='bounceOutLeft'>
         <Footer />
+        </ScrollAnimation>
         
       </>
   );
