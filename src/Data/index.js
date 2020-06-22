@@ -77,15 +77,15 @@ export const negocios = [
 
 export const negociosShort = [
   {id: 0, text: '' },
-  {id: 1, text: 'Marketplace' },
-  {id: 2, text: 'SaaS' },
+  {id: 1, text: 'API' },
+  {id: 2, text: 'Consumer' },
   {id: 3, text: 'E-commerce' },
-  {id: 4, text: 'Consumer' },
-  {id: 5, text: 'API' },
-  {id: 6, text: 'Venda de dados' },
-  {id: 7, text: 'Licenciamento' },
-  {id: 8, text: 'Hardware' },
-  {id: 9, text: 'Outros' },
+  {id: 4, text: 'Hardware' },
+  {id: 5, text: 'Licenciamento' },
+  {id: 6, text: 'Marketplace' },
+  {id: 7, text: 'Outros' },
+  {id: 8, text: 'SaaS' },
+  {id: 9, text: 'Venda de dados' },
 ]
 
 export const fasesShort = [
@@ -144,9 +144,9 @@ export const investimentos = [
 
 export const status = [
   {id: 0, text: ''},
-  {id: 1, text: 'Em Operação'},
-  {id: 2, text: 'Fechada'},
-  {id: 3, text: 'Adquirida'},
+  {id: 1, text: 'Adquirida'},
+  {id: 2, text: 'Em Operação'},
+  {id: 3, text: 'Fechada'},
   {id: 4, text: 'IPO'},
 ]
 
@@ -161,11 +161,11 @@ export const time = [
 
 export const oquebusca = [
   {id: 0, text: ''},
-  {id: 1, text: 'Mentoria'},
-  {id: 2, text: 'Investidor'},
-  {id: 3, text: 'Desconto em produtos'},
-  {id: 4, text: 'Networking'},
-  {id: 5, text: 'Visibilidade'},
-  {id: 6, text: 'Ingressos do CASE'},
-  {id: 7, text: 'Outros'},
+  {id: 1, text: 'Desconto em produtos'},
+  {id: 2, text: 'Ingressos do CASE'},
+  {id: 3, text: 'Investidor'},
+  {id: 4, text: 'Mentoria'},
+  {id: 5, text: 'Networking'},
+  {id: 6, text: 'Outros'},
+  {id: 7, text: 'Visibilidade'},
 ]

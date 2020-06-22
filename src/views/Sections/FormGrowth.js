@@ -28,8 +28,6 @@ import BoletoModal from './BoletoModal';
 import TermsModal from './TermsModal';
 
 
-
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -48,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 export default function FormStarter() {
 
   const classes = useStyles();
+  const [checked, setChecked] = useState(false);
+
   const [ hasError, setHasError ] = useState({
     name: false,
     business: false,
@@ -66,6 +66,7 @@ export default function FormStarter() {
     getajuda: false,
     cep: false,
     numeroLogradouro: false,
+    checkedTerm: checked
   });
   const [ activeStep, setActiveStep ] = useState(0);
   const [validaCnpj, setValidaCnpj] = useState(false);
@@ -212,7 +213,7 @@ export default function FormStarter() {
   };
 
   function getSteps() {
-  return ['Informações', 'Modelo de negócio', 'Contato', 'Pagamento'];
+  return ['Informações', 'Contato', 'Modelo de negócio', 'Pagamento'];
   }
 
   function getStepContent(step) {
@@ -340,7 +341,181 @@ export default function FormStarter() {
             </Row></form>);
 
         case 1: 
-          return  (<form><Row lg="8" xs="12">
+        return ( <form><Row lg="8">
+
+        <div style={{ display: 'flex', width: '100%' }}>
+          <InputMask
+            mask="99999-999"
+            value={cep}
+            onChange={ e => { setCep( e.target.value ) } }
+
+          >
+            {() => 
+              <TextField
+                  label="CEP"
+                  id="cep"
+                  required={true}
+                  style={{ margin: 8}}
+                  helperText="Insira o CEP"
+                  margin="normal"
+                  variant="outlined"
+                  error={hasError.cep}
+                />}
+          </InputMask>
+        <Button 
+          variant="contained"
+          fullWidth
+          color="primary"
+          style={{ margin: 8, marginBottom: 30}}
+          onClick={getAddress}>
+          AUTO COMPLETAR ENDEREÇO
+        </Button>
+
+        </div>
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          disabled
+          label="Municício"
+          id="municipio"
+          required={true}
+          style={{ margin: 8, width: 200  }}
+          placeholder={municipio}
+          value={municipio}
+          helperText="Cidade"
+          vmargin="normal"
+          variant="outlined"
+        />
+        <TextField
+          disabled
+          label="UF"
+          id="uf"
+          required={true}
+          style={{ margin: 8, width: 100 }}
+          placeholder={uf}
+          value={uf}
+          helperText="UF"
+          vmargin="normal"
+          variant="outlined"
+        />
+        </div>
+
+        <TextField
+          disabled
+          id="logradouro"
+          label="Endereço"
+          style={{ margin: 8 }}
+          InputProps={{ readOnly: true, }}
+          value={logradouro}
+          placeholder={logradouro}
+          helperText="Logradouro ex: Rua... Avenida"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          label="Número"
+          id="number"
+          type='text'
+          required={true}
+          style={{ margin: 8 }}
+          value={numeroLogradouro}
+          onChange={ e => setNumeroLogradouro(e.target.value)}
+          placeholder="Número"
+          helperText="Número"
+          margin="normal"
+          variant="outlined"
+          error={hasError.numeroLogradouro}
+        />
+        <TextField
+          label="Complemento"
+          id="complemento"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={complemento}
+          onChange={ e => setComplemento(e.target.value)}
+          helperText="Ex: Casa, Apartamento ..."
+          vmargin="normal"
+          variant="outlined"
+          error={hasError.complemento}
+        />
+        </div>
+
+        <hr/>
+
+        <TextField
+          id="website"
+          label="Site"
+          type='text'
+          style={{ margin: 8 }}
+          value={site}
+          onChange={ e => setSite(e.target.value)}
+          placeholder="Qual o site?"
+          helperText="Insira o endereço do seu site. (opcional)"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          label="Linkedin"
+          id="linkedin"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={linkedin}
+          onChange={ e => setLinkedin(e.target.value)}
+          helperText="URL do Linkedin (opcional)"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          label="Facebook"
+          id="facebook"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={facebook}
+          onChange={ e => setFacebook(e.target.value)}
+          helperText="URL do Facebook (opcional)"
+          vmargin="normal"
+          variant="outlined"
+        />
+        </div>
+
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          label="Instagram"
+          id="instagram"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={instagram}
+          onChange={ e => setInstagram(e.target.value)}
+          helperText="URL do Instagram (opcional)"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          label="YouTube"
+          id="YouTube"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={youtube}
+          onChange={ e => setYoutube(e.target.value)}
+          helperText="URL do Youtube (opcional)"
+          vmargin="normal"
+          variant="outlined"
+        />
+        </div>
+      </Row>
+      </form>);
+
+      case 2:
+        return  (<form><Row lg="8" xs="12">
         
         <div style={{ display: 'flex', width: '100%' }} xs="12">
           <TextField
@@ -524,191 +699,19 @@ export default function FormStarter() {
           { oquebusca.map(oquebusca => (
             <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
           ))}
-            <option value="0">Mentorias</option>
+            {/* <option value="0">Mentorias</option> */}
 
           </TextField>
           </div>
-        </Row></form>);
-
-      case 2:
-        return ( <form><Row lg="8">
-
-          <div style={{ display: 'flex', width: '100%' }}>
-            <InputMask
-              mask="99999-999"
-              value={cep}
-              onChange={ e => { setCep( e.target.value ) } }
-
-            >
-              {() => 
-                <TextField
-                    label="CEP"
-                    id="cep"
-                    required={true}
-                    style={{ margin: 8}}
-                    helperText="Insira o CEP"
-                    margin="normal"
-                    variant="outlined"
-                    error={hasError.cep}
-                  />}
-            </InputMask>
-          <Button 
-            variant="contained"
-            fullWidth
-            color="primary"
-            style={{ margin: 8, marginBottom: 30}}
-            onClick={getAddress}>
-            AUTO COMPLETAR ENDEREÇO
-          </Button>
-
-          </div>
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            disabled
-            label="Municício"
-            id="municipio"
-            required={true}
-            style={{ margin: 8, width: 200  }}
-            placeholder={municipio}
-            value={municipio}
-            helperText="Cidade"
-            vmargin="normal"
-            variant="outlined"
-          />
-          <TextField
-            disabled
-            label="UF"
-            id="uf"
-            required={true}
-            style={{ margin: 8, width: 100 }}
-            placeholder={uf}
-            value={uf}
-            helperText="UF"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
-
-          <TextField
-            disabled
-            id="logradouro"
-            label="Endereço"
-            style={{ margin: 8 }}
-            InputProps={{ readOnly: true, }}
-            value={logradouro}
-            placeholder={logradouro}
-            helperText="Logradouro ex: Rua... Avenida"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Número"
-            id="number"
-            type='text'
-            required={true}
-            style={{ margin: 8 }}
-            value={numeroLogradouro}
-            onChange={ e => setNumeroLogradouro(e.target.value)}
-            placeholder="Número"
-            helperText="Número"
-            margin="normal"
-            variant="outlined"
-            error={hasError.numeroLogradouro}
-          />
-          <TextField
-            label="Complemento"
-            id="complemento"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={complemento}
-            onChange={ e => setComplemento(e.target.value)}
-            helperText="Ex: Casa, Apartamento ..."
-            vmargin="normal"
-            variant="outlined"
-            error={hasError.complemento}
-          />
-          </div>
-
-          <hr/>
-
-          <TextField
-            id="website"
-            label="Site"
-            type='text'
-            style={{ margin: 8 }}
-            value={site}
-            onChange={ e => setSite(e.target.value)}
-            placeholder="Qual o site?"
-            helperText="Insira o endereço do seu site. (opcional)"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Linkedin"
-            id="linkedin"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={linkedin}
-            onChange={ e => setLinkedin(e.target.value)}
-            helperText="URL do Linkedin (opcional)"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="Facebook"
-            id="facebook"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={facebook}
-            onChange={ e => setFacebook(e.target.value)}
-            helperText="URL do Facebook (opcional)"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
-
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Instagram"
-            id="instagram"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={instagram}
-            onChange={ e => setInstagram(e.target.value)}
-            helperText="URL do Instagram (opcional)"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="YouTube"
-            id="YouTube"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={youtube}
-            onChange={ e => setYoutube(e.target.value)}
-            helperText="URL do Youtube (opcional)"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
         </Row>
-        <div>
-          <RadioGroup aria-label="termos" name="termos" className="accept-term">
-            <FormControlLabel value="acceptTerm" control={<Radio />} label="Aceito os termos de uso." />
-          </RadioGroup>
-          <TermsModal/>
-        </div>
-          <hr/>
+            
+      <div>
+        <TermsModal/>
+        <RadioGroup aria-label="termos" name="termos" className="accept-term">
+          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Aceito os termos de uso." />
+        </RadioGroup>
+      </div>
+        <hr/>
         </form>);
         case 3:
           return (
@@ -794,10 +797,7 @@ export default function FormStarter() {
           password: Yup.string().required(),
           confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
         });
-
         
-        //CNPJvalidate()
-
         const data = {
           name,
           business,
@@ -861,6 +861,46 @@ export default function FormStarter() {
       }
     }
     if (newActiveStep === 2){
+      try {
+
+        const schema = Yup.object().shape({
+          cep: Yup.string().required(),
+          numeroLogradouro: Yup.string().required(),
+          complemento: Yup.string().required()
+        });
+
+        const data = {
+          cep,
+          numeroLogradouro,
+          complemento
+        };
+        await schema.validate(data, {
+          abortEarly: false
+        });
+
+        window.scrollTo({top: 100, behavior: 'smooth'});
+
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        setActiveStep(newActiveStep);
+
+      } catch (err) {
+        toast.error('Por favor, preencha todos os campos obrigatórios.')
+        if(err instanceof Yup.ValidationError){
+          const errorMessages = {};
+          err.inner.forEach(error => {
+            errorMessages[error.path] = true;
+          });
+          const { cep, numeroLogradouro, complemento } = errorMessages;
+          setHasError({
+            ...hasError, cep, numeroLogradouro, complemento
+          })
+        }
+      }
+      
+    } 
+    if (newActiveStep === 3) {
       console.log(`Validar passo 2`)
       window.scrollTo({top: 100, behavior: 'smooth'});
 
@@ -891,6 +931,20 @@ export default function FormStarter() {
           abortEarly: false
         });
 
+        if(!checked) {
+          toast.error('Por favor aceite os termos de uso para continuar.');
+          setHasError(
+            {
+              ...hasError, 
+              checkedTerm: true,
+            });
+            return;
+        }
+
+        PostRegister();
+        // handleRegisterVindi()
+        // handleRegisterUppo()
+
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
@@ -911,7 +965,8 @@ export default function FormStarter() {
             getfase,
             getinvestimentos,
             gettime,
-            getajuda
+            getajuda,
+            checkedTerm
           } = errorMessages;
           setHasError(
             { ...hasError, 
@@ -922,57 +977,14 @@ export default function FormStarter() {
               getfase,
               getinvestimentos,
               gettime,
-              getajuda
+              getajuda,
+              checkedTerm
             }
           );
         }
       }
+
       
-    } 
-    if (newActiveStep === 3) {
-      
-
-      try {
-
-        const schema = Yup.object().shape({
-          cep: Yup.string().required(),
-          numeroLogradouro: Yup.string().required(),
-          complemento: Yup.string().required()
-        });
-
-        const data = {
-          cep,
-          numeroLogradouro,
-          complemento
-        };
-        await schema.validate(data, {
-          abortEarly: false
-        });
-
-        PostRegister();
-        // handleRegisterVindi()
-        // handleRegisterUppo()
-
-        window.scrollTo({top: 100, behavior: 'smooth'});
-
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-        setActiveStep(newActiveStep);
-
-      } catch (err) {
-        toast.error('Por favor, preencha todos os campos obrigatórios.')
-        if(err instanceof Yup.ValidationError){
-          const errorMessages = {};
-          err.inner.forEach(error => {
-            errorMessages[error.path] = true;
-          });
-          const { cep, numeroLogradouro, complemento } = errorMessages;
-          setHasError({
-            ...hasError, cep, numeroLogradouro, complemento
-          })
-        }
-      }
     }
     if (newActiveStep === 4) {
       try {
@@ -1024,14 +1036,11 @@ export default function FormStarter() {
               height={100}
               width={100}
             />
-
-              <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
-              <hr/>
-              <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
-              <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
+              <h5 className={classes.instructions}>Oba {name}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil!</h5>
+              <h3 className={classes.instructions}>Acesse nosso painel de benefícios e aproveite!</h3>
               { idConsumer ? `${idConsumer}` : 'sem resposta'}
               <p>O Plano Contratado é o: <b>Growth</b></p>
-              <h2>Obrigado!</h2>
+              <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
 

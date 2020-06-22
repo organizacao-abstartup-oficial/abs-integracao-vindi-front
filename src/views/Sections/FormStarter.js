@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
@@ -18,6 +18,10 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import InputMask from "react-input-mask";
 import { Col, Row } from 'reactstrap';
+import TermsModal from './TermsModal';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
@@ -42,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
 export default function FormStarter() {
 
   const classes = useStyles();
+  const [checked, setChecked] = useState(false);
+  const [validaCnpj, setValidaCnpj] = useState(false);
+  const [ razaoSocial, setRazaoSocial ] = useState('');
   const [ hasError, setHasError ] = useState({
     name: false,
     business: false,
@@ -60,6 +67,7 @@ export default function FormStarter() {
     getajuda: false,
     cep: false,
     numeroLogradouro: false,
+    checkedTerm: checked
   });
 
   const [ activeStep, setActiveStep ] = useState(0);
@@ -125,12 +133,36 @@ export default function FormStarter() {
       }
     }
 
+    useEffect(() => {
+    let cnpjValidate = {
+      cnpj: cnpj.replace(/\D/g, '')
+    }
+
+      try {
+        if(cnpjValidate.cnpj.length === 14){
+          axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate).then(response => {
+            if(response.data.status !== 400) {
+              setRazaoSocial(response.data.nome)
+              setValidaCnpj(true);
+              setHasError({cnpj: false})
+              return;
+            }
+            setHasError({cnpj:true})
+          })
+        }
+      } catch (err) {
+        toast.error('Problemas ao conectar-se com o servidor.')
+        
+      }
+  }, [cnpj])
+
   async function PostRegister(){
     let consumerData = {
       name: business,
       email: mail,
       registry_code: cnpj.replace(/\D/g, ''),
       metadata: {
+        razao_social: razaoSocial,
         nome_pessoa_fisica: name,
         cargo_empresa: getcargo,
         nro_socios: getsocios,
@@ -209,7 +241,7 @@ export default function FormStarter() {
   };
 
   function getSteps() {
-  return ['Dados do Contato', 'Modelo de negócio', 'Contato'];
+    return ['Informações', 'Contato', 'Modelo de negócio'];
   }
 
   function getStepContent(step) {
@@ -336,7 +368,180 @@ export default function FormStarter() {
             </Row></form>);
 
         case 1: 
-          return  (<form><Row lg="8" xs="12">
+        return ( <form><Row lg="8">
+
+        <div style={{ display: 'flex', width: '100%' }}>
+          <InputMask
+            mask="99999-999"
+            value={cep}
+            onChange={ e => { setCep( e.target.value ) } }
+
+          >
+            {() => 
+              <TextField
+                  label="CEP"
+                  id="cep"
+                  required={true}
+                  style={{ margin: 8}}
+                  helperText="Insira o CEP"
+                  margin="normal"
+                  variant="outlined"
+                  error={hasError.cep}
+                />}
+          </InputMask>
+        <Button 
+          variant="contained"
+          fullWidth
+          color="primary"
+          style={{ margin: 8, marginBottom: 30}}
+          onClick={getAddress}>
+          AUTO COMPLETAR ENDEREÇO
+        </Button>
+
+        </div>
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          disabled
+          label="Municício"
+          id="municipio"
+          required={true}
+          style={{ margin: 8, width: 200  }}
+          placeholder={municipio}
+          value={municipio}
+          helperText="Cidade"
+          vmargin="normal"
+          variant="outlined"
+        />
+        <TextField
+          disabled
+          label="UF"
+          id="uf"
+          required={true}
+          style={{ margin: 8, width: 100 }}
+          placeholder={uf}
+          value={uf}
+          helperText="UF"
+          vmargin="normal"
+          variant="outlined"
+        />
+        </div>
+
+        <TextField
+          disabled
+          id="logradouro"
+          label="Endereço"
+          style={{ margin: 8 }}
+          InputProps={{ readOnly: true, }}
+          value={logradouro}
+          placeholder={logradouro}
+          helperText="Logradouro ex: Rua... Avenida"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          label="Número"
+          id="number"
+          type='text'
+          required={true}
+          style={{ margin: 8 }}
+          value={numeroLogradouro}
+          onChange={ e => setNumeroLogradouro(e.target.value)}
+          placeholder="Número"
+          helperText="Número"
+          margin="normal"
+          variant="outlined"
+          error={hasError.numeroLogradouro}
+        />
+        <TextField
+          label="Complemento"
+          id="complemento"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={complemento}
+          onChange={ e => setComplemento(e.target.value)}
+          helperText="Ex: Casa, Apartamento ..."
+          vmargin="normal"
+          variant="outlined"
+          error={hasError.complemento}
+        />
+        </div>
+
+        <hr/>
+
+        <TextField
+          id="website"
+          label="Site"
+          type='text'
+          style={{ margin: 8 }}
+          value={site}
+          onChange={ e => setSite(e.target.value)}
+          placeholder="Qual o site?"
+          helperText="Insira o endereço do seu site. (opcional)"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          label="Linkedin"
+          id="linkedin"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={linkedin}
+          onChange={ e => setLinkedin(e.target.value)}
+          helperText="URL do Linkedin (opcional)"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          label="Facebook"
+          id="facebook"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={facebook}
+          onChange={ e => setFacebook(e.target.value)}
+          helperText="URL do Facebook (opcional)"
+          vmargin="normal"
+          variant="outlined"
+        />
+        </div>
+
+        <div style={{ display: 'flex', width: '100%' }}>
+        <TextField
+          label="Instagram"
+          id="instagram"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={instagram}
+          onChange={ e => setInstagram(e.target.value)}
+          helperText="URL do Instagram (opcional)"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          label="YouTube"
+          id="YouTube"
+          fullWidth
+          type='text'
+          style={{ margin: 8 }}
+          value={youtube}
+          onChange={ e => setYoutube(e.target.value)}
+          helperText="URL do Youtube (opcional)"
+          vmargin="normal"
+          variant="outlined"
+        />
+        </div>
+      </Row></form>);
+
+      case 2:
+        return  (<form><Row lg="8" xs="12">
         
         <div style={{ display: 'flex', width: '100%' }} xs="12">
           <TextField
@@ -524,180 +729,15 @@ export default function FormStarter() {
 
           </TextField>
           </div>
-        </Row></form>);
-
-      case 2:
-        return ( <form><Row lg="8">
-
-          <div style={{ display: 'flex', width: '100%' }}>
-            <InputMask
-              mask="99999-999"
-              value={cep}
-              onChange={ e => { setCep( e.target.value ) } }
-
-            >
-              {() => 
-                <TextField
-                    label="CEP"
-                    id="cep"
-                    required={true}
-                    style={{ margin: 8}}
-                    helperText="Insira o CEP"
-                    margin="normal"
-                    variant="outlined"
-                    error={hasError.cep}
-                  />}
-            </InputMask>
-          <Button 
-            variant="contained"
-            fullWidth
-            color="primary"
-            style={{ margin: 8, marginBottom: 30}}
-            onClick={getAddress}>
-            AUTO COMPLETAR ENDEREÇO
-          </Button>
-
-          </div>
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            disabled
-            label="Municício"
-            id="municipio"
-            required={true}
-            style={{ margin: 8, width: 200  }}
-            placeholder={municipio}
-            value={municipio}
-            helperText="Cidade"
-            vmargin="normal"
-            variant="outlined"
-          />
-          <TextField
-            disabled
-            label="UF"
-            id="uf"
-            required={true}
-            style={{ margin: 8, width: 100 }}
-            placeholder={uf}
-            value={uf}
-            helperText="UF"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
-
-          <TextField
-            disabled
-            id="logradouro"
-            label="Endereço"
-            style={{ margin: 8 }}
-            InputProps={{ readOnly: true, }}
-            value={logradouro}
-            placeholder={logradouro}
-            helperText="Logradouro ex: Rua... Avenida"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Número"
-            id="number"
-            type='text'
-            required={true}
-            style={{ margin: 8 }}
-            value={numeroLogradouro}
-            onChange={ e => setNumeroLogradouro(e.target.value)}
-            placeholder="Número"
-            helperText="Número"
-            margin="normal"
-            variant="outlined"
-            error={hasError.numeroLogradouro}
-          />
-          <TextField
-            label="Complemento"
-            id="complemento"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={complemento}
-            onChange={ e => setComplemento(e.target.value)}
-            helperText="Ex: Casa, Apartamento ..."
-            vmargin="normal"
-            variant="outlined"
-            error={hasError.complemento}
-          />
-          </div>
-
-          <hr/>
-
-          <TextField
-            id="website"
-            label="Site"
-            type='text'
-            style={{ margin: 8 }}
-            value={site}
-            onChange={ e => setSite(e.target.value)}
-            placeholder="Qual o site?"
-            helperText="Insira o endereço do seu site. (opcional)"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Linkedin"
-            id="linkedin"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={linkedin}
-            onChange={ e => setLinkedin(e.target.value)}
-            helperText="URL do Linkedin (opcional)"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="Facebook"
-            id="facebook"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={facebook}
-            onChange={ e => setFacebook(e.target.value)}
-            helperText="URL do Facebook (opcional)"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
-
-          <div style={{ display: 'flex', width: '100%' }}>
-          <TextField
-            label="Instagram"
-            id="instagram"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={instagram}
-            onChange={ e => setInstagram(e.target.value)}
-            helperText="URL do Instagram (opcional)"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            label="YouTube"
-            id="YouTube"
-            fullWidth
-            type='text'
-            style={{ margin: 8 }}
-            value={youtube}
-            onChange={ e => setYoutube(e.target.value)}
-            helperText="URL do Youtube (opcional)"
-            vmargin="normal"
-            variant="outlined"
-          />
-          </div>
-        </Row></form>);
+        </Row>
+        <div>
+        <TermsModal/>
+        <RadioGroup aria-label="termos" name="termos" className="accept-term">
+          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Aceito os termos de uso." />
+        </RadioGroup>
+      </div>
+        <hr/>
+        </form>);
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -714,7 +754,7 @@ export default function FormStarter() {
   };
 
   const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
+    return activeStep === totalSteps();
   };
 
   const allStepsCompleted = () => {
@@ -727,9 +767,8 @@ export default function FormStarter() {
     
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
-      
+
     if (newActiveStep === 1){
-      console.log(`Post Uppo`)
       window.scrollTo({top: 100, behavior: 'smooth'});
       localStorage.removeItem('consumer_id');
 
@@ -743,7 +782,7 @@ export default function FormStarter() {
           password: Yup.string().required(),
           confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
         });
-
+        
         const data = {
           name,
           business,
@@ -753,10 +792,20 @@ export default function FormStarter() {
           password,
           confirmpassword
         }
+
         await schema.validate(data, {
           abortEarly: false
         })
-        PostUppo();
+
+        if(!validaCnpj) {
+          toast.error('Digite um CNPJ válido.');
+          setHasError(
+            {
+              ...hasError, 
+              cnpj: true,
+            });
+            return;
+        }
 
         const newCompleted = completed;
         newCompleted[activeStep] = true;
@@ -790,10 +839,51 @@ export default function FormStarter() {
               password,
               confirmpassword
             })
+          
         }
       }
     }
     if (newActiveStep === 2){
+      try {
+
+        const schema = Yup.object().shape({
+          cep: Yup.string().required(),
+          numeroLogradouro: Yup.string().required(),
+          complemento: Yup.string().required()
+        });
+
+        const data = {
+          cep,
+          numeroLogradouro,
+          complemento
+        };
+        await schema.validate(data, {
+          abortEarly: false
+        });
+
+        window.scrollTo({top: 100, behavior: 'smooth'});
+
+        const newCompleted = completed;
+        newCompleted[activeStep] = true;
+        setCompleted(newCompleted);
+        setActiveStep(newActiveStep);
+
+      } catch (err) {
+        toast.error('Por favor, preencha todos os campos obrigatórios.')
+        if(err instanceof Yup.ValidationError){
+          const errorMessages = {};
+          err.inner.forEach(error => {
+            errorMessages[error.path] = true;
+          });
+          const { cep, numeroLogradouro, complemento } = errorMessages;
+          setHasError({
+            ...hasError, cep, numeroLogradouro, complemento
+          })
+        }
+      }
+      
+    }
+    if (newActiveStep === 3) {
       console.log(`Validar passo 2`)
       window.scrollTo({top: 100, behavior: 'smooth'});
 
@@ -824,6 +914,20 @@ export default function FormStarter() {
           abortEarly: false
         });
 
+        if(!checked) {
+          toast.error('Por favor aceite os termos de uso para continuar.');
+          setHasError(
+            {
+              ...hasError, 
+              checkedTerm: true,
+            });
+            return;
+        }
+
+        PostRegister();
+        // handleRegisterVindi()
+        // handleRegisterUppo()
+
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
@@ -844,7 +948,8 @@ export default function FormStarter() {
             getfase,
             getinvestimentos,
             gettime,
-            getajuda
+            getajuda,
+            checkedTerm
           } = errorMessages;
           setHasError(
             { ...hasError, 
@@ -855,60 +960,14 @@ export default function FormStarter() {
               getfase,
               getinvestimentos,
               gettime,
-              getajuda
+              getajuda,
+              checkedTerm
             }
           );
         }
       }
-      
-    } 
-    if (newActiveStep === 3) {
-      
-
-      try {
-
-        const schema = Yup.object().shape({
-          cep: Yup.string().required(),
-          numeroLogradouro: Yup.string().required(),
-          complemento: Yup.string().required()
-        });
-
-        const data = {
-          cep,
-          numeroLogradouro,
-          complemento
-        };
-        await schema.validate(data, {
-          abortEarly: false
-        });
-
-        PostRegister();
-        // handleRegisterVindi()
-        // handleRegisterUppo()
-
-        window.scrollTo({top: 100, behavior: 'smooth'});
-
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-        setActiveStep(newActiveStep);
-
-      } catch (err) {
-        toast.error('Por favor, preencha todos os campos obrigatórios.')
-        if(err instanceof Yup.ValidationError){
-          const errorMessages = {};
-          err.inner.forEach(error => {
-            errorMessages[error.path] = true;
-          });
-          console.log(errorMessages)
-          const { cep, numeroLogradouro, complemento } = errorMessages;
-          setHasError({
-            ...hasError, cep, numeroLogradouro, complemento
-          })
-        }
-      }
     }
-  };
+};
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -943,8 +1002,8 @@ export default function FormStarter() {
                 height={100}
                 width={100}
               />
-              <h2 className={classes.instructions}>{name}, não tem nada aqui para pagar!</h2>
-              <h3 className={classes.instructions}>Basta clicar no botão abaixo e ser feliz, { business } vai decolar :)</h3>
+              <h2 className={classes.instructions}>Oba {name}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil, e sem pagar NADA por isso!</h2>
+              <h3 className={classes.instructions}>Acesse nosso painel de benefícios e aproveite!</h3>
               <p>O Plano Contratado é o: <b>{ plan.name }</b></p>
 
               <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
