@@ -10,31 +10,22 @@ import startLottie from '../components/Animation/17056-smartsharp-animations-vol
 import growthLottie from '../components/Animation/17054-smartsharp-animations-volume-1.json';
 import impactLottie from '../components/Animation/17053-smartsharp-animations-volume-1.json';
 
-import logoAWS from '../assets/img/brand/aws.png';
-import logoContaAzul from '../assets/img/brand/Logo_ContaAzul_Azul.png';
-import logoPipedrive from '../assets/img/brand/pipedrive.png';
-import logoHubSpot from '../assets/img/brand/hubspot.png';
-import logoGCloud from '../assets/img/brand/google-cloud.png';
-
+import HeaderLandingPage from 'components/Header/headerLandingPage';
 import Footer from "components/Footers/";
+import ImpactSubscription from './Sections/ImpactSubscription'
 
-import Header from 'components/Header';
 
 
 
 import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
 
-
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import StarIcon from '@material-ui/icons/Star';
 import Typography from '@material-ui/core/Typography';
 
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 export default function StarterForm() {
 
@@ -69,65 +60,12 @@ export default function StarterForm() {
   return (
     
       <>
-        <Header/>
+        <HeaderLandingPage/>
+        <div className="landingpage-benefits">
         <Container>
-          <br/>
-          
-            <center>
-              <h2 className="display-3">Acelere seu negócio com diversos benefícios para a sua startup crescer ainda mais. Cadastre-se já!</h2>
-              <p>Se você tem um startup, não se preocupe, com a Abstartups você tem produtos e benefícios exclusivos para ajudar o seu negócio nas diferentes fases que ele se encontra. Veja abaixo os planos que oferecemos para te levar ainda mais longe ;)</p>
-              <br/>
-            </center>
             <br/>
-            <Row>
-                <Col md="12">
-                  <center>
-                    <h2><b>São mais de R$ 500 mil em benefícios para associados</b></h2>
-                  </center>
-                </Col>
-                <Col md="2" className="m-3">
-                  <center>
-                    <img src={logoGCloud} alt="Google Cloud Plataform" width="150px" height="auto"/>
-                  </center>
-                </Col>
-                <Col md="2" className="m-3">
-                  <center>
-                    <img src={logoHubSpot} alt="HubSpot" width="150px" height="auto"/>
-                  </center>
-                </Col>
-                <Col md="2" className="m-3">
-                  <center>
-                    <img src={logoContaAzul} alt="Conta Azul" width="150px" height="auto"/>
-                  </center>
-                </Col>
-                <Col md="2" className="m-3">
-                  <center>
-                    <img src={logoPipedrive} alt="Pipedrive" width="150px" height="auto"/>
-                  </center>
-                </Col>
-                <Col md="2" className="m-3">
-                  <center>
-                    <img src={logoAWS} alt="Amazon AWS" width="150px" height="auto"/>
-                  </center>
-                </Col>
-                <Col md="12">
-                  <center>
-                   <p><b>Networking produtos e mentorias em um só lugar. Veja tudo que a ABStartups pode te oferecer aqui!</b></p>
-                  </center>
-                </Col>
-            </Row>
-            <br/>
-
-            <center>
-            <h5><b>Cadastre-se</b></h5>
             <br/>
             
-              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 850, behavior: 'smooth' }) : window.scrollTo({ top: 1850, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
-
-            </center>
-            <br/>
-            <br/>
-
             <hr/>
 
             
@@ -142,56 +80,22 @@ export default function StarterForm() {
                       width={200}
                     />
                   </div>
+                  <div className="star-icons">
                     <center>
                       <StarIcon/><StarIcon/>
                     </center>
+                  </div>
                   <CardHeader
                     title='Start'
-                    subheader= 'Para quem está começando e precisa daquele “empurrãozinho”, com diversos benefícios e auxílios, para fazer a sua startup acontecer.'
+                    subheader= 'Você está começando ou precisando daquele “empurrãozinho” para a sua startup crescer? O plano Start trás os benefícios certos para você.'
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
                   />
+
                   <CardContent>
 
-                        <hr/>
-
-                        <div >
-                          <Typography variant="h6" color="textPrimary" align="center">
-                            <b>
-                            GRÁTIS <br/>
-                            Renovação anual</b>
-                          </Typography>
-                        </div>
-
-                        <hr/>
-                        
-                        <Typography variant="subtitle1" color="textPrimary" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso ao Slack da nossa Comunidade de Associados
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nos Comitês ABStartups
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Newsletter exclusiva
-                        </Typography>
-
-                        
-                  </CardContent>
-
                   <center>
-                    <Link to="/start">
+                      <Link to="/start">
                         <Button 
                           onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
                           className="Submit-button--add"
@@ -201,11 +105,44 @@ export default function StarterForm() {
                           Seja um associado Start
                         </Button>
                       </Link>
-                  </center>
+                  </center>  
 
-                  <CardActions>
-                  </CardActions>
+                        <hr/>
+
+                        <div >
+                          <Typography variant="h6" color="textPrimary" align="center">
+                            <b>
+                            GRÁTIS <br/>
+                            Renovação anual</b>
+                          </Typography>
+                        </div>                    
+                  </CardContent>
                 </Card>
+                <br/>
+                <br/>
+                <div className="list-if--benefits">
+                <h6>
+                    Newsletter exclusiva com diversas novidades sobre o mundo das startups
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                   Participação nos Comites Abstartups
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                   Acesso a eventos online exclusivos para associados
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                   Acesso ao Slack da nossa Comunidade de Associados
+                </h6>
+                </div>
               </Col>
 
               <Col md="4">
@@ -223,12 +160,24 @@ export default function StarterForm() {
 
                   <CardHeader
                     title='Growth'
-                    subheader= 'Para quem quer acelerar e fazer com que a sua startup supere os desafios do dia a dia, crescendo cada vez mais.'
+                    subheader= 'Quer acelerar seu negócio com benefícios exclusivos que vão fazer a diferença no seu dia a dia? Seja agora um Growth e amplie as suas oportunidades.'
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
                   />
-                  <br/>
                   <CardContent>
+                        <center>
+                          <Link to="/growth">
+                              <Button 
+                                onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
+                                className="Submit-button--add"
+                                fullwidth="true"
+                                color="default"
+                                type="button">
+                                Seja um associado Growth
+                              </Button>
+                            </Link>
+                        </center>
+
                         <hr/>
                         <div >
                           <Typography variant="h6" color="textPrimary" align="center">
@@ -236,79 +185,65 @@ export default function StarterForm() {
                             ou R$: 399,00 /ano</b>
                           </Typography>
                         </div>
-
-                        <hr/>
-                        
-                        <Typography variant="subtitle1" align="center" >
-                         <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios exclusivos do Portal de Benefícios GROWTH
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso ao Slack da nossa Comunidade de Associados e ao grupo exclusivo de Founders no whatsapp
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nos Comitês ABStartups
-                        </Typography>
-
-                        <br/>
-                        
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Newsletter exclusiva
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nas mentorias de Pitch Training
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nas mentorias de Papo com Investidor
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação em mentorias com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> 1 Ingresso VIP para o evento CASE.
-                        </Typography>
                   </CardContent>
-
-                  <center>
-                    <Link to="/growth">
-                        <Button 
-                          onClick={ () => { window.scrollTo({ top: 0, behavior: 'smooth' }) } }
-                          className="Submit-button--add"
-                          fullwidth="true"
-                          color="default"
-                          type="button">
-                          Seja um associado Growth
-                        </Button>
-                      </Link>
-                  </center>
-
-                  <CardActions>
-                    
-                  </CardActions>
                 </Card>
+                <br/>
+                <br/>
+                <div className="list-if--benefits">
+                <h6 >
+                   Newsletter exclusiva com diversas novidades sobre o mundo das startups
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                    Participação nos Comites Abstartups
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                    Acesso a eventos online exclusivos para associados
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                    Acesso ao Slack da nossa Comunidade de Associados
+                </h6>
+
+                <hr/>
+                
+                <h6 >
+                  <b>Participação nas mentorias de Pitch Training</b>
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                    <b>
+                      Participação nas mentorias de Papo com Investidor
+                    </b>
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                    <b>
+                      Participação em mentorias com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)
+                    </b>
+                </h6>
+
+                <hr/>
+
+                <h6 >
+                    <b>
+                      1 Ingresso VIP para o evento CASE
+                    </b>
+                </h6>
+
+                <hr/>
+                </div>
               </Col>
 
               <Col md="4">
@@ -324,11 +259,23 @@ export default function StarterForm() {
                     </center>
                   <CardHeader
                     title='Impact'
-                    subheader= 'Para quem quer desenvolver seus conhecimentos, fomentar seu networking e melhorar ainda mais os seus números.'
+                    subheader= 'Se você quer exclusividade e ampliar a sua rede de networking para desenvolver sua startup, o plano Impact é o ideal para você.'
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
                   />
+                  <br/>
                     <CardContent>
+                    <center>
+                    <ImpactSubscription/>
+                          {/* <Button 
+                            onClick={ () => window.open('https://abstartups.com.br/associados-impact/', '_blank') }
+                            className="Submit-button--add"
+                            fullwidth="true"
+                            color="default"
+                            type="button">
+                            Seja um associado Impact
+                          </Button> */}
+                    </center>
                         <hr/>
 
                           <div >
@@ -338,82 +285,83 @@ export default function StarterForm() {
                           </Typography>
                         </div>
 
-                        <hr/>
                         
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios do Portal de Benefícios START
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso a todos os benefícios exclusivos do Portal de Benefícios GROWTH
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Acesso ao Slack da nossa Comunidade de Associados e ao grupo exclusivo de Founders no whatsapp
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nos Comitês ABStartups
-                        </Typography>
-
-                        <br/>
-                        
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Newsletter exclusiva
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nas mentorias de Pitch Training
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nas mentorias de Papo com Investidor
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação em mentorias com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> 1 Ingresso VIP para o evento CASE + Jantar Pré-evento
-                        </Typography>
-
-                        <br/>
-
-                        <Typography variant="subtitle1" align="center" >
-                          <CheckCircleOutlineIcon/> Participação nos eventos exclusivos de nettworking  como o Jantar Impact e Happy Hour
-                        </Typography>
-
                     </CardContent>
-
-                    <center>
-                          <Button 
-                            onClick={ () => window.open('https://abstartups.com.br/associados-impact/', '_blank') }
-                            className="Submit-button--add"
-                            fullwidth="true"
-                            color="default"
-                            type="button">
-                            Seja um associado Impact
-                          </Button>
-                    </center>
-
-                  <CardActions>        
-                  </CardActions>
                 </Card>
+                <br/>
+                <br/>
+                <div className="list-if--benefits">
+                  <h6 >
+                       Newsletter exclusiva com diversas novidades sobre o mundo das startups
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      Participação nos Comites Abstartups
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      Acesso a eventos online exclusivos para associados
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      Acesso ao Slack da nossa Comunidade de Associados
+                  </h6>
+
+                  <hr/>
+                  
+                  <h6 >
+                      Participação nas mentorias de Pitch Training
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      Participação nas mentorias de Papo com Investidor
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      Participação em mentorias com Especialistas de diversas áreas (Jurídico, Vendas, Marketing, e entre outras)
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      1 Ingresso VIP para o evento CASE
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      <b>
+                        Grupo exclusivo de founders no whatsapp
+                      </b>
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      <b>
+                        Jantar exclusivo pré-evento do CASE
+                      </b>
+                  </h6>
+
+                  <hr/>
+
+                  <h6 >
+                      <b>
+                        Participação nos eventos exclusivos de nettworking como o Jantar Impact e Happy Hour
+                      </b>
+                  </h6>
+                </div>
+
               </Col>
 
 
@@ -471,7 +419,7 @@ export default function StarterForm() {
                     <section id="plain"></section>
                     <h4>GROWTH</h4>
                         <hr/>
-                        <li>Acesso a todos os benefícios do Portal de Benefícios START</li><br/>
+                        <li> Newsletter exclusiva com diversas novidades sobre o mundo das startups</li><br/>
                         <li>Acesso a todos os benefícios exclusivos do Portal de Benefícios GROWTH</li><br/>
                         <li>Partipação nos Comitês ABStartups</li><br/>
                         <li>Participação nas mentorias de Pitch Training</li><br/>
@@ -524,9 +472,9 @@ export default function StarterForm() {
             </Row>
           </Container> */}
         </Container>
+        </div>
         
-        <ScrollAnimation animateIn='bounceInRight'
-  animateOut='bounceOutLeft'>
+        <ScrollAnimation animateIn='fadeIn'>
         <Footer />
         </ScrollAnimation>
         

@@ -1,3 +1,27 @@
+// header landingpage
+.header-ladingpage{
+    background-image: url('https://growplus.com.br/wp-content/uploads/2019/09/bg-startups.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+
+    h2, p, b {
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+    }
+}
+.top-banner--movie{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.sponsors{
+    display: flex;
+    background-color: #fff;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+// navlink
 .nav-link {
     color: $nav-link-color;
 
@@ -20,25 +44,27 @@
 .top-color{
     width: 100%;
     height: 15px;
-    display: flex;
+    background: linear-gradient(90deg, rgba(255,162,0,1) 0%, rgba(100,221,117,1) 50%, rgba(9,21,113,1) 100%);
 
-    .top-color-yellow{
-        height: 100%;
-        width: 33.33%;
-        background: #FFA200;
-    }
+    // display: flex;
 
-    .top-color-green{
-        height: 100%;
-        width: 33.33%;
-        background: #03AC3E;
-    }
+    // .top-color-yellow{
+    //     height: 100%;
+    //     width: 33.33%;
+    //     background: #FFA200;
+    // }
 
-    .top-color-green-white{
-        height: 100%;
-        width: 33.33%;
-        background: #64DD75;
-    }
+    // .top-color-green{
+    //     height: 100%;
+    //     width: 33.33%;
+    //     background: #03AC3E;
+    // }
+
+    // .top-color-green-white{
+    //     height: 100%;
+    //     width: 33.33%;
+    //     background: #64DD75;
+    // }
 }
 
 .logo-top{

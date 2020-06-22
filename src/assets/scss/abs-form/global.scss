@@ -1,3 +1,41 @@
+// landingpage
+
+.landingpage-benefits{
+    p, span, h6{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+    }
+    p{
+        font-size: 12px;
+    }
+
+    h1, h2, h3, h4, b {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+    }
+
+    hr{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .list-if--benefits{
+        padding: 5px;
+
+        .new-benefits{
+            h6{
+                font-weight: 600;
+            }
+        }
+
+        h6{
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+
+}
+
 // Nucleo icons
 .MuiFormGroup-root{
     margin-left: 16px;
