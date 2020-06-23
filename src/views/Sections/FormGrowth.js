@@ -1036,10 +1036,9 @@ export default function FormStarter() {
               width={100}
             />
               <h5 className={classes.instructions}>Oba {name}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil!</h5>
-              <h3 className={classes.instructions}>Acesse nosso painel de benefícios e aproveite!</h3>
-              { idConsumer ? `${idConsumer}` : 'sem resposta'}
+              <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano Contratado é o: <b>Growth</b></p>
-              <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
+              <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
 
@@ -1054,7 +1053,9 @@ export default function FormStarter() {
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" className={classes.completed}>
-                    O passo {activeStep + 1} está completo.
+                    <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+                      {completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo'} <NavigateNextIcon/>
+                    </Button> {' '} O passo {activeStep + 1} está completo. 
                   </Typography>
                 ) : (
                   <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
