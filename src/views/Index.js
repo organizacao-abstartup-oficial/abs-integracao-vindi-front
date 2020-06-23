@@ -238,7 +238,7 @@ export default function StarterForm() {
 
                 <h6 >
                     <b>
-                      1 Ingresso VIP para o evento CASE
+                      1 ingresso para o evento CASE 
                     </b>
                 </h6>
 
@@ -334,7 +334,9 @@ export default function StarterForm() {
                   <hr/>
 
                   <h6 >
-                      1 Ingresso VIP para o evento CASE
+                    <b>
+                       1 Ingresso VIP para o evento CASE
+                    </b>
                   </h6>
 
                   <hr/>

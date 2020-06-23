@@ -690,7 +690,7 @@ export default function FormStarter() {
             required={true}
             value={getajuda}
             onChange={ e => setGetAjuda(e.target.value)}
-            label="Em que ABS pode te ajudar?"
+            label="Como a ABStartups pode te ajudar?"
             style={{ margin: 8 }}
             SelectProps={{
               native: true,
