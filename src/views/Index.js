@@ -13,9 +13,9 @@ import impactLottie from '../components/Animation/17053-smartsharp-animations-vo
 import HeaderLandingPage from 'components/Header/headerLandingPage';
 import Footer from "components/Footers/";
 import ImpactSubscription from './Sections/ImpactSubscription'
-
-
-
+import StartModal from './Sections/StartModal'
+import GrowthModal from './Sections/StartModal'
+import ImpactModal from './Sections/ImpactModal'
 
 import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
@@ -91,6 +91,7 @@ export default function StarterForm() {
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
                   />
+                  <StartModal/>
 
                   <CardContent>
 
@@ -164,6 +165,7 @@ export default function StarterForm() {
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
                   />
+                  <GrowthModal/>
                   <CardContent>
                         <center>
                           <Link to="/growth">
@@ -264,6 +266,7 @@ export default function StarterForm() {
                     subheaderTypographyProps={{ align: 'center' }}
                   />
                   <br/>
+                  <ImpactModal/>
                     <CardContent>
                     <center>
                     <ImpactSubscription/>
