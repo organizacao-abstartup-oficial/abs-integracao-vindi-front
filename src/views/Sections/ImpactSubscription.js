@@ -16,13 +16,12 @@ export default function Terms(props)  {
 
   const termsOfUse = (
     <div>
-      <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
-        width="450px"
-        height="450px"
-        id="myId"
-        className="myClassname"
-        display="initial"
-        position="relative"/>
+      <Iframe class="airtable-embed"
+              url="https://airtable.com/embed/shrDcs0K7YAUfsrnV?backgroundColor=teal"
+              frameborder="0"
+              onmousewheel=""
+              width="100%"
+              height="750"/>
     </div>
   )
 

@@ -19,7 +19,7 @@ export default function IndexSections() {
           <br/>
           <h5><b>12x de R$ 41,58 ou R$ 399/ano</b></h5>
           <hr/>
-          <p>Com o plano Growth você possui muito mais benefícios para que a sua startup chegue longe:</p>
+          <p>Com o plano Growth você possui muito mais benefícios para que a sua startup chegue longe.</p>
           
         </Col>
       </>

@@ -995,9 +995,9 @@ export default function FormStarter() {
               />
               <h2 className={classes.instructions}>Oba {name}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil, e sem pagar NADA por isso!</h2>
               <h3 className={classes.instructions}>Acesse nosso painel de benefícios e aproveite!</h3>
-              <p>O Plano Contratado é o: <b>{ plan.name }</b></p>
+              <p>O Plano Contratado é o: <b>Start</b></p>
 
-              <Button  variant="contained" color="primary">Acessar painel de benefícios</Button>
+              <Button  variant="contained" onClilck={ window.open('https://app.uppo.com.br/abstartups-start/login', '_blank') } color="primary">Acesse seus benefícios</Button>
             </center>
           </div>
 

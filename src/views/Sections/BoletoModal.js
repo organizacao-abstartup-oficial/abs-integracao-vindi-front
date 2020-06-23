@@ -43,7 +43,13 @@ export default function BoletoModal(props)  {
         .then( response => {
           setBankSlipCode(response.data.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
           setBankSlipLink(response.data.bill.charges[0].print_url);
-          localStorage.setItem('paymentSubmited', 'true')
+          localStorage.setItem('paymentSubmited', 'true');
+
+          setTimeout(() => {
+            localStorage.removeItem('paymentSubmited')
+            localStorage.removeItem('isLastStep')
+          }, 20000);
+          
         })
         
       } catch (error) {

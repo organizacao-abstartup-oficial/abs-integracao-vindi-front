@@ -69,7 +69,7 @@ export default function StarterForm() {
             <hr/>
 
             
-            <ScrollAnimation animateIn='bounceInRight' animateOut='bounceOutLeft'>
+            <ScrollAnimation animateIn='fadeIn'  animateOut='fadeOut'>
             <Row>
 
               <Col md="4">

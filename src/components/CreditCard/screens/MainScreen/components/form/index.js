@@ -33,10 +33,14 @@ export default function CForm({
         onUpdateState(name, value);
     };
     const plainValue = 499
+    const plainValueOneStallment = 399
 
     const installments = [  
-        { id: 2, value: 6, label: plainValue /6  },
-        { id: 3, value: 12, label: plainValue /12 }]
+        { id: 151756, value: 1, pricing: 399, label: plainValueOneStallment  },
+        { id: 150698, value: 12, pricing: 499, label: plainValue /12 }]
+
+
+    const [planIdState, setplanIdState] = useState(151756)
 
     // TODO: We can improve the regex check with a better approach like in the card component.
     const onCardNumberChange = (event) => {
@@ -100,7 +104,7 @@ export default function CForm({
                 if(response.status === 200) {
                     try {
                         const sub = {
-                            plan_id: 150698,
+                            plan_id: planIdState,
                             customer_id: consumer,
                             code: uuid(),
                             payment_method_code: 'credit_card',
@@ -249,15 +253,15 @@ export default function CForm({
                     <select
                         name="installments"
                         className="card-input__input -select"
-                        onChange={e => console.log(e.target.value)}
+                        onChange={e => setplanIdState(e.target.value) || console.log(planIdState)}
                     >
                         <option value="" disabled>
                             Selecione as parcelas
                         </option>
 
                         {installments.map(installments => (
-                            <option key={installments.id} value={installments.value}>
-                                {`${installments.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label)}
+                            <option key={installments.id} value={installments.id}>
+                                {installments.id === 2 ? `${installments.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) : `${installments.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) }
                             </option>
                         ))}
                     </select>

@@ -27,6 +27,8 @@ import CardModal from './CardModal';
 import BoletoModal from './BoletoModal';
 import TermsModal from './TermsModal';
 
+import CardsAccept from '../../assets/img/brand/bandeiras-final.png'
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -731,11 +733,11 @@ export default function FormStarter() {
 
         <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
         <hr/>
-        <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
-        <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
+        <h5 className={classes.instructions}>Oba {business}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil!</h5>
+        <h5 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h5>
 
         <p>O Plano Contratado é o: <b>Growth</b></p>
-        <h2>Obrigado!</h2>
+        <Button  variant="contained" onClilck={ () => window.open('https://app.uppo.com.br/abstartups/', '_blank') } color="primary">Acesse seus benefícios</Button>
       </center>
     </div>
   )
@@ -744,9 +746,14 @@ export default function FormStarter() {
     <div>
       <center>
         <h5 className={classes.instructions}>Falta pouco para a {business} aproveitar todos os benefícios de ser um associado da ABStartups :)</h5>
-        <h5 className={classes.instructions}> Após a confirmação do pagamento você receberá um email com seu login, senha e link para acesso ao portal de benefícios.</h5>
-        {/* { idConsumer ? `${idConsumer}` : 'sem resposta'} */}
+
         <p>O Plano Contratado é o: <b>Growth</b></p>
+        <center>
+          <div className="payment-description">
+            <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/>
+          </div>
+          <br/>
+        </center>
         
         <CardModal />
         <br/>
