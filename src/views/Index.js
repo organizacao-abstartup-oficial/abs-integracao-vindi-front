@@ -14,7 +14,7 @@ import HeaderLandingPage from 'components/Header/headerLandingPage';
 import Footer from "components/Footers/";
 import ImpactSubscription from './Sections/ImpactSubscription'
 import StartModal from './Sections/StartModal'
-import GrowthModal from './Sections/StartModal'
+import GrowthModal from './Sections/GrowthModal'
 import ImpactModal from './Sections/ImpactModal'
 
 import { Button, Col, Row } from 'reactstrap'
