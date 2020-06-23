@@ -23,7 +23,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { segmentos, negociosShort, fasesShort, papeis, investimentos, time } from '../../Data';
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 
 
@@ -64,6 +64,7 @@ export default function FormStarter() {
     getfase: false,
     getinvestimentos: false,
     gettime: false,
+    getajuda: false,
     cep: false,
     numeroLogradouro: false,
     checkedTerm: checked
@@ -93,6 +94,7 @@ export default function FormStarter() {
   const [ getfase, setGetFase ] = useState('');
   const [ getinvestimentos, setGetInvestimento ] = useState('');
   const [ gettime, setGetTime ] = useState('');
+  const [ getajuda, setGetAjuda ] = ('');
   const [ site, setSite ] = useState('');
   const [ linkedin, setLinkedin ] = useState('');
   const [ facebook, setFacebook ] = useState('');
@@ -684,7 +686,7 @@ export default function FormStarter() {
           </div>
 
 
-          <div style={{ display: 'flex', width: '100%' }}>
+          <div className="double-input--form">
           <TextField
             id="tamanho-da-equipe"
             select
@@ -705,7 +707,7 @@ export default function FormStarter() {
               <option key={time.id} value={time.text}>{time.text}</option>
             ))}
           </TextField>
-          {/* <TextField
+          <TextField
             id="ajuda"
             select
             fullWidth
@@ -726,7 +728,7 @@ export default function FormStarter() {
           ))}
             <option value="0">Mentorias</option>
 
-          </TextField> */}
+          </TextField>
           </div>
         </Row>
 
@@ -894,6 +896,7 @@ export default function FormStarter() {
           getfase: Yup.string().ensure().required(),
           getinvestimentos: Yup.string().ensure().required(),
           gettime: Yup.string().ensure().required(),
+          getajuda: Yup.string().ensure().required(),
         });
 
         const data = {
@@ -904,6 +907,7 @@ export default function FormStarter() {
           getfase,
           getinvestimentos,
           gettime,
+          getajuda
         };
 
         await schema.validate(data, {
@@ -943,6 +947,7 @@ export default function FormStarter() {
             getfase,
             getinvestimentos,
             gettime,
+            getajuda,
             checkedTerm
           } = errorMessages;
           setHasError(
@@ -954,6 +959,7 @@ export default function FormStarter() {
               getfase,
               getinvestimentos,
               gettime,
+              getajuda,
               checkedTerm
             }
           );
