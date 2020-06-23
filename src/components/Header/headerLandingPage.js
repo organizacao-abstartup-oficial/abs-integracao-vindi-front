@@ -40,7 +40,7 @@ export default function Nav() {
               <p>Junte-se a maior rede de startups do Brasil. Com a Abstartups você tem produtos e benefícios exclusivos para te ajudar a ir ainda mais longe. Conheça nossos planos e acelere seu negócio com a gente!</p> 
             </center>
             <Row>
-                <Col md="12">
+                <Col md="12" className="last-title">
                   <center>
                     <h2><b>São mais de R$ 500 mil em benefícios para associados</b></h2>
                   </center>
@@ -83,7 +83,7 @@ export default function Nav() {
             <h5><b>CADASTRE-SE</b></h5>
             <br/>
             
-              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 900, behavior: 'smooth' }) : window.scrollTo({ top: 1850, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 900, behavior: 'smooth' }) : window.scrollTo({ top: 1950, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
 
             </center>
             </ScrollAnimation>
