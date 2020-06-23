@@ -43,6 +43,13 @@
     
 }
 
+// inputs form
+
+.double-input--form{
+    display: flex;
+    width: 100%;
+}
+
 .landingpage-benefits{
     p, span, h6{
         font-family: 'Montserrat', sans-serif;
@@ -314,9 +321,14 @@
 @media (max-width: 600px) 
 {
     .MuiStepper-root {
-        display: none;
+        display: block !important;
     }
     .MuiStepper-horizontal{
-        display: none;
+        display: none !important;
+    }
+
+    .double-input--form{
+        display: block;
+        width: 96%;
     }
 }
