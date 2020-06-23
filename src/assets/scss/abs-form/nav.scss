@@ -152,6 +152,18 @@
 {
     .logo-top{
         width: 200px;
-        height: 44px;
+        height: auto;
+    }
+    .sponsors {
+        display: contents;
+        background-color: #fff;
+        border-radius: 30px;
+        margin-bottom: 30px;
+        margin-top: 180px;
+
+    }
+    .last-title {
+        margin-bottom: 100px;
     }
 }
+
