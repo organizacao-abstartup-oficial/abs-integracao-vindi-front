@@ -83,9 +83,9 @@ export const negociosShort = [
   {id: 4, text: 'Hardware' },
   {id: 5, text: 'Licenciamento' },
   {id: 6, text: 'Marketplace' },
-  {id: 7, text: 'Outros' },
-  {id: 8, text: 'SaaS' },
-  {id: 9, text: 'Venda de dados' },
+  {id: 7, text: 'SaaS' },
+  {id: 8, text: 'Venda de dados' },
+  {id: 9, text: 'Outros' },
 ]
 
 export const fasesShort = [
@@ -166,6 +166,6 @@ export const oquebusca = [
   {id: 3, text: 'Investidor'},
   {id: 4, text: 'Mentoria'},
   {id: 5, text: 'Networking'},
-  {id: 6, text: 'Outros'},
   {id: 7, text: 'Visibilidade'},
+  {id: 8, text: 'Outros'},
 ]
