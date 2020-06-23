@@ -275,7 +275,7 @@ export default function FormStarter() {
             variant="outlined"
             error={hasError.business}
           />
-              <div style={{ display: 'flex', width: '100%' }}>
+              <div className="double-input--form" >
                 <InputMask
                     value={cnpj}
                     onChange={e => setCnpj( e.target.value )}
@@ -287,10 +287,11 @@ export default function FormStarter() {
                       required={true}
                       id="cnpj"
                       type='text'
-                      style={{ margin: 8, width: '50%' }}
                       helperText="Apenas números"
                       vmargin="normal"
                       variant="outlined"
+                      style={{ margin: 8 }}
+                      fullWidth
                       error={hasError.cnpj}
                       />}
                 </InputMask>
@@ -306,8 +307,9 @@ export default function FormStarter() {
                       required={true}
                       id="phone"
                       type='text'
-                      style={{ margin: 8, width: '50%' }}
+                      style={{ margin: 8 }}
                       placeholder="Telefone para contato"
+                      fullWidth
                       helperText="Telefone com DDD"
                       margin="normal"
                       variant="outlined"
@@ -331,7 +333,7 @@ export default function FormStarter() {
                 variant="outlined"
                 error={hasError.mail}
               />
-              <div style={{ display: 'flex', width: '100%' }}>
+              <div className="double-input--form">
               <TextField
                 label="Senha"
                 required={true}
@@ -482,7 +484,7 @@ export default function FormStarter() {
           variant="outlined"
         />
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className="double-input--form">
         <TextField
           label="Linkedin"
           id="linkedin"
@@ -509,7 +511,7 @@ export default function FormStarter() {
         />
         </div>
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className="double-input--form">
         <TextField
           label="Instagram"
           id="instagram"
@@ -540,7 +542,7 @@ export default function FormStarter() {
       case 2:
         return  (<form><Row lg="8" xs="12">
         
-        <div style={{ display: 'flex', width: '100%' }} xs="12">
+        <div className="double-input--form">
           <TextField
             id="qual-seu-cargo"
             select
@@ -585,7 +587,7 @@ export default function FormStarter() {
           </TextField>
           
           </div>
-          <div style={{ display: 'flex', width: '100%' }}>
+          <div className="double-input--form">
 
             <TextField
               id="segmentos"
@@ -634,7 +636,7 @@ export default function FormStarter() {
 
           </div>
 
-          <div style={{ display: 'flex', width: '100%' }}>
+          <div className="double-input--form">
 
             <TextField
               id="fase"
