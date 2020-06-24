@@ -19,7 +19,7 @@ import { Col, Row } from 'reactstrap';
 
 import axios from 'axios';
 
-import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, ondenosconheceu } from '../../Data';
 
 import Lottie from 'react-lottie';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
@@ -255,7 +255,7 @@ export default function FormStarter() {
             SelectProps={{
               native: true,
             }}
-            helperText="Como conheceu a ABS?"
+            helperText="Informe o seu cargo"
             variant="outlined"
           >
             {papeis.map( cargo => (
@@ -405,7 +405,7 @@ export default function FormStarter() {
             required={true}
             value={getajuda}
             onChange={ e => setGetAjuda(e.target.value)}
-            label="Em que ABS pode te ajudar?"
+            label="Onde nos conheceu?"
             style={{ margin: 8 }}
             SelectProps={{
               native: true,
@@ -413,10 +413,9 @@ export default function FormStarter() {
             helperText="Selecione uma das opções"
             variant="outlined"
           >
-          { oquebusca.map(oquebusca => (
-            <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
+          { ondenosconheceu.map(ondenosconheceu => (
+            <option key={ondenosconheceu.id} value={ondenosconheceu.text}>{ondenosconheceu.text}</option>
           ))}
-            <option value="0">Mentorias</option>
 
           </TextField>
           </div>

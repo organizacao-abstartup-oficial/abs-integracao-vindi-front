@@ -5,6 +5,8 @@ import Lottie from 'react-lottie';
 
 import { Button, Modal, ModalHeader, ModalBody, Col } from 'reactstrap';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import CreditCard from '../../components/CreditCard';
 import animationData from '../../components/Animation/9917-success.json';
@@ -32,10 +34,10 @@ export default function BoletoModal(props)  {
 
   setInterval(() => {
     setTransactionState(localStorage.getItem('paymentSubmited'))
-  }, 1000);
+  }, 100);
 
   useEffect(() => {
-    if(PaymentStatus === "true") {
+    if(PaymentStatus === "true" ) {
       setTimeout(() => {
         setModal(false);
         
@@ -51,6 +53,16 @@ export default function BoletoModal(props)  {
     </>
 
     )
+
+  const LoadPayment = (
+    <div className="load-payment">
+        <center>
+        <h5>Aguarde estamos processando seu pagamento</h5>
+        <br/>
+          <CircularProgress/>
+        </center>
+      </div>
+  )
 
   const CreditCardAdded = (
     <>
@@ -76,7 +88,7 @@ export default function BoletoModal(props)  {
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Pagamento com Cartão de Crédito</ModalHeader>
           <ModalBody>
-            { PaymentStatus === 'true' ? CreditCardAdded : CreditCardForm }
+            { PaymentStatus === 'true' ? CreditCardAdded : CreditCardForm  && PaymentStatus === 'null' ? LoadPayment : CreditCardForm }
           </ModalBody>
         </Modal>
       </Col>

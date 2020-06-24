@@ -24,7 +24,7 @@ export default function Footers() {
             <Row className="row-grid align-items-center my-md">
               <Col lg="6">
                 <h3 className="text-primary font-weight-light mb-2">
-                  Siga-nos em nossas redes sociais.
+                  Acompanhe a gente nas redes sociais.
                 </h3>
                 
               </Col>

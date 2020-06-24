@@ -23,7 +23,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, ondenosconheceu } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 
 
@@ -557,7 +557,7 @@ export default function FormStarter() {
             SelectProps={{
               native: true,
             }}
-            helperText="Como conheceu a ABS?"
+            helperText="Informe o seu cargo"
             variant="outlined"
             error={hasError.getcargo}
           >
@@ -714,7 +714,7 @@ export default function FormStarter() {
             required={true}
             value={getajuda}
             onChange={ e => setGetAjuda(e.target.value)}
-            label="Como a ABStartups pode te ajudar?"
+            label="Onde nos conheceu?"
             style={{ margin: 8 }}
             SelectProps={{
               native: true,
@@ -723,10 +723,9 @@ export default function FormStarter() {
             variant="outlined"
             error={hasError.getajuda}
           >
-          { oquebusca.map(oquebusca => (
-            <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
+          { ondenosconheceu.map(ondenosconheceu => (
+            <option key={ondenosconheceu.id} value={ondenosconheceu.text}>{ondenosconheceu.text}</option>
           ))}
-            <option value="0">Mentorias</option>
 
           </TextField>
           </div>

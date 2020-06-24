@@ -88,6 +88,7 @@ export default function CForm({
         const cardHolderStorage = localStorage.getItem('cardHolder');
         const cardValidateStorage = localStorage.getItem('cardValidate');
         const companyCodeStorage = localStorage.getItem('companyCode');
+        localStorage.setItem('paymentSubmited', null)
 
         const paymentProfile = {
             holder_name: cardHolderStorage,
@@ -101,6 +102,7 @@ export default function CForm({
         }
         try {
             await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile).then(response => {
+                
                 if(response.status === 200) {
                     try {
                         const sub = {
@@ -261,7 +263,7 @@ export default function CForm({
 
                         {installments.map(installments => (
                             <option key={installments.id} value={installments.id}>
-                                {installments.id === 2 ? `${installments.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) : `${installments.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) }
+                                {installments.value === 1 ? `${installments.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) : `${installments.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) }
                             </option>
                         ))}
                     </select>

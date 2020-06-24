@@ -21,7 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputMask from "react-input-mask";
 import { Col, Row } from 'reactstrap';
 
-import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, oquebusca } from '../../Data';
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, ondenosconheceu } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 import CardModal from './CardModal';
 import BoletoModal from './BoletoModal';
@@ -533,7 +533,7 @@ export default function FormStarter() {
             SelectProps={{
               native: true,
             }}
-            helperText="Como conheceu a ABS?"
+            helperText="Informe o seu cargo"
             variant="outlined"
             error={hasError.getcargo}
           >
@@ -690,7 +690,7 @@ export default function FormStarter() {
             required={true}
             value={getajuda}
             onChange={ e => setGetAjuda(e.target.value)}
-            label="Como a ABStartups pode te ajudar?"
+            label="Onde nos conheceu?"
             style={{ margin: 8 }}
             SelectProps={{
               native: true,
@@ -699,10 +699,9 @@ export default function FormStarter() {
             variant="outlined"
             error={hasError.getajuda}
           >
-          { oquebusca.map(oquebusca => (
-            <option key={oquebusca.id} value={oquebusca.text}>{oquebusca.text}</option>
+          { ondenosconheceu.map(ondenosconheceu => (
+            <option key={ondenosconheceu.id} value={ondenosconheceu.text}>{ondenosconheceu.text}</option>
           ))}
-             <option value="0">Mentorias</option> 
 
           </TextField>
           
@@ -741,7 +740,9 @@ export default function FormStarter() {
         <h5 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h5>
 
         <p>O Plano Contratado é o: <b>Growth</b></p>
+
         <Button  variant="contained" onClilck={ () => window.open('https://app.uppo.com.br/abstartups/', '_blank') } color="primary">Acesse seus benefícios</Button>
+
       </center>
     </div>
   )
@@ -1048,8 +1049,8 @@ export default function FormStarter() {
             />
               <h5 className={classes.instructions}>Oba {name}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil!</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
-              <p>O Plano Contratado é o: <b>Growth</b></p>
-              { idConsumer }
+              <p>O Plano Contratado é o: <b>Growth</b>{ idConsumer ? '' : '' }</p>
+              
               <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
