@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Iframe from 'react-iframe'
 
-import { Modal,  ModalBody, Col } from 'reactstrap';
+import { Modal,  ModalBody, ModalHeader, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import InfoIcon from '@material-ui/icons/Info';
@@ -17,7 +17,7 @@ export default function StartModal(props)  {
 
   const toggle = () => setModal(!modal);
 
-  const termsOfUse = (
+  const iframeGrowth = (
     <div>
       <Iframe class="airtable-embed"
               url="https://abstartups.uppo.com.br"
@@ -35,8 +35,9 @@ export default function StartModal(props)  {
               <Link onClick={toggle}><InfoIcon/> Benefícios Growth </Link>
         </center>
         <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Benefícios Growth</ModalHeader>
           <ModalBody>
-            { termsOfUse }
+            { iframeGrowth }
           </ModalBody>
         </Modal>
       </Col>

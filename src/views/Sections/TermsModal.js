@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Link } from 'react-router-dom';
-import { Modal,  ModalBody, Col } from 'reactstrap';
+import { Modal,  ModalBody, ModalHeader, Col } from 'reactstrap';
 
 export default function Terms(props)  {
   const {
@@ -126,6 +126,7 @@ export default function Terms(props)  {
       <Col md="12">
         <Link onClick={toggle} > Clique qui para ler o termo.</Link>
         <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Termos e políticas</ModalHeader>
           <ModalBody>
             { termsOfUse }
           </ModalBody>
