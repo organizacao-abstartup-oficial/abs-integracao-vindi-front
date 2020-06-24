@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Lottie from 'react-lottie';
 
-import { Button, Modal, ModalHeader, ModalBody, Col } from 'reactstrap';
+import { Button, Modal, ModalBody, Col } from 'reactstrap';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -86,7 +86,6 @@ export default function BoletoModal(props)  {
       <Col md="12">
         <Button  block color="danger" type="button" onClick={toggle}> <CreditCardIcon/> PAGAR COM CARTÃO </Button>
         <Modal isOpen={modal} toggle={toggle} className={className}>
-          <ModalHeader toggle={toggle}>Pagamento com Cartão de Crédito</ModalHeader>
           <ModalBody>
             { PaymentStatus === 'true' ? CreditCardAdded : CreditCardForm  && PaymentStatus === 'null' ? LoadPayment : CreditCardForm }
           </ModalBody>

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { uuid } from 'uuidv4';
 
-import { Button, Modal, ModalHeader, ModalBody, Col } from 'reactstrap';
+import { Button, Modal, ModalBody, Col } from 'reactstrap';
 import PrintIcon from '@material-ui/icons/Print';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
@@ -116,7 +116,6 @@ export default function BoletoModal(props)  {
       <Col md="12">
         <div className="bankslip--act"><p><b>Você também pode fazer o pagamento via boleto</b> {' '}</p> <Button color="default" onClick={toggle}> <PrintIcon/> PAGAR COM BOLETO</Button></div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
-          <ModalHeader toggle={toggle}>Pagamento com Boleto</ModalHeader>
           <ModalBody>
             { bankSlipCode ? GenerateBankSlip : BankSlipGenerate }
           </ModalBody>

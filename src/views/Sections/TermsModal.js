@@ -15,10 +15,6 @@ export default function Terms(props)  {
 
   const termsOfUse = (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h5>TERMO DE ASSOCIAÇÃO</h5>
-        <button onClick={toggle} style={{ border: 'none', background: 'none', fontSize: '1.5rem'}}>X</button>
-      </div>
       <p>Para que sua empresa (“Startup”) se torne um membro associado da <strong>ASSOCIAÇÃO BRASILEIRA DE STARTUPS</strong>, associação civil sem fins lucrativos, CNPJ nº 19.939.915/0001-95, com sede na Rua Casa do Ator, nº 919 – 2º andar, Vila Olímpia, CEP 04.546-003, São Paulo/SP, (“Abstartups”), é imprescindível a leitura, aceitação e observância deste Termo de Associação (“Termo”).</p>
       <p><strong>1. Declarações e garantias</strong></p>
       <p>Como condição necessária para o ingresso no quadro social da Abstartups, a Startup declara e garante que:</p>
@@ -126,7 +122,7 @@ export default function Terms(props)  {
       <Col md="12">
         <Link onClick={toggle} > Clique qui para ler o termo.</Link>
         <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Termos e políticas</ModalHeader>
+        <ModalHeader toggle={toggle}>TERMO DE ASSOCIAÇÃO</ModalHeader>
           <ModalBody>
             { termsOfUse }
           </ModalBody>
