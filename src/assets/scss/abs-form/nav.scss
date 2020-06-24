@@ -2,7 +2,8 @@
 .header-ladingpage{
     background-image: url('https://growplus.com.br/wp-content/uploads/2019/09/bg-startups.jpg');
     background-repeat: no-repeat;
-    background-size: 100% 100vh;
+    background-size: 100% auto;
+    height: 100vh;
 
     h2, p, b {
         color: #fff;
@@ -164,6 +165,20 @@
     }
     .last-title {
         margin-bottom: 100px;
+    }
+    .header-ladingpage{
+        background-size: auto 100%;
+        height: 2000px;
+        
+        .sponsors{
+            img{
+                background: #fff;
+                padding: 10px;
+                border-radius: 30px;
+    
+            }
+
+        }
     }
 }
 

@@ -83,7 +83,7 @@ export default function Nav() {
             <h5><b>CADASTRE-SE</b></h5>
             <br/>
             
-              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 900, behavior: 'smooth' }) : window.scrollTo({ top: 1950, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
+              <Button color="default" className="float-subscription--buttom" onClick={ () => { window.screen.width > 768 ? window.scrollTo({ top: 900, behavior: 'smooth' }) : window.scrollTo({ top: 2050, behavior: 'smooth' }) } }><KeyboardArrowDownIcon size="small"/></Button>
 
             </center>
             </ScrollAnimation>

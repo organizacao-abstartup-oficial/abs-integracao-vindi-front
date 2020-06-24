@@ -32,7 +32,7 @@ export default function StartModal(props)  {
     <div>
       <Col md="12">
         <center>       
-              <Link onClick={toggle}><InfoIcon/> Benefícios start </Link>
+              <Link onClick={toggle}><InfoIcon/> Benefícios Start </Link>
         </center>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalBody>
