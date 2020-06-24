@@ -102,6 +102,7 @@ export default function FormStarter() {
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
   const [ plan, SetPlan ] = useState('') 
+  const [loading, setLoading] = useState(false)
 
   const steps = getSteps();
 
@@ -140,13 +141,16 @@ export default function FormStarter() {
 
       try {
         if(cnpjValidate.cnpj.length === 14){
+          setLoading(true)
           axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate).then(response => {
             if(response.data.status !== 400) {
               setRazaoSocial(response.data.nome)
               setValidaCnpj(true);
               setHasError({cnpj: false})
+              setLoading(false)
               return;
             }
+            setLoading(false)
             setHasError({cnpj:true})
           })
         }
@@ -289,7 +293,7 @@ export default function FormStarter() {
                       required={true}
                       id="cnpj"
                       type='text'
-                      helperText="Apenas números"
+                      helperText={loading ? "Carregando..." : "CNPJ Válido"  && hasError.cnpj ? "CNPJ Inválido" : "Apenas números"}
                       vmargin="normal"
                       variant="outlined"
                       style={{ margin: 8 }}

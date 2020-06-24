@@ -35,7 +35,7 @@ export default function StartModal(props)  {
               <Link onClick={toggle}><InfoIcon/> Benefícios Impact </Link>
         </center>
         <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Benefícios Growth</ModalHeader>
+        <ModalHeader toggle={toggle}>Benefícios Impact</ModalHeader>
           <ModalBody>
             { iframeImpact }
           </ModalBody>
