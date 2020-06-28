@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Iframe from 'react-iframe'
 
 import { Modal,  ModalBody, ModalHeader, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 import InfoIcon from '@material-ui/icons/Info';
 
@@ -32,7 +31,7 @@ export default function StartModal(props)  {
     <div>
       <Col md="12">
         <center>       
-              <Link onClick={toggle}><InfoIcon/> Benefícios Growth </Link>
+              <a onClick={toggle}><InfoIcon/> Benefícios Growth </a>
         </center>
         <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Benefícios Growth</ModalHeader>
