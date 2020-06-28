@@ -12,10 +12,10 @@ import impactLottie from '../components/Animation/17053-smartsharp-animations-vo
 
 import HeaderLandingPage from 'components/Header/headerLandingPage';
 import Footer from "components/Footers/";
-import ImpactSubscription from './Sections/ImpactSubscription'
-import StartModal from './Sections/StartModal'
-import GrowthModal from './Sections/GrowthModal'
-import ImpactModal from './Sections/ImpactModal'
+import ImpactSubscription from './Sections/ImpactSubscription';
+import StartModal from './Sections/StartModal';
+import GrowthModal from './Sections/GrowthModal';
+import ImpactModal from './Sections/ImpactModal';
 
 import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
@@ -25,7 +25,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import StarIcon from '@material-ui/icons/Star';
 import Typography from '@material-ui/core/Typography';
-
 
 export default function StarterForm() {
 
@@ -60,6 +59,7 @@ export default function StarterForm() {
   return (
     
       <>
+      
         <HeaderLandingPage/>
         <div className="landingpage-benefits">
         <Container>
@@ -482,7 +482,7 @@ export default function StarterForm() {
         <ScrollAnimation animateIn='fadeIn'>
         <Footer />
         </ScrollAnimation>
-        
+
       </>
   );
 }

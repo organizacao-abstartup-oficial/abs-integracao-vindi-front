@@ -46,9 +46,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FormStarter() {
 
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
-  const [validaCnpj, setValidaCnpj] = useState(false);
-  const [ razaoSocial, setRazaoSocial ] = useState('');
+  const [ checked, setChecked ] = useState(false);
   const [ hasError, setHasError ] = useState({
     name: false,
     business: false,
@@ -71,6 +69,7 @@ export default function FormStarter() {
   });
 
   const [ activeStep, setActiveStep ] = useState(0);
+  const [ validaCnpj, setValidaCnpj ] = useState(false);
   const [ completed, setCompleted ] = useState({});
   const [ name, setName ] = useState('');
   const [ cep, setCep ] = useState('');
@@ -85,6 +84,7 @@ export default function FormStarter() {
   const [ mail, setMail ] = useState('');
   const [ business, setBusiness ] = useState('');
   const [ cnpj, setCnpj ] = useState('');
+  const [ razaoSocial, setRazaoSocial ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ confirmpassword, setConfirmpassword ] = useState('');
   const [ getcargo, setGetCargo ] = useState('');
@@ -94,15 +94,15 @@ export default function FormStarter() {
   const [ getfase, setGetFase ] = useState('');
   const [ getinvestimentos, setGetInvestimento ] = useState('');
   const [ gettime, setGetTime ] = useState('');
-  const [ getajuda, setGetAjuda ] = ('');
+  const [ getajuda, setGetAjuda ] = useState('');
   const [ site, setSite ] = useState('');
   const [ linkedin, setLinkedin ] = useState('');
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
-  const [ plan, SetPlan ] = useState('') 
-  const [loading, setLoading] = useState(false)
+  const [plan, setPlan] = useState('')
+  const [ loading, setLoading ] = useState(false)
 
   const steps = getSteps();
 
@@ -127,7 +127,7 @@ export default function FormStarter() {
     }
 
       try {
-        await axios.post('https://apiv1-abstartups.herokuapp.com/registeruppo/starter', userRegister)
+        await axios.post('https://api-planos.abstartups.com.br/registeruppo/starter', userRegister)
       } catch (err) {
         toast.error('Ooops, houve um erro!')
         
@@ -142,7 +142,7 @@ export default function FormStarter() {
       try {
         if(cnpjValidate.cnpj.length === 14){
           setLoading(true)
-          axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate).then(response => {
+          axios.post('https://api-planos.abstartups.com.br/cnpj/', cnpjValidate).then(response => {
             if(response.data.status !== 400) {
               setRazaoSocial(response.data.nome)
               setValidaCnpj(true);
@@ -200,12 +200,12 @@ export default function FormStarter() {
 
      try {
       console.log(consumerData)
-      await axios.post( 'https://apiv1-abstartups.herokuapp.com/consumer', consumerData)
+      await axios.post( 'https://api-planos.abstartups.com.br/consumer', consumerData)
       .then( response => {
         
         localStorage.removeItem('id_consumer');
         setIdConsumer(response.data.customer.id);
-        SetPlan({ id: 160505, name: 'Start'})
+        setPlan({ id: 160505, name: 'Start'})
         localStorage.setItem('consumer_id', JSON.stringify(response.data.customer.id));
         console.log(idConsumer)
 
@@ -220,7 +220,7 @@ export default function FormStarter() {
               invoice_split: false
             }
 
-            axios.post('https://apiv1-abstartups.herokuapp.com/bankslip', registerPlain)
+            axios.post('https://api-planos.abstartups.com.br/bankslip', registerPlain)
 
           } catch (err) {
             toast.error('Ooops, houve um erro ao gerar o seu cadastro!')
@@ -975,9 +975,9 @@ export default function FormStarter() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
+  // const handleStep = (step) => () => {
+  //   setActiveStep(step);
+  // };
 
   function handleComplete (e) {
     e.preventDefault();
@@ -989,9 +989,12 @@ export default function FormStarter() {
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepButton onClick={ handleStep(index)} completed={completed[index] }>
+            <StepButton completed={completed[index] }>
               {label}
             </StepButton>
+            {/* <StepButton onClick={ handleStep(index)} completed={completed[index] }>
+              {label}
+            </StepButton> */}
           </Step>
         ))}
       </Stepper>

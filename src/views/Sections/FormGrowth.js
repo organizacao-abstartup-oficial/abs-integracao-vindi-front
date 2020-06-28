@@ -137,7 +137,7 @@ export default function FormStarter() {
       try {
         if(cnpjValidate.cnpj.length === 14){
           setLoading(true)
-          axios.post('https://apiv1-abstartups.herokuapp.com/cnpj/', cnpjValidate).then(response => {
+          axios.post('https://api-planos.abstartups.com.br/cnpj/', cnpjValidate).then(response => {
             if(response.data.status !== 400) {
               setRazaoSocial(response.data.nome)
               setValidaCnpj(true);
@@ -195,7 +195,7 @@ export default function FormStarter() {
 
      try {
       console.log(consumerData)
-      await axios.post( 'https://apiv1-abstartups.herokuapp.com/consumer', consumerData)
+      await axios.post( 'https://api-planos.abstartups.com.br/consumer', consumerData)
       .then( response => {
         localStorage.removeItem('id_consumer');
         setIdConsumer(response.data.customer.id);
@@ -1022,9 +1022,9 @@ export default function FormStarter() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
+  // const handleStep = (step) => () => {
+  //   setActiveStep(step);
+  // };
 
   function handleComplete (e) {
     e.preventDefault();
@@ -1036,9 +1036,12 @@ export default function FormStarter() {
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepButton onClick={ handleStep(index)} completed={completed[index] }>
+            <StepButton completed={completed[index] }>
               {label}
             </StepButton>
+            {/* <StepButton onClick={ handleStep(index)} completed={completed[index] }>
+              {label}
+            </StepButton> */}
           </Step>
         ))}
       </Stepper>

@@ -26,23 +26,37 @@ export default function CForm({
     children
 }) {
     const [ cardNumber, setCardNumber ] = useState('');
+    const [ planIdState, setplanIdState ] = useState(151756)
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
 
         onUpdateState(name, value);
     };
-    const plainValue = 499
-    const plainValueOneStallment = 399
 
-    const installments = [  
-        { id: 151756, value: 1, pricing: 399, label: plainValueOneStallment  },
-        { id: 150698, value: 12, pricing: 499, label: plainValue /12 }]
+    const pathName = window.location.pathname;
+
+    const PlanObjectGrowth = [  
+        { id: 151756, value: 1, pricing: 399, label: 399  },
+        { id: 150698, value: 12, pricing: 499, label: 499 /12 }];
+
+    const PlanObjectImpact = [  
+        { id: 152208, value: 1, pricing: 1499, label: 1499  },
+        { id: 152186, value: 12, pricing: 1799, label: 1799 /12 }];
 
 
-    const [planIdState, setplanIdState] = useState(151756)
+    const planGrowth = (<>{PlanObjectGrowth.map(plan => (
+                        <option key={plan.id} value={plan.id}>
+                            {plan.value === 1 ? `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) : `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) }
+                        </option>
+                    ))}</>)
 
-    // TODO: We can improve the regex check with a better approach like in the card component.
+    const planImpact = (<>{PlanObjectImpact.map(plan => (
+                    <option key={plan.id} value={plan.id}>
+                        {plan.value === 1 ? `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) : `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) }
+                    </option>
+                ))}</>)
+
     const onCardNumberChange = (event) => {
         let { value, name } = event.target;
         let cardNumber = value;
@@ -64,8 +78,6 @@ export default function CForm({
                 .replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ');
         }
 
-        sessionStorage.setItem('Chave', 'value')
-
         setCardNumber(cardNumber.trimRight());
         onUpdateState(name, cardNumber);
 
@@ -84,7 +96,6 @@ export default function CForm({
 
     async function postPayment(){
         const consumer = localStorage.getItem('consumer_id');
-        const cardNumberStorage = localStorage.getItem('cardNumber');
         const cardHolderStorage = localStorage.getItem('cardHolder');
         const cardValidateStorage = localStorage.getItem('cardValidate');
         const companyCodeStorage = localStorage.getItem('companyCode');
@@ -93,7 +104,7 @@ export default function CForm({
         const paymentProfile = {
             holder_name: cardHolderStorage,
             card_expiration: cardValidateStorage,
-            card_number: cardNumberStorage,
+            card_number: cardNumber,
             card_cvv: cardCvv,
             installments: 12,
             payment_method_code: 'credit_card',
@@ -101,7 +112,7 @@ export default function CForm({
             customer_id: parseInt(consumer)
         }
         try {
-            await axios.post('https://apiv1-abstartups.herokuapp.com/creditcard', paymentProfile).then(response => {
+            await axios.post('https://api-planos.abstartups.com.br/creditcard', paymentProfile).then(response => {
                 
                 if(response.status === 200) {
                     try {
@@ -117,10 +128,9 @@ export default function CForm({
                             },
                             invoice_split: false
                         }
-                        axios.post('https://apiv1-abstartups.herokuapp.com/subscription/card', sub)
+                        axios.post('https://api-planos.abstartups.com.br/subscription/card', sub)
                         .then(res => {
                             toast.success('Pagamento realizado com sucesso!')
-                            localStorage.removeItem('cardNumber')
                             localStorage.removeItem('cardHolder')
                             localStorage.removeItem('cardValidate')
                             localStorage.removeItem('cardCvv')
@@ -248,24 +258,18 @@ export default function CForm({
                             />
                         </div>
                     </div>
-                    
-                
                 </div>
 
                     <select
                         name="installments"
                         className="card-input__input -select"
-                        onChange={e => setplanIdState(e.target.value) || console.log(planIdState)}
+                        onChange={e =>   setplanIdState(e.target.value) }
                     >
                         <option value="" disabled>
                             Selecione as parcelas
                         </option>
 
-                        {installments.map(installments => (
-                            <option key={installments.id} value={installments.id}>
-                                {installments.value === 1 ? `${installments.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) : `${installments.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(installments.label) }
-                            </option>
-                        ))}
+                        { pathName === '/growth' ? planGrowth : planImpact }
                     </select>
                 <Button color="primary" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }} onClick={postPayment}>
                   Finalizar pagamento

@@ -21,7 +21,9 @@ export default function BoletoModal(props)  {
 
   const toggle = () => setModal(!modal) ;
 
-  const planDefault = 151756;
+  const pathName = window.location.pathname;
+
+  const planDefault = pathName === '/growth' ? 151756 : 152208;
   const idCustomer = localStorage.getItem('consumer_id')
 
   const BankSlipData = {
@@ -39,7 +41,7 @@ export default function BoletoModal(props)  {
 
   async function SetPaymentBankSlip(){
       try {
-        await axios.post( 'https://apiv1-abstartups.herokuapp.com/subscription/bankslip', BankSlipData)
+        await axios.post( 'https://api-planos.abstartups.com.br/subscription/bankslip', BankSlipData)
         .then( response => {
           setBankSlipCode(response.data.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
           setBankSlipLink(response.data.bill.charges[0].print_url);
@@ -64,6 +66,7 @@ export default function BoletoModal(props)  {
         <center>
           <p>Falta pouco para você fazer parte do nosso <b>time de associados!</b> ;)</p>
           <hr/>
+          { planDefault }
           <Button
             block 
             onClick={SetPaymentBankSlip}

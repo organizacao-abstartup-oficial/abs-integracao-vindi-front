@@ -13,8 +13,10 @@ import Starter from "views/pages/Starter.js";
 import Growth from "views/pages/Growth.js";
 import Impact from "views/pages/Impact.js";
 
+
 ReactDOM.render(
   <BrowserRouter>
+
     <ToastContainer autoClose={3000} />
     <Switch>
       <Route

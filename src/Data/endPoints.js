@@ -1,1 +1,1 @@
-export const API = 'https://apiv1-abstartups.herokuapp.com/';
+export const API = 'https://api-planos.abstartups.com.br/';
