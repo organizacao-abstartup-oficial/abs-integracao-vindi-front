@@ -46,33 +46,38 @@ export default function Nav() {
                   </center>
                 </Col>
                 <div className="sponsors">
-                <Col md="2" className="m-3">
+                <Col md="2">
                   <center>
-                    <img className="brand-sponsors" src={logoGCloud} alt="Google Cloud Plataform" width="150px" height="auto"/>
+                    <img className="brand-sponsors" src={logoGCloud} alt="Google Cloud Plataform" />  
                   </center>
                 </Col>
-                <Col md="2" className="m-3">
+
+                <Col md="2">
                   <center>
-                    <img className="brand-sponsors" src={logoHubSpot} alt="HubSpot" width="150px" height="auto"/>
+                    <img className="brand-sponsors" src={logoHubSpot} alt="HubSpot" />
                   </center>
                 </Col>
-                <Col md="2" className="m-3">
+
+                <Col md="2">
                   <center>
-                    <img className="brand-sponsors" src={logoContaAzul} alt="Conta Azul" width="150px" height="auto"/>
+                    <img className="brand-sponsors" src={logoContaAzul} alt="Conta Azul" />
                   </center>
                 </Col>
-                <Col md="2" className="m-3">
+
+                <Col md="2">
                   <center>
-                    <img className="brand-sponsors" src={logoPipedrive} alt="Pipedrive" width="150px" height="auto"/>
+                    <img className="brand-sponsors" src={logoPipedrive} alt="Pipedrive" />
                   </center>
                 </Col>
-                <Col md="2" className="m-3">
+
+                <Col md="2">
                   <center>
-                    <img className="brand-sponsors" src={logoAWS} alt="Amazon AWS" width="150px" height="auto"/>
+                    <img className="brand-sponsors" src={logoAWS} alt="Amazon AWS" />
                   </center>
                 </Col>
+
                 </div>
-                <Col md="12">
+                <Col md="12" className="sponsors-complement">
                   <center>
                    <p><b>Networking, produtos, mentorias e muito mais em um só lugar. Veja tudo que a Abstartups pode fazer por você! {'<3'}</b></p>
                   </center>
