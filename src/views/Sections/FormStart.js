@@ -209,18 +209,18 @@ export default function FormStarter() {
         localStorage.setItem('consumer_id', JSON.stringify(response.data.customer.id));
         console.log(idConsumer)
 
-        if ( response.startus === 200 ){
+        if ( response.status === 200 ){
           try {
             const registerPlain = { 
-              plan_id: plan.id,
-              customer_id: idConsumer,
+              plan_id: 160505,
+              customer_id: parseInt(localStorage.getItem('consumer_id')),
               code: uuid(),
               payment_method_code: 'bank_slip',
               metadata: uuid(),
               invoice_split: false
             }
 
-            axios.post('https://api-planos.abstartups.com.br/bankslip', registerPlain)
+            axios.post('https://api-planos.abstartups.com.br/subscription/bankslip', registerPlain)
 
           } catch (err) {
             toast.error('Ooops, houve um erro ao gerar o seu cadastro!')
@@ -887,8 +887,8 @@ export default function FormStarter() {
       
     }
     if (newActiveStep === 3) {
-      console.log(`Validar passo 2`)
       window.scrollTo({top: 100, behavior: 'smooth'});
+      console.log('Consumer ID é:', idConsumer)
 
       try {
         const schema = Yup.object().shape({
