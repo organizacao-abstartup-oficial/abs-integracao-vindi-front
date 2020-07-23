@@ -139,14 +139,20 @@ export default function FormStarter() {
           setLoading(true)
           axios.post('https://api-planos.abstartups.com.br/cnpj/', cnpjValidate).then(response => {
             if(response.data.status !== 400) {
-              setRazaoSocial(response.data.nome)
-              setValidaCnpj(true);
-              setHasError({cnpj: false})
-              setLoading(false)
-              return;
+              axios.get(`https://api-planos.abstartups.com.br/cnpj/validate/${cnpjValidate.cnpj}`).then(res => {
+                if(res.data.customers.length === 0){
+                  setRazaoSocial(response.data.nome)
+                  setValidaCnpj(true);
+                  setHasError({cnpj: false})
+                  setLoading(false)
+                  return;
+                } 
+                setLoading(false)
+                setHasError({cnpj:true})
+              });
             }
-            setHasError({cnpj:true})
             setLoading(false)
+            setHasError({cnpj:true})
           })
         }
       } catch (err) {
@@ -268,7 +274,7 @@ export default function FormStarter() {
                       required={true}
                       id="cnpj"
                       type='text'
-                      helperText={loading ? "Carregando..." : "CNPJ Válido"  && hasError.cnpj ? "CNPJ Inválido" : "Apenas números"}
+                      helperText={loading ? "Carregando..." : "CNPJ Válido"  && hasError.cnpj ? "CNPJ Inválido e/ou existente" : "Apenas números"}
                       vmargin="normal"
                       variant="outlined"
                       style={{ margin: 8 }}
