@@ -12,6 +12,7 @@ import IndexForm from "views/Index.js";
 import Starter from "views/pages/Starter.js";
 import Growth from "views/pages/Growth.js";
 import Impact from "views/pages/Impact.js";
+import Renovacao from "views/pages/Renovacao.js";
 
 
 ReactDOM.render(
@@ -38,6 +39,11 @@ ReactDOM.render(
         exact
       >
         <Growth/>
+      </Route>
+      <Route
+        path="/renovacao"
+      >
+        <Renovacao />
       </Route>
 
       <Route
