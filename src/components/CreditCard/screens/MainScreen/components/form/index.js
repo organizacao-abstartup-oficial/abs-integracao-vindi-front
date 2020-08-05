@@ -45,6 +45,7 @@ export default function CForm({
         { id: 152186, value: 12, pricing: 1799, label: 1799 /12 }];
 
 
+
     const planGrowth = (<>{PlanObjectGrowth.map(plan => (
                         <option key={plan.id} value={plan.id}>
                             {plan.value === 1 ? `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) : `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) }
@@ -106,7 +107,7 @@ export default function CForm({
             card_expiration: cardValidateStorage,
             card_number: cardNumber,
             card_cvv: cardCvv,
-            installments: 12,
+            installments: planIdState === 151756 ? 1 : 12 || planIdState === 152208 ? 1 : 12,
             payment_method_code: 'credit_card',
             payment_company_code: companyCodeStorage,
             customer_id: parseInt(consumer)
@@ -121,7 +122,7 @@ export default function CForm({
                             customer_id: consumer,
                             code: uuid(),
                             payment_method_code: 'credit_card',
-                            installments: 12,
+                            // installments:  planIdState === 151756 ? 1 : 12 || planIdState === 152208 ? 1 : 12,
                             metadata: uuid(),
                             payment_profile: {
                                 id: response.data.payment_profile.id
@@ -271,6 +272,10 @@ export default function CForm({
 
                         { pathName === '/growth' ? planGrowth : planImpact }
                     </select>
+
+                    
+                    <hr/>
+
                 <Button color="primary" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }} onClick={postPayment}>
                   Finalizar pagamento
                 </Button>

@@ -227,6 +227,8 @@ export default function FormStarter() {
       case 0:
         return ( <form autoComplete="on" ><Row lg="8">
 
+        
+
           <TextField
             label="Nome"
             required={true}
@@ -241,6 +243,7 @@ export default function FormStarter() {
             variant="outlined"
             error={hasError.name}
           />
+         
           <TextField
             label="Nome da Startup"
             required={true}
@@ -741,11 +744,9 @@ export default function FormStarter() {
         <h2 className={classes.instructions}>{name}, seu cadastro foi realizado com sucesso!</h2>
         <hr/>
         <h5 className={classes.instructions}>Oba {business}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil!</h5>
-        <h5 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h5>
+        <h5 className={classes.instructions}>Assim que seu pagamento for confirmado, você receberá um email com os próximos passos.</h5>
 
         <p>O Plano Contratado é o: <b>Growth</b></p>
-
-        <Button  variant="contained" onClilck={ () => window.open('https://app.uppo.com.br/abstartups/', '_blank') } color="primary">Acesse seus benefícios</Button>
 
       </center>
     </div>
