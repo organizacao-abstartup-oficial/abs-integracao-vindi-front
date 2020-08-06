@@ -1,4 +1,17 @@
 
+.cards-information{
+    display: inline-block;
+
+    .card-line{
+        display: flex;
+        align-items: end;
+
+        img {
+            margin-left: 10px;
+        }
+    }
+}
+
 .card {
   position: relative;
 

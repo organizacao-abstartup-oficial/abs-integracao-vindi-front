@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
@@ -106,6 +107,8 @@ export default function FormStarter() {
   const [isLastStepCompleted, setIsLastStepCompleted] = useState(localStorage.setItem('isLastStep', "false"));
   const [loading, setLoading] = useState(false)
 
+  const history = useHistory()
+
   const steps = getSteps();
 
 
@@ -149,10 +152,10 @@ export default function FormStarter() {
                 } else if (res.data.customers.length >= 1) {
                   setLoading(false)
                   setHasError({cnpj:false})
-                  // window.open('https://planos.abstartups.com.br/renovacao', '_self')
-                  window.open('http://localhost:3000/renovacao', '_self')
-                  console.log(res.data.customers)
+                  
+                  history.push('/renovacao')
                   localStorage.setItem('cnpj', cnpjValidate.cnpj)
+                  localStorage.setItem('personal_name', res.data.customers[0].metadata.nome_pessoa_fisica)
 
                 } else {
                   setLoading(false)

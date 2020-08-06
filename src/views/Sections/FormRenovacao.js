@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
@@ -19,10 +20,17 @@ import InputMask from "react-input-mask";
 import { Row } from 'reactstrap';
 
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
+
+import WellComeModal from './WelcomeModal';
 import CardModal from './CardModal';
 import BoletoModal from './BoletoModal';
 
-import CardsAccept from '../../assets/img/brand/bandeiras-final.png'
+import CardsAccept from '../../assets/img/brand/bandeiras-final.png';
+import LogoMaster from '../../assets/img/brand/master.png';
+import LogoVisa from '../../assets/img/brand/visa.png';
+import LogoElo from '../../assets/img/brand/elo.png';
+import LogoHiper from '../../assets/img/brand/hiper.png';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +58,7 @@ export default function FormRenovacao() {
   const [ hasError, setHasError ] = useState({
     cnpj: false,
   });
+
   const [ activeStep, setActiveStep ] = useState(0);
   const [ validaCnpj, setValidaCnpj ] = useState(false);
   const [ completed, setCompleted ] = useState({});
@@ -63,12 +72,18 @@ export default function FormRenovacao() {
   const [ consumer, setConsumer ] = useState('')
   const [ wallet, setWallet ] = useState('')
 
-
   const [ price, setPrice ] = useState('');
   const [ planName, setPlanName ] = useState('');
   const [ startPlain, setStartPlain ] = useState('');
+  const [ endPlain, setEndPlain ] = useState('');
+  const [ subsCriptionID, setSubscriptionID ] = useState('')
+  const [ subScriptionStatus, setSubScriptionStatus ] = useState('')
+
+  const history = useHistory()
 
   const steps = getSteps();
+
+  // const cnpjStorage = localStorage.getItem('cnpj')
 
 
   setInterval(() => {
@@ -94,26 +109,54 @@ export default function FormRenovacao() {
     }
   }, [cnpj])
 
-  async function handleSubscription(cnpj){
-    await axios.get(`http://localhost:8080/subscription/subs/${cnpj.replace(/\D/g, '')}`).then(response => {
-      console.log(response.data);
-      setValidaCnpj(true);
-      setHasError({cnpj: false});
-      setLoading(false);
-      setBusiness(response.data.customer[0].name);
-      setName(response.data.customer[0].metadata.nome_pessoa_fisica);
-      setPrice(response.data.product.product_items[0].pricing_schema.short_format)
-      setPlanName(response.data.product.product_items[0].product.name)
-      setStartPlain(response.data.product.product_items[0].pricing_schema.created_at)
-      setWallet(response.data.wallet);
-      setSubscription(response.data.product);
-      setConsumer(response.data.customer[0]);
-      localStorage.setItem('consumer_id', response.data.customer[0].id)
 
-      if(!response){
-        window.open('https://planos.abstartups.com.br/growth')
+
+  async function handleSubscription(cnpj){
+    await axios.get(`https://api-planos.abstartups.com.br/subscription/subs/${cnpj.replace(/\D/g, '')}`).then(response => {
+
+      if (response.data.status === 401){
+        history.push('/growth')
+      } else {
+        setValidaCnpj(true);
+        setHasError({cnpj: false});
+        setLoading(false);
+        setBusiness(response.data.customers[0].name);
+        setName(response.data.customers[0].metadata.nome_pessoa_fisica);
+        setConsumer(response.data.customers[0]);
+        setIdConsumer(response.data.customers[0].id)
+        localStorage.setItem('consumer_id', response.data.customers[0].id)
+
+        // chamada secundária
+        
+
+        
+
       }
     })
+  }
+
+  async function getSubscriptions() {
+          await axios.get(`https://api-planos.abstartups.com.br/subscription/subs/customers/${idConsumer}`).then(
+            res => {
+              setPrice(res.data.subscriptions[0].product_items[0].pricing_schema.short_format)
+              setSubscriptionID(res.data.subscriptions[0].id)
+              setPlanName(res.data.subscriptions[0].product_items[0].product.name)
+              setStartPlain(res.data.subscriptions[0].current_period.start_at)
+              setEndPlain(res.data.subscriptions[0].current_period.end_at)
+              setWallet(res.data.subscriptions[0].payment_profile);
+              setSubscription(res.data.subscriptions[0].product_items[0].product);
+              setSubScriptionStatus(res.data.subscriptions[0].product_items[0].status)
+
+            }
+          )
+          
+  };
+
+  async function postReniewSubscription(){
+    // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customers/reniew/${subsCriptionID}`).then( res => {
+    //   console.log('Funcionando')
+    // } )
+    console.log(subsCriptionID)
   }
 
   const defaultOptions = {
@@ -126,7 +169,7 @@ export default function FormRenovacao() {
   };
 
   function getSteps() {
-  return ['Identificação', 'Informações', 'Renovação', 'Confirmação'];
+   return ['Identificação', 'Informações', 'Renovação', 'Confirmação'];
   }
 
   function getStepContent(step) {
@@ -134,6 +177,7 @@ export default function FormRenovacao() {
     switch (step) {
       case 0:
         return ( <form autoComplete="on" ><Row lg="8">
+          <WellComeModal/>
           <div className="double-input--form" >
             <InputMask
                 value={ cnpj }
@@ -162,20 +206,33 @@ export default function FormRenovacao() {
           <Row lg="8" xs="12">
           <div>
             <h3>Seus dados:</h3>
+              <p>Passo ativo: <b>{ subScriptionStatus === 'active' ? 'Ativo' : 'Inativo ou não encontrado' }</b></p>
               <p>Nome: <b>{business ? business : 'não informado' }</b></p>
               <p>CNPJ: <b>{cnpj ? cnpj : 'não informado'} </b></p>
               <p>Responsável: <b>{ name ? name : 'não informado' }</b></p>
               <p>Plano Contratado: <b>{ planName ? planName : 'não informado' }</b></p>
               <p>Valor <b>{ price ? price : 'não informado' }</b></p>
               <p>Data de início: <b>{ startPlain ? startPlain : 'não informado' }</b></p>
-              <p>Data de termino: <b>{ startPlain ? startPlain : 'não informado' }</b></p>
+              <p>Data de termino: <b>{ endPlain ? endPlain : 'não informado' }</b></p>
 
               { wallet ? (
                 <>
                   <hr/>
-                    <p>Pago com: <b>{ wallet ? wallet.payment_company.name : 'não informado' }</b></p>
+                  <div className="cards-information">
+                    <div className="card-line">
+                      <p>Pago com: <b>{ wallet ? wallet.payment_company.name : 'não informado' }</b></p> 
+                        { wallet.payment_company.name === 'MasterCard' ? 
+                          (<> <img src={LogoMaster} alt="MasterLogo" width="40px" height="auto"/> </>) : 
+                          wallet.payment_company.name === 'Visa' ? 
+                          (<> <img src={LogoVisa} alt="VisaLogo" width="40px" height="auto"/> </>) : 
+                          wallet.payment_company.name === 'Elo' ? 
+                          (<> <img src={LogoElo} alt="EloLogo" width="40px" height="auto"/> </>) :
+                          wallet.payment_company.name === 'HiperCard' ? 
+                          (<> <img src={LogoHiper} alt="HiperLogo" width="40px" height="auto"/> </>) : 'Não informado.'}
+                    </div>
                     <p>Nome: <b>{ wallet ? wallet.holder_name : 'não informado' }</b></p>
                     <p>Cartão: <b>{ wallet ? '**** **** **** ' + wallet.card_number_last_four : 'não informado' }</b></p>
+                  </div>
                   <br/>
                 </>
               ) : ''}
@@ -193,14 +250,9 @@ export default function FormRenovacao() {
             </>
         
         );
-        // case 3:
-        //   return (
-        //     <>
-        //       { isLastStepCompleted === "true" ? Thanks : FormPayment }
-        //     </>
-        //   )
+ 
       default:
-        return <h1>Ooops, parece que algo deu errado!</h1>;
+        return <h2>Ooops, parece que algo deu errado!</h2>;
     }
   }
 
@@ -235,7 +287,7 @@ export default function FormRenovacao() {
         <p>Valor anual: <b>{price}</b></p>
         <center>
           
-          { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button  block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
+          { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button  onClick={ postReniewSubscription } block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
           
           <hr/>
 
@@ -270,16 +322,25 @@ export default function FormRenovacao() {
     return completedSteps() === totalSteps();
   };
 
+
+
+  
+
   const handleNext = async () => {
+
     //Inputar validações aqui
     const newActiveStep = isLastStep() && !allStepsCompleted()
     
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
+
       
-    if (newActiveStep === 1){
+    if (newActiveStep === 1 ){
       window.scrollTo({top: 100, behavior: 'smooth'});
-      localStorage.removeItem('consumer_id');
+      // localStorage.removeItem('consumer_id');
+      getSubscriptions();
+      console.log('passo 1', newActiveStep)
+      
 
       try {
         const schema = Yup.object().shape({
@@ -331,6 +392,7 @@ export default function FormRenovacao() {
     }
     if (newActiveStep === 2){
       try {
+        console.log('passo 2')
 
         window.scrollTo({top: 100, behavior: 'smooth'});
 
@@ -345,95 +407,14 @@ export default function FormRenovacao() {
       
     } 
     if (newActiveStep === 3) {
-      console.log(`Validar passo 2`)
-      // window.scrollTo({top: 100, behavior: 'smooth'});
 
       const newCompleted = completed;
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
       setActiveStep(newActiveStep);
 
-      // try {
-      //   const schema = Yup.object().shape({
-      //     getcargo: Yup.string().ensure().required(),
-      //     getsocios: Yup.string().ensure().required(),
-      //     getsegmento: Yup.string().ensure().required(),
-      //     getmodelo: Yup.string().ensure().required(),
-      //     getfase: Yup.string().ensure().required(),
-      //     getinvestimentos: Yup.string().ensure().required(),
-      //     gettime: Yup.string().ensure().required(),
-      //     getajuda: Yup.string().ensure().required(),
-      //   });
-
-      //   const data = {
-      //     getcargo,
-      //     getsocios,
-      //     getsegmento,
-      //     getmodelo,
-      //     getfase,
-      //     getinvestimentos,
-      //     gettime,
-      //     getajuda
-      //   };
-
-      //   await schema.validate(data, {
-      //     abortEarly: false
-      //   });
-
-      //   if(!checked) {
-      //     toast.error('Por favor aceite os termos de uso para continuar.');
-      //     setHasError(
-      //       {
-      //         ...hasError, 
-      //         checkedTerm: true,
-      //       });
-      //       return;
-      //   }
-
-      //   // handleRegisterVindi()
-      //   // handleRegisterUppo()
-
-      //   const newCompleted = completed;
-      //   newCompleted[activeStep] = true;
-      //   setCompleted(newCompleted);
-      //   setActiveStep(newActiveStep);
-
-      // } catch(err) {
-      //   toast.error('Por favor, preencha todos os campos obrigatórios.')
-      //   if(err instanceof Yup.ValidationError){
-      //     const errorMessages = {};
-      //     err.inner.forEach(error => {
-      //       errorMessages[error.path] = true;
-      //     });
-      //     const { 
-      //       getcargo,
-      //       getsocios,
-      //       getsegmento,
-      //       getmodelo,
-      //       getfase,
-      //       getinvestimentos,
-      //       gettime,
-      //       getajuda,
-      //       checkedTerm
-      //     } = errorMessages;
-      //     setHasError(
-      //       { ...hasError, 
-      //         getcargo,
-      //         getsocios,
-      //         getsegmento,
-      //         getmodelo,
-      //         getfase,
-      //         getinvestimentos,
-      //         gettime,
-      //         getajuda,
-      //         checkedTerm
-      //       }
-      //     );
-      //   }
-      // }
-
-      
     }
+
     if (newActiveStep === 4) {
       try {
 
@@ -454,18 +435,11 @@ export default function FormRenovacao() {
     }
   };
 
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
-
-  // const handleStep = (step) => () => {
-  //   setActiveStep(step);
-  // };
-
   function handleComplete (e) {
     e.preventDefault();
     handleNext();
   };
+
 
   return (
     <Col lg="8">
@@ -492,7 +466,7 @@ export default function FormRenovacao() {
             />
               <h5 className={classes.instructions}>{name}, estamos muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
-              <p>O Plano Contratado é o: <b>{planName}</b></p>
+              <p>O Plano renovado é o: <b>{planName}</b></p>
               
               <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
