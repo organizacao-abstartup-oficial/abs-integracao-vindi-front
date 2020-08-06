@@ -16,6 +16,7 @@ import ImpactSubscription from './Sections/ImpactSubscription';
 import StartModal from './Sections/StartModal';
 import GrowthModal from './Sections/GrowthModal';
 import ImpactModal from './Sections/ImpactModal';
+import GPRD from './Sections/LGPDWarning';
 
 import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
@@ -476,6 +477,7 @@ export default function StarterForm() {
               </Col>
             </Row>
           </Container> */}
+          <GPRD/>
         </Container>
         </div>
         

@@ -31,7 +31,7 @@ export default function StartModal(props)  {
     <div>
       <Col md="12">
         <center>       
-              <a onClick={toggle}><InfoIcon/> Benefícios Growth </a>
+              <a className="beneficts-list--modal" onClick={toggle}><InfoIcon/> Benefícios Growth </a>
         </center>
         <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Benefícios Growth</ModalHeader>

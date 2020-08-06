@@ -142,7 +142,7 @@ export default function FormStarter() {
           setLoading(true)
           axios.post('https://api-planos.abstartups.com.br/cnpj/', cnpjValidate).then(response => {
             if(response.data.status !== 400) {
-              axios.get(`http://localhost:8080/cnpj/validate/${cnpjValidate.cnpj}`).then(res => {
+              axios.get(`https://api-planos.abstartups.com.br/cnpj/validate/${cnpjValidate.cnpj}`).then(res => {
                 if(res.data.customers.length === 0){
                   setRazaoSocial(response.data.nome)
                   setValidaCnpj(true);

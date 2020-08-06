@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const cnpjStorage = localStorage.getItem('cnpj');
-
-
 
 export default function FormRenovacao() {
 
@@ -125,12 +122,6 @@ export default function FormRenovacao() {
         setConsumer(response.data.customers[0]);
         setIdConsumer(response.data.customers[0].id)
         localStorage.setItem('consumer_id', response.data.customers[0].id)
-
-        // chamada secundária
-        
-
-        
-
       }
     })
   }
@@ -157,6 +148,8 @@ export default function FormRenovacao() {
     //   console.log('Funcionando')
     // } )
     console.log(subsCriptionID)
+    console.log(consumer)
+    console.log(subscription)
   }
 
   const defaultOptions = {
@@ -206,7 +199,7 @@ export default function FormRenovacao() {
           <Row lg="8" xs="12">
           <div>
             <h3>Seus dados:</h3>
-              <p>Passo ativo: <b>{ subScriptionStatus === 'active' ? 'Ativo' : 'Inativo ou não encontrado' }</b></p>
+              <p>Status do plano: <b>{ subScriptionStatus === 'active' ? 'Ativo' : 'Inativo ou não encontrado' }</b></p>
               <p>Nome: <b>{business ? business : 'não informado' }</b></p>
               <p>CNPJ: <b>{cnpj ? cnpj : 'não informado'} </b></p>
               <p>Responsável: <b>{ name ? name : 'não informado' }</b></p>
@@ -449,9 +442,6 @@ export default function FormRenovacao() {
           <StepButton completed={completed[index] }>
               {label}
             </StepButton>
-            {/* <StepButton onClick={ handleStep(index)} completed={completed[index] }>
-              {label}
-            </StepButton> */}
           </Step>
         ))}
       </Stepper>
@@ -477,9 +467,6 @@ export default function FormRenovacao() {
             <p className={classes.instructions}></p>
             {getStepContent(activeStep)}
             <div>
-              {/* <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button} variant="contained">
-                <NavigateBeforeIcon/> Voltar
-              </Button> */}
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" className={classes.completed}>
