@@ -115,6 +115,7 @@ export default function FormStarter() {
       setBairro(response.data.bairro)
       setCountry('BR')
       localStorage.clear();
+      console.log(plan)
     })
   }
 

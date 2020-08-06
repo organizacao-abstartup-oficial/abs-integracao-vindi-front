@@ -139,20 +139,30 @@ export default function FormStarter() {
           setLoading(true)
           axios.post('https://api-planos.abstartups.com.br/cnpj/', cnpjValidate).then(response => {
             if(response.data.status !== 400) {
-              axios.get(`https://api-planos.abstartups.com.br/cnpj/validate/${cnpjValidate.cnpj}`).then(res => {
+              axios.get(`http://localhost:8080/cnpj/validate/${cnpjValidate.cnpj}`).then(res => {
                 if(res.data.customers.length === 0){
                   setRazaoSocial(response.data.nome)
                   setValidaCnpj(true);
                   setHasError({cnpj: false})
                   setLoading(false)
-                  return;
-                } 
-                setLoading(false)
-                setHasError({cnpj:true})
+                  // return;
+                } else if (res.data.customers.length >= 1) {
+                  setLoading(false)
+                  setHasError({cnpj:false})
+                  // window.open('https://planos.abstartups.com.br/renovacao', '_self')
+                  window.open('http://localhost:3000/renovacao', '_self')
+                  console.log(res.data.customers)
+                  localStorage.setItem('cnpj', cnpjValidate.cnpj)
+
+                } else {
+                  setLoading(false)
+                  setHasError({cnpj:true})
+                }
+                
+                
               });
             }
-            setLoading(false)
-            setHasError({cnpj:true})
+            
           })
         }
       } catch (err) {

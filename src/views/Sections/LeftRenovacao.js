@@ -2,11 +2,20 @@
 import React from "react";
 
 import { Col } from "reactstrap";
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import plainLogo from '../../assets/img/icons/common/start.png'
+import Lottie from 'react-lottie';
+import renewLottie from '../../components/Animation/28828-laboratorio.json';
 
 export default function LeftRenovacao() {
+
+  const renewAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: renewLottie,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+      }
+  };
+
   return (
     <>
       <Col lg="4">
@@ -14,14 +23,17 @@ export default function LeftRenovacao() {
           Renovação
         </h3>
         
-        <p>Informe seu CNPJ e faça o procedimento de renovação do seu plano.</p>
+        <p><b>Para começar informe o seu CNPJ para poder te localizar.</b></p>
 
-        <img src={plainLogo} alt="growth" width="200px"/>
+          <Lottie options={renewAnimation}
+            height={300}
+            width={300}
+          />
+
         <br/>
+        <p><b>Estamos com tudo pronto para mais este ano de parceria, vamos lá.</b></p>
         <br/>
-        <h5><b>12x de R$ 41,58 ou R$ 399/ano</b></h5>
         <hr/>
-        <p>Com o plano Growth você possui muito mais benefícios para que a sua startup chegue longe.</p>
       </Col>
     </>
   );

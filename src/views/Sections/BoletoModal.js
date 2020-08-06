@@ -23,7 +23,7 @@ export default function BoletoModal(props)  {
 
   const pathName = window.location.pathname;
 
-  const planDefault = pathName === '/growth' ? 151756 : 152208;
+  const planDefault = pathName === '/growth' && '/renovacao' ? 151756 : 152208;
   const idCustomer = localStorage.getItem('consumer_id')
 
   const BankSlipData = {
@@ -66,7 +66,6 @@ export default function BoletoModal(props)  {
         <center>
           <p>Falta pouco para você fazer parte do nosso <b>time de associados!</b> ;)</p>
           <hr/>
-          { planDefault }
           <Button
             block 
             onClick={SetPaymentBankSlip}

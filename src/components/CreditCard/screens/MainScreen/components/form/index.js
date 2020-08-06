@@ -269,7 +269,7 @@ export default function CForm({
                             Selecione as parcelas
                         </option>
 
-                        { pathName === '/growth' ? planGrowth : planImpact }
+                        { pathName === '/growth' || '/renovacao' ? planGrowth : planImpact }
                     </select>
                 <Button color="primary" style={{ marginBottom: '1rem', marginTop:  '1rem', width: '100%' }} onClick={postPayment}>
                   Finalizar pagamento
