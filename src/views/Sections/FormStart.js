@@ -101,7 +101,7 @@ export default function FormStarter() {
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
-  const [plan, setPlan] = useState('')
+  const [plan, setPlan] = useState({ id: 160505, name: 'Start'})
   const [ loading, setLoading ] = useState(false)
 
   const steps = getSteps();
@@ -219,7 +219,7 @@ export default function FormStarter() {
         if ( response.status === 200 ){
           try {
             const registerPlain = { 
-              plan_id: 160505,
+              plan_id: plan.id,
               customer_id: parseInt(localStorage.getItem('consumer_id')),
               code: uuid(),
               payment_method_code: 'bank_slip',
