@@ -641,6 +641,18 @@ export default function FormRenovacao() {
       try {
         console.log('passo 2')
 
+        const schema = Yup.object().shape({
+          selectNewPlan: Yup.number().required()
+        });
+
+        const data = {
+          selectNewPlan,
+        }
+
+        await schema.validate(data, {
+          abortEarly: false
+        })
+
         window.scrollTo({top: 100, behavior: 'smooth'});
 
         const newCompleted = completed;
@@ -655,7 +667,7 @@ export default function FormRenovacao() {
         }
 
       } catch (err) {
-        toast.error('Por favor, preencha todos os campos obrigatórios.')
+        toast.error('Por favor, selecione uma assinatura.')
       }
       
     } 
