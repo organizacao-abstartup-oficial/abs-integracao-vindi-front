@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
@@ -101,8 +102,10 @@ export default function FormStarter() {
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
-  const [plan, setPlan] = useState({ id: 160505, name: 'Start'})
-  const [ loading, setLoading ] = useState(false)
+  const [plan, setPlan] = useState({ id: 160505, name: 'Start'});
+  const [ loading, setLoading ] = useState(false);
+
+  const history = useHistory();
 
   const steps = getSteps();
 
@@ -135,7 +138,7 @@ export default function FormStarter() {
       }
     }
 
-    useEffect(() => {
+  useEffect(() => {
     let cnpjValidate = {
       cnpj: cnpj.replace(/\D/g, '')
     }
@@ -151,14 +154,27 @@ export default function FormStarter() {
                   setValidaCnpj(true);
                   setHasError({cnpj: false})
                   setLoading(false)
-                  return;
-                } 
-                setLoading(false)
-                setHasError({cnpj:true})
+                  // return;
+                } else if (res.data.customers.length >= 1) {
+                  setLoading(false)
+                  setHasError({cnpj:false})
+                  toast.success(`Você já possui cadastro em nossa plataforma, você está sendo redirecionado...`)
+                  localStorage.setItem('cnpj', cnpjValidate.cnpj)
+                  localStorage.setItem('personal_name', res.data.customers[0].metadata.nome_pessoa_fisica)
+                  
+                  setTimeout(() => {
+                    history.push('/renovacao')
+                  }, 1000);
+
+                } else {
+                  setLoading(false)
+                  setHasError({cnpj:true})
+                }
+                
+                
               });
             }
-            setLoading(false)
-            setHasError({cnpj:true})
+            
           })
         }
       } catch (err) {

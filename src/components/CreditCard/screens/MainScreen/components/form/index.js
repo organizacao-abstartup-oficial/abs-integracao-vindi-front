@@ -26,7 +26,7 @@ export default function CForm({
     children
 }) {
     const [ cardNumber, setCardNumber ] = useState('');
-    const [ planIdState, setplanIdState ] = useState(151756)
+    const [ planIdState, setplanIdState ] = useState(parseInt(localStorage.getItem('plan_id')))
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;

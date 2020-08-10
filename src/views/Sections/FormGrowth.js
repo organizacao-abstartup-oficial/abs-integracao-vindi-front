@@ -107,7 +107,7 @@ export default function FormStarter() {
   const [isLastStepCompleted, setIsLastStepCompleted] = useState(localStorage.setItem('isLastStep', "false"));
   const [loading, setLoading] = useState(false)
 
-  const history = useHistory()
+  const history = useHistory();
 
   const steps = getSteps();
 
@@ -152,10 +152,13 @@ export default function FormStarter() {
                 } else if (res.data.customers.length >= 1) {
                   setLoading(false)
                   setHasError({cnpj:false})
-                  
-                  history.push('/renovacao')
+                  toast.success(`Você já possui cadastro em nossa plataforma, você está sendo redirecionado...`)
                   localStorage.setItem('cnpj', cnpjValidate.cnpj)
                   localStorage.setItem('personal_name', res.data.customers[0].metadata.nome_pessoa_fisica)
+                  
+                  setTimeout(() => {
+                    history.push('/renovacao')
+                  }, 1000);
 
                 } else {
                   setLoading(false)

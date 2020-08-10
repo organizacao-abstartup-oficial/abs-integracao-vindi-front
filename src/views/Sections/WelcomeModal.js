@@ -41,7 +41,7 @@ export default function Terms(props)  {
             width={200}
         />
         <br/>
-          <p> Fala <b>{ FirstName[0] }</b>, como vai? </p>
+          <p> Fala <b>{ FirstName[0] === 'Não' ? '' : FirstName[0] }</b>, como vai? </p>
           <p>já encontramos o cadastro de sua startup aqui em nossa base, agora falta pouco.</p>
         <br/>
         <Button variant="contained"  onClick={ () => setModal(false)} color="primary" > Tudo pronto, vamos lá! </Button>
@@ -67,7 +67,7 @@ export default function Terms(props)  {
   return (
     <div>
       <Col md="12">
-      <h2>{ExistingCNPJ}</h2>
+      <h4>Insira o CNPJ mais uma vez para que possamos validar seus dados.</h4>
         <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Seja bem vindo!</ModalHeader>
           <ModalBody>
