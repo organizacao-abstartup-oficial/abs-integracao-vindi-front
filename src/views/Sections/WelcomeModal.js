@@ -41,8 +41,8 @@ export default function Terms(props)  {
             width={200}
         />
         <br/>
-          <p> Fala <b>{ FirstName[0] === 'Não' ? '' : FirstName[0] }</b>, como vai? </p>
-          <p>já encontramos o cadastro de sua startup aqui em nossa base, agora falta pouco.</p>
+          <p> Fala<b>{ FirstName[0] === 'Não' ? '' : ' ' + FirstName[0] }</b>, tudo bem? </p>
+          <p>Já encontramos o cadastro de sua <b>Startup</b>. Agora falta pouco.</p>
         <br/>
         <Button variant="contained"  onClick={ () => setModal(false)} color="primary" > Tudo pronto, vamos lá! </Button>
       </center>
@@ -58,7 +58,7 @@ export default function Terms(props)  {
             width={200}
         />
         <br/>
-        <p> Este acesso é para renovação de Associados já cadastrados na <b>ABStartups</b>, mas não se preocupe caso ainda não tenha o cadastro ativo nós vamos redirecionaremos para o formulário de cadastro.</p>
+        <p> Este é o ambiente onde você realizará a renovação da assinatura com a <b>ABStartups</b>. Caso você não seja ainda um associado, iremos te direcionar para que possa criar o seu cadastro.</p>
         <Button variant="contained"  onClick={ () => setModal(false)} color="primary" > Tudo pronto, vamos lá! </Button>
       </center>
     </div>

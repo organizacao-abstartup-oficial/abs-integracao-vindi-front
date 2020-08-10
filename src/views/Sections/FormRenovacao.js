@@ -129,11 +129,6 @@ export default function FormRenovacao() {
     SetSelectNewPlan(event.target.value);
   };
 
-  const finishTester = () => {
-    toast.success('Cadastro finalizado')
-    localStorage.setItem('isLastStep', true)
-  };
-
   setInterval(() => {
     setIsLastStepCompleted(localStorage.getItem('isLastStep'))
     if(isLastStepCompleted === "true") {
@@ -224,7 +219,7 @@ export default function FormRenovacao() {
             res => {
 
               if (!res.data.subscriptions){
-                  toast.error('Cadastro realizado, porém sem plano de associação');
+                  toast.error('Localizamos seu cadastro, porém você ainda não selecionou seu plano.');
                   setIsNotSubsCription(true)
                   setLoadingContent(false);
 
@@ -283,7 +278,7 @@ export default function FormRenovacao() {
                           Plano: { planName ? planName : 'Não informado.' }
                         </Typography>
 
-                        { planName === 'Growth' || planName === 'Growth a vista' ? ( <img src={plainLogoGrowth} className="plan-logo--card" alt="Growth" width="60px" height="auto"/> ) : planName === 'Start' ? ( <img src={plainLogoStart} className="plan-logo--card" alt="Growth" width="60px" height="auto"/> ) : 'Não informado' }
+                        { planName === 'Growth' || planName === 'Growth a vista' ? ( <img src={plainLogoGrowth} className="plan-logo--card" alt="Growth" width="60px" height="auto"/> ) : planName === 'Start' ? ( <img src={plainLogoStart} className="plan-logo--card" alt="Growth" width="60px" height="auto"/> ) : '' }
 
                         <Typography className={classes.pos} color="textSecondary">
                           Valor { price ? price : 'não informado' }
@@ -326,11 +321,12 @@ export default function FormRenovacao() {
                       </FormControl>
 
                       <Typography className={classes.title} color="textSecondary" gutterBottom>
-                          Identificação única do plano: {selectNewPlan}
+                          Identificação única do plano: {selectNewPlan ? selectNewPlan : 'Não selecionado'}
                           <hr/>
-                          Simples assim, basta selecionar um dos planos a cima e continuar para o próximo passo.<br/>
-                          E não se esqueça, caso precise de ajuda, entre em contato com nossos canais de atendimento <br/>
-                          <br/>
+                          Agora basta escolher um dos planos acima<br/>
+                          e concluir sua assinatura. <br/>
+                          <hr/>
+                          Precisa de ajuda? <br/>
                           Email: associados@abstartups.com.br
                       </Typography>
 
@@ -520,7 +516,6 @@ export default function FormRenovacao() {
 
         <p>O Plano renovado é o: <b>{planName}</b></p>
         <p>Valor anual: <b>{price}</b></p>
-        <Button onClick={ finishTester }> Encerrar</Button>
         
           
           { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button  onClick={ postReniewSubscription } block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
@@ -641,17 +636,20 @@ export default function FormRenovacao() {
       try {
         console.log('passo 2')
 
-        const schema = Yup.object().shape({
-          selectNewPlan: Yup.number().required()
-        });
+          if ( selectNewPlan ) {
 
-        const data = {
-          selectNewPlan,
+            const schema = Yup.object().shape({
+              selectNewPlan: Yup.number().required()
+            });
+
+            const data = {
+              selectNewPlan,
+            }
+
+            await schema.validate(data, {
+              abortEarly: false
+            })
         }
-
-        await schema.validate(data, {
-          abortEarly: false
-        })
 
         window.scrollTo({top: 100, behavior: 'smooth'});
 
@@ -707,19 +705,25 @@ export default function FormRenovacao() {
   };
 
 
-  return (
-    <Col lg="8">
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label}>
-          <StepButton completed={completed[index] }>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {allStepsCompleted() ? (
+  const StepsButtonAct =  (
+                  <Typography variant="caption" className={classes.completed}>
+                    
+                    <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+                      { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
+                    </Button> {' '} O passo {activeStep + 1} está completo. 
+                  </Typography>
+                );
+
+
+  const FinishStepsAct = (
+                  
+                  <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+                    { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/>
+                  </Button>
+                  
+                );
+
+  const AllStepsCompleted = allStepsCompleted() ? (
           <div>
             <center>
 
@@ -741,23 +745,25 @@ export default function FormRenovacao() {
             {getStepContent(activeStep)}
             <div>
               {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography variant="caption" className={classes.completed}>
-                    
-                    <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                      { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
-                    </Button> {' '} O passo {activeStep + 1} está completo. 
-                  </Typography>
-                ) : (
-                  
-                  <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                    { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/>
-                  </Button>
-                  
-                ))}
+                ( completed[activeStep] ? StepsButtonAct : FinishStepsAct )}
             </div>
           </div>
-        )}
+        )
+
+
+  return (
+    <Col lg="8">
+      <Stepper nonLinear activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={label}>
+          <StepButton completed={completed[index] }>
+              {label}
+            </StepButton>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        { AllStepsCompleted }
       </div>
     </Col>
   );

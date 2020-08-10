@@ -20,10 +20,10 @@ export default function LeftRenovacao() {
     <>
       <Col lg="4">
         <h3 className="h4 text-success font-weight-bold mb-4">
-          Renovação
+          Renovação de Plano
         </h3>
         
-        <p><b>Para começar informe o seu CNPJ para poder te localizar.</b></p>
+        <p><b>Para dar início a sua renovação e encontrarmos o seu cadastro, nos informe o CNPJ da sua startup.</b></p>
 
           <Lottie options={renewAnimation}
             height={300}
