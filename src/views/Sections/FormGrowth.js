@@ -951,6 +951,8 @@ export default function FormStarter() {
           getajuda: Yup.string().ensure().required(),
         });
 
+        localStorage.setItem('plan_id', '151756')
+
         const data = {
           getcargo,
           getsocios,

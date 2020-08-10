@@ -581,9 +581,6 @@ export default function FormRenovacao() {
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
 
-      toast.success('Passo atual é o: ' + newActiveStep);
-
-      
     if (newActiveStep === 1 ){
       window.scrollTo({top: 0, behavior: 'smooth'});
       // localStorage.removeItem('consumer_id');

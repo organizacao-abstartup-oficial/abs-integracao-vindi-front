@@ -213,6 +213,7 @@ export const planosVindiPrime = [
          "interval":"months",
          "interval_count":12,
          "code":"impact-mensal",
+         "detail": "(em 12x)",
          "price": 1799
       },
       {
@@ -221,6 +222,7 @@ export const planosVindiPrime = [
          "interval":"months",
          "interval_count":12,
          "code":"impact-anual",
+         "detail": "",
          "price": 1499
       }
    ]
