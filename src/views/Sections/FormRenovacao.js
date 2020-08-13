@@ -298,12 +298,14 @@ export default function FormRenovacao() {
 
                   </div>);
 
-  const LoadContentProgress = ( <div className="content-load--progress">
-                                  <CircularProgress disableShrink />
-                                </div>);
+  const LoadContentProgress = ( <>
+                                  <div className="content-load--progress">
+                                    <CircularProgress disableShrink />
+                                  </div>
+                                </>);
 
-  const SelectSubscription = (<>
-
+  const SelectSubscription = (
+                  <>
                   <div className="card-row--active">
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                          <b>Selecione uma assinatura: </b>  
@@ -332,11 +334,8 @@ export default function FormRenovacao() {
 
                     </div>
                     
-                  </>)
-  
-  const Tester = () => {
-    toast.error('Tester')
-  }
+                  </>
+                  );
 
 
   const PaymentWithBankSlip = (
@@ -352,7 +351,7 @@ export default function FormRenovacao() {
 
           <Typography className={classes.title} color="textSecondary" gutterBottom>
               <br/>
-              { !subScriptionStatus ? (<Button onClick={Tester}>Clique aqui para re-imprimir sua via.</Button>) : ( 
+              { !subScriptionStatus ? (<Button >Clique aqui para re-imprimir sua via.</Button>) : ( 
                 <> 
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Aqui está tudo certo, agora é só acessar seu painel de benefícios e aproveitar. <br/>
@@ -456,7 +455,7 @@ export default function FormRenovacao() {
                               (<> <img src={LogoHiper} alt="HiperLogo" width="40px" height="auto"/> </>) : 'Não informado.'}
                         </div>
                         <p className="card-label-min"><b>{ wallet ? '**** **** **** ' + wallet.card_number_last_four : 'não informado' }</b></p>
-                        <p><b>{ loadingContent ? LoadContentProgress : wallet || !loadingContent ? wallet.holder_name : 'não informado' }</b></p>
+                        { loadingContent ? LoadContentProgress : wallet || !loadingContent ? (<><p><b>{wallet.holder_name}</b></p></>) : (<><p><b>não informado</b></p></>) }
                       </div>
                       <div className="wallet-line">
                         <p><b>Wallet ativa</b></p>
@@ -509,8 +508,14 @@ export default function FormRenovacao() {
     </div>
   )
 
+  const NowDate = Date.now();
+  const DateNowCondition = NowDate;
+
   const FormPayment = (
     <div>
+
+      { DateNowCondition >= endPlain ? (
+      <>
       <center>
         <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a <b>{business}</b>, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
 
@@ -545,6 +550,19 @@ export default function FormRenovacao() {
 
           
       </center>
+      </> ) : (
+        <>
+        <center>
+          <div>
+            <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:)</h5>
+
+            <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/login', '_blank') } } color="primary">Acessar painel de benefícios</Button>
+          </div>
+          <hr/>
+          <br/><br/>
+        </center>
+        </>
+      ) }
     </div>
   );
 
@@ -707,10 +725,13 @@ export default function FormRenovacao() {
 
   const StepsButtonAct =  (
                   <Typography variant="caption" className={classes.completed}>
-                    
-                    <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                      { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
-                    </Button> {' '} O passo {activeStep + 1} está completo. 
+
+                  { DateNowCondition >= endPlain ? '' : (
+                    <>
+                      <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+                        { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
+                      </Button> {' '} O passo {activeStep + 1} está completo. 
+                    </>) }
                   </Typography>
                 );
 
