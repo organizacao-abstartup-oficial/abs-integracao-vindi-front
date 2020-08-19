@@ -355,7 +355,7 @@ export default function FormRenovacao() {
                 <> 
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Aqui está tudo certo, agora é só acessar seu painel de benefícios e aproveitar. <br/>
-                  <b>Para o seu primeiro acesso use a senha: </b> {password}
+                  
                   <br/>
                   <center>
                     { planID === 160505 ? (<>
