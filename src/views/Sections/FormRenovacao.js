@@ -154,7 +154,7 @@ export default function FormRenovacao() {
   }, [cnpj]);
 
 
-  async function RegisterStart() {
+  const RegisterStart = async () => {
     const data = {
           plan_id: parseInt(localStorage.getItem('plan_id')),
           customer_id: parseInt(localStorage.getItem('consumer_id')),
@@ -167,14 +167,14 @@ export default function FormRenovacao() {
     axios.post('https://api-planos.abstartups.com.br/subscription/bankslip', data)
     .then( res => {
       if(res.data){
-        handleNext();
+        setIsNotSubsCription(false);
       } else {
         toast.error('Oops, houve um erro!')
       }
     })
   }
 
-  async function PostUppo(){
+  const PostUppo = async () => {
   let userRegister = {
     email: mail,
     password: password,
@@ -234,7 +234,6 @@ export default function FormRenovacao() {
                 setSubScriptionStatus( res.data.subscriptions[[res.data.subscriptions.length -1]].product_items[0].status);
                 SetPlanID( res.data.subscriptions[[res.data.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
-                console.log(res.data.subscriptions.length)
 
               }
 
@@ -323,7 +322,7 @@ export default function FormRenovacao() {
                       </FormControl>
 
                       <Typography className={classes.title} color="textSecondary" gutterBottom>
-                          Identificação única do plano: {selectNewPlan ? selectNewPlan : 'Não selecionado'}
+                          Identificação única do plano: { selectNewPlan ? selectNewPlan : 'Não selecionado' }
                           <hr/>
                           Agora basta escolher um dos planos acima<br/>
                           e concluir sua assinatura. <br/>
@@ -381,9 +380,6 @@ export default function FormRenovacao() {
     // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customers/reniew/${subsCriptionID}`).then( res => {
     //   console.log('Funcionando')
     // } )
-    console.log(subsCriptionID)
-    console.log(consumer)
-    console.log(subscription)
   }
 
   const defaultOptions = {
@@ -652,7 +648,6 @@ export default function FormRenovacao() {
 
     if (newActiveStep === 2){
       try {
-        console.log('passo 2')
 
           if ( selectNewPlan ) {
 
@@ -678,9 +673,9 @@ export default function FormRenovacao() {
         localStorage.setItem('plan_id', selectNewPlan)
 
         if ( selectNewPlan === '160505' ) {
-          RegisterStart();
           PostUppo();
-        }
+          RegisterStart();
+        } 
 
       } catch (err) {
         toast.error('Por favor, selecione uma assinatura.')
