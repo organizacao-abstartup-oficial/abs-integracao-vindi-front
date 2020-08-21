@@ -47,7 +47,7 @@ ReactDOM.render(
       </Route>
 
       {/* <Route
-        path="/impact"
+        path="/impact/:cnpj"
         exact
       >
         <Impact />
