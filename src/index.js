@@ -11,7 +11,7 @@ import "assets/scss/style.scss?v1.1.0";
 import IndexForm from "views/Index.js";
 import Starter from "views/pages/Starter.js";
 import Growth from "views/pages/Growth.js";
-// import Impact from "views/pages/Impact.js";
+import Impact from "views/pages/Impact.js";
 import Renovacao from "views/pages/Renovacao.js";
 
 
@@ -46,12 +46,12 @@ ReactDOM.render(
         <Renovacao />
       </Route>
 
-      {/* <Route
+      <Route
         path="/impact"
         exact
       >
         <Impact />
-      </Route> */}
+      </Route>
       
       <Redirect to="/" />
     </Switch>

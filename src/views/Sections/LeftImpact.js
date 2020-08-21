@@ -2,26 +2,29 @@
 import React from "react";
 
 import { Col } from "reactstrap";
-import { Link } from 'react-router-dom';
-import plainLogo from '../../assets/img/icons/common/impact.png'
+
+import logoImpact from '../../assets/img/icons/common/impact.png'
 
 export default function IndexSections() {
+  
   return (
-          <>
-        <Col lg="4">
-          <h3 className="h4 text-success font-weight-bold mb-4">
-            NOVO CADASTRO
-          </h3>
-          <p>Informe seus dados pessoais para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
+    
+    <>
+    <Col lg="4">
+      <h3 className="h4 text-success font-weight-bold mb-4">
+        Plano Impact
+      </h3>
+      
+      <p><b>Parabéns por ser aprovado no <strong>Batch de Impacts</strong> estamos muito felizes! Para continuarmos esse grande momento, siga os passos a seguir.</b></p>
 
-          <img src={plainLogo} alt="impact" width="200px"/>
-          <br/>
-          <br/>
+        <img src={logoImpact} alt="Impact" />
 
-          <Link to="/">Clique aqui para mudar plano.</Link>
-          
-        </Col>
-      </>
+      <br/>
+      <p><b>Estamos com tudo pronto para continuar esse momento especial, vamos lá!</b></p>
+      <br/>
+      <hr/>
+    </Col>
+  </>
   );
 }
 

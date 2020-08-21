@@ -25,7 +25,7 @@ export default function BoletoModal(props)  {
 
   const planDefault = pathName === '/growth' ? 151756 : 0;
   const idCustomer = localStorage.getItem('consumer_id');
-  const planRenew = localStorage.getItem('plan_id');
+  const planRenew = parseInt(localStorage.getItem('plan_id'));
 
   const BankSlipData = {
     plan_id: planDefault === 0 ? planRenew :  planDefault,
