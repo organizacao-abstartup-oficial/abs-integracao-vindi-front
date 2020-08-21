@@ -179,3 +179,50 @@ export const ondenosconheceu = [
   {id: 5, text: 'Sites Parceiros'},
   {id: 6, text: 'Outros'},
 ]
+
+
+export const planosVindiDefault = [
+      {
+         "id":151756,
+         "name":"Growth - a vista",
+         "code":"growth-anual",
+         "detail": "",
+         "price": 399
+      },
+      {
+         "id":150698,
+         "name":"Growth",
+         "code":"growth",
+         "detail": "(em 12x)",
+         "price": 499
+      },
+      {
+         "id":160505,
+         "name":"Start",
+         "interval":"months",
+         "code":null,
+         "detail": "",
+         "price": 0
+      }
+   ]
+
+export const planosVindiPrime = [
+      {
+         "id":152186,
+         "name":"Impact ",
+         "interval":"months",
+         "interval_count":12,
+         "code":"impact-mensal",
+         "detail": "(em 12x)",
+         "price": 1799
+      },
+      {
+         "id":152208,
+         "name":"Impact - a vista",
+         "interval":"months",
+         "interval_count":12,
+         "code":"impact-anual",
+         "detail": "",
+         "price": 1499
+      }
+   ]

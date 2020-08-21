@@ -23,11 +23,12 @@ export default function BoletoModal(props)  {
 
   const pathName = window.location.pathname;
 
-  const planDefault = pathName === '/growth' ? 151756 : 152208;
-  const idCustomer = localStorage.getItem('consumer_id')
+  const planDefault = pathName === '/growth' ? 151756 : 0;
+  const idCustomer = localStorage.getItem('consumer_id');
+  const planRenew = localStorage.getItem('plan_id');
 
   const BankSlipData = {
-    plan_id: planDefault,
+    plan_id: planDefault === 0 ? planRenew :  planDefault,
     customer_id: parseInt(idCustomer),
     payment_method_code: 'bank_slip',
     metadata: uuid(),
@@ -66,13 +67,13 @@ export default function BoletoModal(props)  {
         <center>
           <p>Falta pouco para você fazer parte do nosso <b>time de associados!</b> ;)</p>
           <hr/>
-          { planDefault }
           <Button
             block 
             onClick={SetPaymentBankSlip}
           >
           Clique aqui para gerar Boleto
           </Button>
+          { planDefault === 0 ? planRenew + 'PlanReniew' :  planDefault + 'PlanDefault' }
         </center>
       </Col>
     </>

@@ -12,10 +12,11 @@ import impactLottie from '../components/Animation/17053-smartsharp-animations-vo
 
 import HeaderLandingPage from 'components/Header/headerLandingPage';
 import Footer from "components/Footers/";
-import ImpactSubscription from './Sections/ImpactSubscription';
+// import ImpactSubscription from './Sections/ImpactSubscription';
 import StartModal from './Sections/StartModal';
 import GrowthModal from './Sections/GrowthModal';
 import ImpactModal from './Sections/ImpactModal';
+import GPRD from './Sections/LGPDWarning';
 
 import { Button, Col, Row } from 'reactstrap'
 //import Modals from "./Sections/Modals.js";
@@ -183,8 +184,8 @@ export default function StarterForm() {
                         <hr/>
                         <div >
                           <Typography variant="h6" color="textPrimary" align="center">
-                            <b>12x de R$: 41,58 <br/>
-                            ou R$: 399,00 /ano</b>
+                            <b>12x de R$ 41,58 <br/>
+                            ou R$ 399,00 /ano</b>
                           </Typography>
                         </div>
                   </CardContent>
@@ -269,22 +270,22 @@ export default function StarterForm() {
                   <ImpactModal/>
                     <CardContent>
                     <center>
-                    <ImpactSubscription/>
-                          {/* <Button 
+                    {/* <ImpactSubscription/> */}
+                          <Button 
                             onClick={ () => window.open('https://abstartups.com.br/associados-impact/', '_blank') }
                             className="Submit-button--add"
                             fullwidth="true"
                             color="default"
                             type="button">
-                            Seja um associado Impact
-                          </Button> */}
+                            Seja Impact Batch#3 aberto
+                          </Button>
                     </center>
                         <hr/>
 
                           <div >
                           <Typography variant="h6" color="textPrimary" align="center">
-                            <b>12x de R$: 149,92 <br/>
-                            ou R$: 1499,00 /ano</b>
+                            <b>12x de R$ 149,92 <br/>
+                            ou R$ 1499,00 /ano</b>
                           </Typography>
                         </div>
 
@@ -476,6 +477,7 @@ export default function StarterForm() {
               </Col>
             </Row>
           </Container> */}
+          <GPRD/>
         </Container>
         </div>
         
