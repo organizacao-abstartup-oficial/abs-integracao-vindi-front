@@ -6,7 +6,6 @@ import Lottie from 'react-lottie';
 import axios from 'axios';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
-import { uuid } from 'uuidv4';
 
 // material design components
 import CreditCardIcon from '@material-ui/icons/CreditCard';
@@ -48,7 +47,6 @@ import BankSlipIcon from '../../assets/img/brand/boleto-icon.png';
 import plainLogoGrowth from '../../assets/img/icons/common/growth.png'
 import plainLogoStart from '../../assets/img/icons/common/start.png'
 
-import { planosVindiDefault, planosVindiPrime } from '../../Data';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -126,6 +124,7 @@ export default function FormImpact() {
 
   const handleChangeNewPlan = (event) => {
     SetSelectNewPlan(event.target.value);
+    console.log(subscription, consumer, mail, password)
   };
 
   setInterval(() => {

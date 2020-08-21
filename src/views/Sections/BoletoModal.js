@@ -23,7 +23,7 @@ export default function BoletoModal(props)  {
 
   const pathName = window.location.pathname;
 
-  const planDefault = pathName === '/growth' ? 151756 : 0;
+  const planDefault = pathName === '/growth' ? 151756 : pathName === '/renovacao' ? 151756 : pathName === '/impact' ? 152208 : 0;
   const idCustomer = localStorage.getItem('consumer_id');
   const planRenew = parseInt(localStorage.getItem('plan_id'));
 
@@ -73,7 +73,7 @@ export default function BoletoModal(props)  {
           >
           Clique aqui para gerar Boleto
           </Button>
-          { planDefault === 0 ? planRenew + 'PlanReniew' :  planDefault + 'PlanDefault' }
+          
         </center>
       </Col>
     </>

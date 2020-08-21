@@ -122,7 +122,7 @@ export default function CForm({
                             customer_id: consumer,
                             code: uuid(),
                             payment_method_code: 'credit_card',
-                            // installments:  planIdState === 151756 ? 1 : 12 || planIdState === 152208 ? 1 : 12,
+                            installments:  planIdState === 151756 ? 1 : 12 || planIdState === 152208 ? 1 : 12,
                             metadata: uuid(),
                             payment_profile: {
                                 id: response.data.payment_profile.id
@@ -270,7 +270,9 @@ export default function CForm({
                             Selecione as parcelas
                         </option>
 
-                        { pathName === '/growth' || '/renovacao' ? planGrowth : planImpact }
+                        { pathName === '/growth' ? planGrowth : '' }
+                        { pathName === '/renovacao' ? planGrowth : ''}
+                        { pathName === '/impact' ? planImpact : '' }
                     </select>
 
                     
