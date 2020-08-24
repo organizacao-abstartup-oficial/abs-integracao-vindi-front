@@ -6,6 +6,7 @@ import Lottie from 'react-lottie';
 import axios from 'axios';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
+import TermsModal from './TermsModal';
 
 // material design components
 import CreditCardIcon from '@material-ui/icons/CreditCard';
@@ -89,6 +90,7 @@ export default function FormImpact() {
   const [ hasError, setHasError ] = useState({
     cnpj: false,
   });
+  const [checked, setChecked] = useState(false);
 
   const [ activeStep, setActiveStep ] = useState(0);
   const [ validaCnpj, setValidaCnpj ] = useState(false);
@@ -272,8 +274,8 @@ export default function FormImpact() {
                         <FormLabel component="legend"></FormLabel>
                         <RadioGroup aria-label="gender" name="gender1" value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
 
-                          <FormControlLabel  value="152208" control={<Radio color="primary" />} label="Plano Impact - a vista R$: 1.499,00" />
-                          <FormControlLabel  value="152186" control={<Radio color="primary" />} label="Plano Impact - R$ 1.799,00 (em 12x)" />
+                          <FormControlLabel value="Impact" control={<Radio color="primary" />} label="Plano Impact" />
+                          {/* <FormControlLabel  value="152186" control={<Radio color="primary" />} label="Plano Impact - R$ 1.799,00 (em 12x)" /> */}
 
                         </RadioGroup>
                       </FormControl>
@@ -287,7 +289,9 @@ export default function FormImpact() {
                           Precisa de ajuda? <br/>
                           Email: associados@abstartups.com.br
                       </Typography>
-
+                      <RadioGroup aria-label="termos" name="termos" className="accept-term">
+                        <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Eu aceito os termos de uso." />{' '}<TermsModal/> 
+                      </RadioGroup>
                     </div>
                     
                   </>
@@ -608,7 +612,7 @@ export default function FormImpact() {
           if ( selectNewPlan ) {
 
             const schema = Yup.object().shape({
-              selectNewPlan: Yup.number().required()
+              selectNewPlan: Yup.string().required(),
             });
 
             const data = {
@@ -618,6 +622,16 @@ export default function FormImpact() {
             await schema.validate(data, {
               abortEarly: false
             })
+
+            if(!checked) {
+              toast.error('Por favor aceite os termos de uso para continuar.');
+              setHasError(
+                {
+                  ...hasError, 
+                  checkedTerm: true,
+                });
+                return;
+            }
         }
 
         window.scrollTo({top: 100, behavior: 'smooth'});

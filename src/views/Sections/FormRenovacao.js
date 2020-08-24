@@ -314,9 +314,9 @@ export default function FormRenovacao() {
                         <FormLabel component="legend"></FormLabel>
                         <RadioGroup aria-label="gender" name="gender1" value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
 
-                          <FormControlLabel  value="151756" control={<Radio color="primary" />} label="Plano Growth - a vista R$: 399,00" />
-                          <FormControlLabel  value="150698" control={<Radio color="primary" />} label="Plano Growth - R$ 499,00 (em 12x)" />
-                          <FormControlLabel  value="160505" control={<Radio color="primary" />} label="Plano Start - Gratuito" />
+                          {/* <FormControlLabel control={<Radio color="primary" />} label="Plano Growth" /> */}
+                          <FormControlLabel value="Growth" control={<Radio color="primary" />} label="Plano Growth" />
+                          <FormControlLabel value="Start" control={<Radio color="primary" />} label="Plano Start - Gratuito" />
 
                         </RadioGroup>
                       </FormControl>
