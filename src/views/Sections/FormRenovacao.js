@@ -649,10 +649,10 @@ export default function FormRenovacao() {
     if (newActiveStep === 2){
       try {
 
-          if ( selectNewPlan ) {
+          // if ( selectNewPlan ) {
 
             const schema = Yup.object().shape({
-              selectNewPlan: Yup.number().required()
+              selectNewPlan: Yup.string().required()
             });
 
             const data = {
@@ -662,7 +662,7 @@ export default function FormRenovacao() {
             await schema.validate(data, {
               abortEarly: false
             })
-        }
+        // }
 
         window.scrollTo({top: 100, behavior: 'smooth'});
 

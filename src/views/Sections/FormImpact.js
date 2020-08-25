@@ -609,7 +609,7 @@ export default function FormImpact() {
     if (newActiveStep === 2){
       try {
 
-          if ( selectNewPlan ) {
+          // if ( selectNewPlan ) {
 
             const schema = Yup.object().shape({
               selectNewPlan: Yup.string().required(),
@@ -632,7 +632,7 @@ export default function FormImpact() {
                 });
                 return;
             }
-        }
+        // }
 
         window.scrollTo({top: 100, behavior: 'smooth'});
 
