@@ -102,7 +102,7 @@ export default function FormRenovacao() {
   const [ idConsumer, setIdConsumer ] = useState('');
   const [ isLastStepCompleted, setIsLastStepCompleted ] = useState(localStorage.setItem('isLastStep', "false"));
   const [ loading, setLoading ] = useState(false);
-  const [ loadingContent, setLoadingContent ] = useState(false)
+  const [ loadingContent, setLoadingContent ] = useState(false);
   const [ subscription, setSubscription ] = useState('');
   const [ consumer, setConsumer ] = useState('');
   const [ wallet, setWallet ] = useState('');
@@ -116,14 +116,19 @@ export default function FormRenovacao() {
   const [ FirstName, setFirstName ] = useState('');
   const [ isNotSubsCription, setIsNotSubsCription ] = useState(false);
   const [ selectNewPlan, SetSelectNewPlan ] = useState('');
-  const [ planID, SetPlanID ] = useState('')
-  const [ mail, SetMail ] = useState('')
-  const [ password, SetPassword ] = useState('')
+  const [ planID, SetPlanID ] = useState('');
+  const [ mail, SetMail ] = useState('');
+  const [ password, SetPassword ] = useState('');
+  const [ StartSubscription, setStartSubscription ] = useState('');
   
 
   const history = useHistory()
 
   const steps = getSteps();
+
+  const UppCellAction = () => {
+    setIsNotSubsCription(true)
+  }
 
   const handleChangeNewPlan = (event) => {
     SetSelectNewPlan(event.target.value);
@@ -235,6 +240,7 @@ export default function FormRenovacao() {
                 SetPlanID( res.data.subscriptions[[res.data.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
 
+
               }
 
             }
@@ -314,9 +320,31 @@ export default function FormRenovacao() {
                         <FormLabel component="legend"></FormLabel>
                         <RadioGroup aria-label="gender" name="gender1" value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
 
-                          {/* <FormControlLabel control={<Radio color="primary" />} label="Plano Growth" /> */}
-                          <FormControlLabel value="Growth" control={<Radio color="primary" />} label="Plano Growth" />
-                          <FormControlLabel value="Start" control={<Radio color="primary" />} label="Plano Start - Gratuito" />
+                        { planID === 160505 ? (
+                          <>
+                            <FormControlLabel 
+                              value="Growth" 
+                              control={<Radio color="primary" />} 
+                              label="Plano Growth" 
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <FormControlLabel 
+                              value="Growth" 
+                              control={<Radio color="primary" />} 
+                              label="Plano Growth" 
+                            />
+
+                            <FormControlLabel 
+                              value="Start" 
+                              control={<Radio color="primary" />} 
+                              label="Plano Start - Gratuito" 
+                            />
+                          </>
+                        )}
+
+
 
                         </RadioGroup>
                       </FormControl>
@@ -340,13 +368,36 @@ export default function FormRenovacao() {
   const PaymentWithBankSlip = (
     <>
       <div className="card-row--active">
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-              Forma de pagamento: <b>Boleto</b>
-        </Typography>
+      { planID === 160505 ? (
+
+                              <>
+                              <Typography variant="h5" component="h2">
+                                <b>Obá! você tem um upgrade disponível</b> 
+                              </Typography>
+                              <br/>
+                                <center>
+                                  <Button 
+                                    variant="contained"
+                                    onClick={ UppCellAction } 
+                                    color="danger"
+                                  >
+                                    Quero ser um Growth
+                                  </Button>
+                                </center>
+                              </>
+                              
+                            ) : (
+        <>
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+                Forma de pagamento: <b>Boleto</b>
+          </Typography>
           <br/>
           <center>
             <img src={BankSlipIcon} width= "100px" height="auto" alt=""/>
           </center>
+        </>
+      )}
+          
 
           <Typography className={classes.title} color="textSecondary" gutterBottom>
               <br/>
