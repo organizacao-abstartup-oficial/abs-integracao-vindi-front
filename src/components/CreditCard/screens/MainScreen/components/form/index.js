@@ -107,7 +107,6 @@ export default function CForm({
             card_expiration: cardValidateStorage,
             card_number: cardNumber,
             card_cvv: cardCvv,
-            installments: planIdState === 151756 ? 1 : 12 || planIdState === 152208 ? 1 : 12,
             payment_method_code: 'credit_card',
             payment_company_code: companyCodeStorage,
             customer_id: parseInt(consumer)
@@ -122,7 +121,6 @@ export default function CForm({
                             customer_id: consumer,
                             code: uuid(),
                             payment_method_code: 'credit_card',
-                            installments:  planIdState === 151756 ? 1 : 12 || planIdState === 152208 ? 1 : 12,
                             metadata: uuid(),
                             payment_profile: {
                                 id: response.data.payment_profile.id
