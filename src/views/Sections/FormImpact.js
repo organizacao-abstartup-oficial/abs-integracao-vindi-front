@@ -311,7 +311,7 @@ export default function FormImpact() {
 
           <Typography className={classes.title} color="textSecondary" gutterBottom>
               <br/>
-              { !subScriptionStatus ? (<Button >Clique aqui para re-imprimir sua via.</Button>) : ( 
+              { subScriptionStatus ? (<Button >Clique aqui para re-imprimir sua via.</Button>) : ( 
                 <> 
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Aqui está tudo certo, agora é só acessar seu painel de benefícios e aproveitar. <br/>
@@ -420,7 +420,7 @@ export default function FormImpact() {
                     </div>
                     <br/>
                   </>
-                ) : isNotSubsCription ? SelectSubscription : PaymentWithBankSlip }
+                ) : !isNotSubsCription ? SelectSubscription : PaymentWithBankSlip }
 
               </div>
           </div>
