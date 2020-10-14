@@ -214,7 +214,7 @@ export default function FormRenovacao() {
         setLoadingContent(true)
         setFirstName(name.split(' '))
         SetMail(response.data.customers[0].email);
-        SetPassword(response.data.customers[0].metadata.password)        
+        SetPassword(response.data.customers[0].metadata.password);      
       }
     })
   }
@@ -239,14 +239,15 @@ export default function FormRenovacao() {
                 setSubScriptionStatus( res.data.subscriptions[[res.data.subscriptions.length -1]].product_items[0].status);
                 SetPlanID( res.data.subscriptions[[res.data.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
-
-
+                localStorage.setItem('plan_id', res.data.subscriptions[[res.data.subscriptions.length -1]].plan.id); 
               }
 
             }
           )
           
   };
+
+
 
   
 
@@ -408,7 +409,8 @@ export default function FormRenovacao() {
                   
                   <br/>
                   <center>
-                    { planID === 160505 ? (<>
+                    { parseInt(format(new Date(endPlain), `MM`)) - 1 > parseInt(format(new Date(), `MM`)) && parseInt(format(new Date(endPlain), `yyyy`)) >= parseInt(format(new Date(), `yyyy`)) ? (<>
+                      { planID === 160505 ? (<>
                                             <Button  variant="contained" onClick={ () => window.open('https://app.uppo.com.br/abstartups-start/', '_blank') } color="primary">
                                               Acesse seus benefícios
                                             </Button>
@@ -417,6 +419,11 @@ export default function FormRenovacao() {
                                                       Acesse seus benefícios
                                                     </Button>
                                                   </>)}
+                    </>) : (
+                    <Typography variant="h5" component="h2">
+                    <b>Renovação disponível</b>
+                    </Typography>
+                    )}
                   </center>
                 </Typography>
                 </>)}
@@ -599,15 +606,34 @@ export default function FormRenovacao() {
       </center>
       </> ) : (
         <>
-        <center>
+        { parseInt(format(new Date(endPlain), `MM`)) - 1 > parseInt(format(new Date(), `MM`)) && parseInt(format(new Date(endPlain), `yyyy`)) >= parseInt(format(new Date(), `yyyy`)) ? (<center>
           <div>
-            <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:)</h5>
+            <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:) </h5>
 
             <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/login', '_blank') } } color="primary">Acessar painel de benefícios</Button>
           </div>
           <hr/>
           <br/><br/>
         </center>
+        ) : (
+          <center>
+          <div>
+            <h5 className={classes.instructions}><b>{business}</b>, Está na hora de Renovar seu benefício.</h5>
+            <h5 className={classes.instructions}><b>Selecione o método de pagamento desejado, e pronto.</b></h5>
+
+            <div className="payment-description">
+                <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/>
+              </div>
+              <br/>
+                <CardModal />
+              <br/>
+                <BoletoModal/>
+              <br/>
+          </div>
+          <hr/>
+          <br/><br/>
+        </center>
+        )}
         </>
       ) }
     </div>
@@ -700,7 +726,7 @@ export default function FormRenovacao() {
     if (newActiveStep === 2){
       try {
 
-          // if ( selectNewPlan ) {
+          if ( selectNewPlan ) {
 
             const schema = Yup.object().shape({
               selectNewPlan: Yup.string().required()
@@ -713,7 +739,7 @@ export default function FormRenovacao() {
             await schema.validate(data, {
               abortEarly: false
             })
-        // }
+        }
 
         window.scrollTo({top: 100, behavior: 'smooth'});
 
@@ -726,7 +752,9 @@ export default function FormRenovacao() {
         if ( selectNewPlan === '160505' ) {
           PostUppo();
           RegisterStart();
-        } 
+        } else {
+          toast.success('Tudo pronto, agora é só selecionar o método de pagamento.')
+        }
 
       } catch (err) {
         toast.error('Por favor, selecione uma assinatura.')
@@ -772,23 +800,28 @@ export default function FormRenovacao() {
   const StepsButtonAct =  (
                   <Typography variant="caption" className={classes.completed}>
 
-                  { DateNowCondition >= endPlain ? '' : (
+                  { DateNowCondition >= endPlain || subScriptionStatus === 'inative' ? '' : (
                     <>
                       <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                        { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
+                        { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' }<NavigateNextIcon/>
                       </Button> {' '} O passo {activeStep + 1} está completo. 
                     </>) }
                   </Typography>
                 );
 
-
-  const FinishStepsAct = (
-                  
-                  <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                    { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/>
-                  </Button>
-                  
-                );
+  const FinishStepsAct = (<>
+  
+      { subScriptionStatus === 'active' && parseInt(format(new Date(), `yyyy`)) - parseInt(format(new Date(endPlain), 'yyyy')) < 0 ? (<>
+        <p><spam>Renovação disponível a partir de { `${format(new Date(endPlain), `dd`)}/${ format(new Date(endPlain), `MM`) - 2 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 2 ) : format(new Date(endPlain), `MM`) }/${format(new Date(endPlain), `yyyy`)}` }. </spam></p>
+        </>
+      ) : ( 
+        <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+        { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/> 
+      </Button>
+      ) }
+  
+      </>                    
+     );
 
   const AllStepsCompleted = allStepsCompleted() ? (
           <div>

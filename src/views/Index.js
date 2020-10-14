@@ -56,6 +56,13 @@ export default function StarterForm() {
       }
     };
 
+  const RedirectParam = '/';
+  const URLContent = window.location.pathname;
+
+  if ( RedirectParam === URLContent ){
+    window.open('http://abstartups.com.br/planos/', '_self')
+  }
+
 
   return (
     
