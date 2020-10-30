@@ -209,10 +209,12 @@ export default function FormStarter() {
         state: uf,
         country: country
       },
-      phones: {
-        phone_type: 'mobile',
-        number: phone,
-      }
+      phones: [
+          {
+          phone_type: 'mobile',
+          number: phone,
+        }
+      ]
     }
 
      try {
@@ -305,7 +307,7 @@ export default function FormStarter() {
                 <InputMask
                   mask={ phone.length === 10 ? "55 (99) 9999.9999" : "55 (99) 99999.9999"}
                   value={ phone }
-                  onChange={ e => setPhone( e.target.value )}
+                  onChange={ e => setPhone( e.target.value.replace(/\D/g, '') )}
                 >
                   {() => 
                     <TextField
@@ -822,12 +824,13 @@ export default function FormStarter() {
       window.scrollTo({top: 100, behavior: 'smooth'});
       localStorage.removeItem('consumer_id');
 
+
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
           business: Yup.string().required(),
           cnpj: Yup.string().required().min(14),
-          phone: Yup.string().required().min(11),
+          phone: Yup.string().required().min(12).max(13),
           mail: Yup.string().email().required(),
           password: Yup.string().required(),
           confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
