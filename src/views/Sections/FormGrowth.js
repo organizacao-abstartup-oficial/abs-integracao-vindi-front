@@ -304,7 +304,7 @@ export default function FormStarter() {
 
                 <InputMask
                   mask={ phone.length === 10 ? "55 (99) 9999.9999" : "55 (99) 99999.9999"}
-                  value={phone}
+                  value={ phone }
                   onChange={ e => setPhone( e.target.value )}
                 >
                   {() => 
