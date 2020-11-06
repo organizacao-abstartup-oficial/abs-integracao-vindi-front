@@ -42,10 +42,10 @@ export default function BoletoModal(props)  {
 
   async function SetPaymentBankSlip(){
       try {
-        await axios.post( 'https://api-planos.abstartups.com.br/subscription/bankslip', BankSlipData)
+        await axios.post( 'http://localhost:3000/dev/vindi/payment/bankslip', BankSlipData)
         .then( response => {
-          setBankSlipCode(response.data.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
-          setBankSlipLink(response.data.bill.charges[0].print_url);
+          setBankSlipCode(response.data.body.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
+          setBankSlipLink(response.data.body.bill.charges[0].print_url);
           localStorage.setItem('paymentSubmited', 'true');
 
           setTimeout(() => {

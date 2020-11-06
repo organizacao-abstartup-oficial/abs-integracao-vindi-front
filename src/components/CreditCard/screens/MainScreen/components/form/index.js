@@ -112,7 +112,7 @@ export default function CForm({
             customer_id: parseInt(consumer)
         }
         try {
-            await axios.post('https://api-planos.abstartups.com.br/creditcard', paymentProfile).then(response => {
+            await axios.post('http://localhost:3000/dev/vindi/payment/payment-profile', paymentProfile).then(response => {
                 
                 if(response.status === 200) {
                     try {
@@ -123,11 +123,11 @@ export default function CForm({
                             payment_method_code: 'credit_card',
                             metadata: uuid(),
                             payment_profile: {
-                                id: response.data.payment_profile.id
+                                id: response.data.body.payment_profile.id
                             },
                             invoice_split: false
                         }
-                        axios.post('https://api-planos.abstartups.com.br/subscription/card', sub)
+                        axios.post('http://localhost:3000/dev/vindi/payment/card', sub)
                         .then(res => {
                             toast.success('Pagamento realizado com sucesso!')
                             localStorage.removeItem('cardHolder')
