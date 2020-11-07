@@ -49,8 +49,6 @@ import BankSlipIcon from '../../assets/img/brand/boleto-icon.png';
 import plainLogoGrowth from '../../assets/img/icons/common/growth.png'
 import plainLogoStart from '../../assets/img/icons/common/start.png'
 
-import { planosVindiDefault, planosVindiPrime } from '../../Data';
-
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -119,7 +117,6 @@ export default function FormRenovacao() {
   const [ planID, SetPlanID ] = useState('');
   const [ mail, SetMail ] = useState('');
   const [ password, SetPassword ] = useState('');
-  const [ StartSubscription, setStartSubscription ] = useState('');
   
 
   const history = useHistory()
@@ -168,13 +165,14 @@ export default function FormRenovacao() {
           metadata: uuid(),
           invoice_split: false
         }
-
+      
     axios.post('https://api-planos.abstartups.com.br/subscription/bankslip', data)
     .then( res => {
       if(res.data){
         setIsNotSubsCription(false);
       } else {
         toast.error('Oops, houve um erro!')
+        console.log(subscription, consumer)
       }
     })
   }
@@ -831,7 +829,7 @@ export default function FormRenovacao() {
               height={100}
               width={100}
             />
-              <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
+              <h5 className={classes.instructions}><b>{FirstName[0]}</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano { selectNewPlan ? 'selecionado' : 'renovado' } é o: <b>{planName}</b></p>
               

@@ -15989,7 +15989,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     word-break: normal;
     color: inherit; }
   .highlight pre code, .highlight pre kbd, .highlight pre pre, .highlight pre samp {
-    font-family: SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1em; }
   .highlight pre .nt {
     color: #3d8fd1; }
