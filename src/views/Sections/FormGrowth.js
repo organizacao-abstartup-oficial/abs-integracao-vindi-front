@@ -141,7 +141,13 @@ export default function FormStarter() {
     try {
       if(cnpjValidate.cnpj.length === 14){
         setLoading(true)
-        api.get(`validate/${cnpjValidate.cnpj}`).then(response => {
+        api.get(`validate/${cnpjValidate.cnpj}`, {
+          headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          },
+        }).then(response => {
           if(typeof response.data.body.customer !== "string") {
             setLoading(false)
             setHasError({cnpj:false})
@@ -212,8 +218,10 @@ export default function FormStarter() {
      try {
       await api.post('vindi/customer', consumerData, {
         headers: {
-          'Access-Control-Allow-Origin': 'https://planos.abstartups.com.br'
-        }
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
       })
       .then( response => {
         localStorage.removeItem('id_consumer');
