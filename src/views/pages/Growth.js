@@ -2,16 +2,11 @@ import React from "react";
 
 import { Container } from 'reactstrap';
 
+import Footer from '../../components/Footers';
 
-import Footer from 'components/Footers';
+import Header from '../../components/Headers';
 
-import Header from 'components/Header';
-
-import FormGrowthContent from 'views/Sections/FormGrowthContent'
-
-//import Modals from "./Sections/Modals.js";
-
-
+import FormGrowthContent from 'views/Sections/FormGrowthContent';
 
 
 export default function GrowthForm() {
@@ -23,7 +18,6 @@ export default function GrowthForm() {
             <FormGrowthContent />
           </Container>
         <Footer />
-        
       </>
   );
 }

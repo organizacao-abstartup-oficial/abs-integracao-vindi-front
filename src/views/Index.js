@@ -11,7 +11,6 @@ export default function StarterForm() {
     window.open('http://abstartups.com.br/planos/', '_self')
   }
 
-
   return (
     <div className="redirect-page" >
         <Row>
