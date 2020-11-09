@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import axios from 'axios';
+import api from '../../Data/endPoints'
 import * as Yup from 'yup';
 // import { cnpj } from 'cpf-cnpj-validator';
 
@@ -140,7 +141,7 @@ export default function FormStarter() {
     try {
       if(cnpjValidate.cnpj.length === 14){
         setLoading(true)
-        axios.get(`http://localhost:3000/dev/validate/${cnpjValidate.cnpj}`).then(response => {
+        api.get(`validate/${cnpjValidate.cnpj}`).then(response => {
           if(typeof response.data.body.customer !== "string") {
             setLoading(false)
             setHasError({cnpj:false})
@@ -209,7 +210,7 @@ export default function FormStarter() {
     }
     
      try {
-      await axios.post('http://localhost:3000/dev/vindi/customer', consumerData)
+      await api.post('vindi/customer', consumerData)
       .then( response => {
         localStorage.removeItem('id_consumer');
         setIdConsumer(response.data.body.customer.id);

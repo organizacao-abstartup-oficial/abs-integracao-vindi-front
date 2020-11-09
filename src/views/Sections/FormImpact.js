@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import axios from 'axios';
+import api from '../../Data/endPoints'
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 import TermsModal from './TermsModal';
@@ -154,7 +155,7 @@ export default function FormImpact() {
   }, [cnpj]);
 
   async function handleSubscription(cnpj){
-    await axios.get(`http://localhost:3000/dev/validate/${cnpj.replace(/\D/g, '')}`).then(response => {
+    await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
       if (response.data.status === 401 || response.data.body.customers[0].metadata.impact !== "sim"){
         history.push('/')
       } else {
@@ -175,7 +176,7 @@ export default function FormImpact() {
   }
 
   async function getSubscriptions() {
-          await axios.get(`http://localhost:3000/dev/vindi/customer/find/${idConsumer}`).then(
+          await api.get(`vindi/customer/find/${idConsumer}`).then(
             res => {
 
               if (!res.data.body.subscriptions){
