@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import axios from 'axios';
+import api from '../../Data/endPoints';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 import { uuid } from 'uuidv4';
@@ -48,8 +49,6 @@ import BankSlipIcon from '../../assets/img/brand/boleto-icon.png';
 
 import plainLogoGrowth from '../../assets/img/icons/common/growth.png'
 import plainLogoStart from '../../assets/img/icons/common/start.png'
-
-import { planosVindiDefault, planosVindiPrime } from '../../Data';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -119,7 +118,6 @@ export default function FormRenovacao() {
   const [ planID, SetPlanID ] = useState('');
   const [ mail, SetMail ] = useState('');
   const [ password, SetPassword ] = useState('');
-  const [ StartSubscription, setStartSubscription ] = useState('');
   
 
   const history = useHistory()
@@ -169,12 +167,13 @@ export default function FormRenovacao() {
           invoice_split: false
         }
 
-    axios.post('http://localhost:3000/dev/vindi/payment/bankslip', data)
+    api.post('vindi/payment/bankslip', data)
     .then( res => {
       if(res.data){
         setIsNotSubsCription(false);
       } else {
         toast.error('Oops, houve um erro!')
+        console.log(subscription, consumer)
       }
     })
   }
@@ -188,7 +187,7 @@ export default function FormRenovacao() {
   }
 
     try {
-      await axios.post('http://localhost:3000/dev/uppo/start', userRegister)
+      await api.post('uppo/start', userRegister)
     } catch (err) {
       toast.error('Ooops, houve um erro!')
       
@@ -199,7 +198,7 @@ export default function FormRenovacao() {
 
   async function handleSubscription(cnpj){
     
-    await axios.get(`http://localhost:3000/dev/validate/${cnpj.replace(/\D/g, '')}`).then(response => {
+    await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
 
       if (response.data.status === 400 || typeof response.data.body.customer === "string"){
         history.push('/growth')
@@ -221,7 +220,7 @@ export default function FormRenovacao() {
   }
 
   async function getSubscriptions() {
-          await axios.get(`http://localhost:3000/dev/vindi/customer/find/${idConsumer}`).then(
+          await api.get(`vindi/customer/find/${idConsumer}`).then(
             res => {
 
               if (!res.data.body.subscriptions){
@@ -832,7 +831,7 @@ export default function FormRenovacao() {
               height={100}
               width={100}
             />
-              <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
+              <h5 className={classes.instructions}><b>{FirstName[0]}</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano { selectNewPlan ? 'selecionado' : 'renovado' } é o: <b>{planName}</b></p>
               

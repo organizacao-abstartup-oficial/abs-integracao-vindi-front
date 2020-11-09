@@ -202,8 +202,6 @@ export default function FormImpact() {
           
   };
 
-  
-
   const InfoDataSubscription = (<div className="content-subscription">
 
                     <Card className={classes.root}>
@@ -473,10 +471,7 @@ export default function FormImpact() {
       { DateNowCondition >= endPlain ? (
       <>
       <center>
-        <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a <b>{business}</b>, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
-
-        <p>O Plano renovado é o: <b>{planName}</b></p>
-        <p>Valor anual: <b>{price}</b></p>
+        <h5 className={classes.instructions}><b>{ FirstName[0] }</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} muito felizes por mais este ano com a <b>{business}</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
         
           
           { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button  onClick={ postReniewSubscription } block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}

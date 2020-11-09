@@ -12,6 +12,23 @@
     }
 }
 
+
+.redirect-page{
+    background-color: #26547c;
+    height: 100vh;
+    width: 100%;
+
+    .content-redirect{
+        margin-top: 200px;    
+    }
+
+    h1, h2{
+        color: #fff;
+    }
+
+}
+
+
 .load-payment{
     vertical-align: middle;
 }
@@ -56,7 +73,7 @@
 
 .landingpage-benefits{
     p, span, h6{
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', sans-serif !important;
         font-weight: 400;
     }
     p{
@@ -64,7 +81,7 @@
     }
 
     h1, h2, h3, h4, b {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', sans-serif !important;
         font-weight: 800;
     }
 

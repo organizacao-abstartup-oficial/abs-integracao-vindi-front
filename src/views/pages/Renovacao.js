@@ -2,16 +2,11 @@ import React from "react";
 
 import { Container } from 'reactstrap';
 
+import Footer from '../../components/Footers';
 
-import Footer from 'components/Footers';
-
-import Header from 'components/Header';
+import Header from '../../components/Headers';
 
 import RenovacaoContent from 'views/Sections/RenovacaoContent'
-
-//import Modals from "./Sections/Modals.js";
-
-
 
 
 export default function RenovacaoForm() {
@@ -19,11 +14,10 @@ export default function RenovacaoForm() {
     
       <>
         <Header/>
-        <Container className="contain-body--form">
-         <RenovacaoContent />
-        </Container>
-        <Footer />
-        
+          <Container className="contain-body--form">
+            <RenovacaoContent />
+          </Container>
+        <Footer/>
       </>
   );
 }

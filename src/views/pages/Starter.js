@@ -2,16 +2,11 @@ import React from "react";
 
 import { Container } from 'reactstrap';
 
+import Footer from '../../components/Footers';
 
-import Footer from 'components/Footers';
-
-import Header from 'components/Header';
+import Header from '../../components/Headers';
 
 import FormStarterContent from 'views/Sections/FormStarterContent'
-
-//import Modals from "./Sections/Modals.js";
-
-
 
 
 export default function StarterForm() {
@@ -19,9 +14,9 @@ export default function StarterForm() {
     
       <>
         <Header/>
-        <Container className="contain-body--form">
-         <FormStarterContent />
-        </Container>
+          <Container className="contain-body--form">
+            <FormStarterContent />
+          </Container>
         <Footer />
         
       </>
