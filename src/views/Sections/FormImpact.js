@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
-import axios from 'axios';
 import api from '../../Data/endPoints'
 import { format } from 'date-fns';
 import * as Yup from 'yup';

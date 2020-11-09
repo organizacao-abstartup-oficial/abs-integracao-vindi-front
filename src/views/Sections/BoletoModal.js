@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import api from '../../Data/endPoints';
 import { uuid } from 'uuidv4';
 
 import { Button, Modal, ModalBody, Col } from 'reactstrap';
@@ -42,7 +42,7 @@ export default function BoletoModal(props)  {
 
   async function SetPaymentBankSlip(){
       try {
-        await axios.post( 'http://localhost:3000/dev/vindi/payment/bankslip', BankSlipData)
+        await api.post( 'vindi/payment/bankslip', BankSlipData)
         .then( response => {
           setBankSlipCode(response.data.body.bill.charges[0].last_transaction.gateway_response_fields.typeable_barcode);
           setBankSlipLink(response.data.body.bill.charges[0].print_url);

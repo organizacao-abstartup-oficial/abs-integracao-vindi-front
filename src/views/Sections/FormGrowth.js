@@ -210,7 +210,11 @@ export default function FormStarter() {
     }
     
      try {
-      await api.post('vindi/customer', consumerData)
+      await api.post('vindi/customer', consumerData, {
+        headers: {
+          'Access-Control-Allow-Origin': 'https://planos.abstartups.com.br'
+        }
+      })
       .then( response => {
         localStorage.removeItem('id_consumer');
         setIdConsumer(response.data.body.customer.id);
