@@ -148,7 +148,7 @@ export default function FormStarter() {
             toast.success(`Você já possui cadastro em nossa plataforma, você está sendo redirecionado...`)
             localStorage.setItem('cnpj', cnpjValidate.cnpj)
             localStorage.setItem('personal_name', response.data.body.customer[0].metadata.nome_pessoa_fisica)
-            
+
             setTimeout(() => {
               history.push('/renovacao')
             }, 1000);
@@ -210,13 +210,7 @@ export default function FormStarter() {
     }
     
      try {
-      await api.post('vindi/customer', consumerData, {
-        headers: {
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-        },
-      })
+      await api.post('vindi/customer', consumerData)
       .then( response => {
         localStorage.removeItem('id_consumer');
         setIdConsumer(response.data.body.customer.id);

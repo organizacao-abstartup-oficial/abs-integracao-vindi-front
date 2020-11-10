@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Col, Row, Spinner } from 'reactstrap'
+import { Col, Row, Spinner } from 'reactstrap';
 
 export default function StarterForm() {
 
@@ -8,7 +8,7 @@ export default function StarterForm() {
   const URLContent = window.location.pathname;
 
   if ( RedirectParam === URLContent ){
-    window.open('http://abstartups.com.br/planos/', '_self')
+    window.open('https://abstartups.com.br/planos/', '_self')
   }
 
   return (
@@ -23,5 +23,3 @@ export default function StarterForm() {
     </div>
   );
 }
-
-
