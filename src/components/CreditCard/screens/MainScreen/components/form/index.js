@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { uuid } from 'uuidv4';
-import axios from 'axios';
+import api from '../../../../../../Data/endPoints'
 import { Button } from 'reactstrap';
 import { toast } from 'react-toastify';
 
@@ -112,7 +112,7 @@ export default function CForm({
             customer_id: parseInt(consumer)
         }
         try {
-            await axios.post('https://api-planos.abstartups.com.br/creditcard', paymentProfile).then(response => {
+            await api.post('vindi/payment/payment-profile', paymentProfile).then(response => {
                 
                 if(response.status === 200) {
                     try {
@@ -123,11 +123,11 @@ export default function CForm({
                             payment_method_code: 'credit_card',
                             metadata: uuid(),
                             payment_profile: {
-                                id: response.data.payment_profile.id
+                                id: response.data.body.payment_profile.id
                             },
                             invoice_split: false
                         }
-                        axios.post('https://api-planos.abstartups.com.br/subscription/card', sub)
+                        api.post('vindi/payment/card', sub)
                         .then(res => {
                             toast.success('Pagamento realizado com sucesso!')
                             localStorage.removeItem('cardHolder')

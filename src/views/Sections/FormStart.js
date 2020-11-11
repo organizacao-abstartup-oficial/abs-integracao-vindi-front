@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import axios from 'axios';
+import api from '../../Data/endPoints';
 import * as Yup from 'yup';
 import { uuid } from 'uuidv4';
 // import { cnpj } from 'cpf-cnpj-validator';
@@ -131,7 +132,7 @@ export default function FormStarter() {
     }
 
       try {
-        await axios.post('https://api-planos.abstartups.com.br/registeruppo/starter', userRegister)
+        await api.post('uppo/start', userRegister)
       } catch (err) {
         toast.error('Ooops, houve um erro!')
         
@@ -146,35 +147,26 @@ export default function FormStarter() {
       try {
         if(cnpjValidate.cnpj.length === 14){
           setLoading(true)
-          axios.post('https://api-planos.abstartups.com.br/cnpj/', cnpjValidate).then(response => {
-            if(response.data.status !== 400) {
-              axios.get(`https://api-planos.abstartups.com.br/cnpj/validate/${cnpjValidate.cnpj}`).then(res => {
-                if(res.data.customers.length === 0){
-                  setRazaoSocial(response.data.nome)
-                  setValidaCnpj(true);
-                  setHasError({cnpj: false})
-                  setLoading(false)
-                  // return;
-                } else if (res.data.customers.length >= 1) {
-                  setLoading(false)
-                  setHasError({cnpj:false})
-                  toast.success(`Você já possui cadastro em nossa plataforma, você está sendo redirecionado...`)
-                  localStorage.setItem('cnpj', cnpjValidate.cnpj)
-                  localStorage.setItem('personal_name', res.data.customers[0].metadata.nome_pessoa_fisica)
-                  
-                  setTimeout(() => {
-                    history.push('/renovacao')
-                  }, 1000);
-
-                } else {
-                  setLoading(false)
-                  setHasError({cnpj:true})
-                }
-                
-                
-              });
+          api.get(`validate/${cnpjValidate.cnpj}`).then(response => {
+            if(typeof response.data.body.customer !== "string") {
+              setLoading(false)
+              setHasError({cnpj:false})
+              toast.success(`Você já possui cadastro em nossa plataforma, você está sendo redirecionado...`)
+              localStorage.setItem('cnpj', cnpjValidate.cnpj)
+              localStorage.setItem('personal_name', response.data.body.customer[0].metadata.nome_pessoa_fisica)
+              
+              setTimeout(() => {
+                history.push('/renovacao')
+              }, 1000);
+            } else {
+              setRazaoSocial(response.data.body.customer)
+              setValidaCnpj(true);
+              setHasError({cnpj: false})
+              setLoading(false)
             }
-            
+          }).catch(error =>{
+            setLoading(false)
+            setHasError({cnpj:true})
           })
         }
       } catch (err) {
@@ -216,7 +208,7 @@ export default function FormStarter() {
         country: country
       },
       phones: [
-        {
+          {
           phone_type: 'mobile',
           number: phone,
         }
@@ -225,13 +217,13 @@ export default function FormStarter() {
 
      try {
       console.log(consumerData)
-      await axios.post( 'https://api-planos.abstartups.com.br/consumer', consumerData)
+      await api.post( 'vindi/customer', consumerData)
       .then( response => {
         
         localStorage.removeItem('id_consumer');
-        setIdConsumer(response.data.customer.id);
+        setIdConsumer(response.data.body.customer.id);
         setPlan({ id: 160505, name: 'Start'})
-        localStorage.setItem('consumer_id', JSON.stringify(response.data.customer.id));
+        localStorage.setItem('consumer_id', JSON.stringify(response.data.body.customer.id));
         console.log(idConsumer)
 
         if ( response.status === 200 ){
@@ -245,7 +237,7 @@ export default function FormStarter() {
               invoice_split: false
             }
 
-            axios.post('https://api-planos.abstartups.com.br/subscription/bankslip', registerPlain)
+            api.post('vindi/payment/bankslip', registerPlain)
 
           } catch (err) {
             toast.error('Ooops, houve um erro ao gerar o seu cadastro!')

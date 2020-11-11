@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
-import axios from 'axios';
+import api from '../../Data/endPoints';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 import { uuid } from 'uuidv4';
@@ -165,8 +165,8 @@ export default function FormRenovacao() {
           metadata: uuid(),
           invoice_split: false
         }
-      
-    axios.post('https://api-planos.abstartups.com.br/subscription/bankslip', data)
+
+    api.post('vindi/payment/bankslip', data)
     .then( res => {
       if(res.data){
         setIsNotSubsCription(false);
@@ -186,7 +186,7 @@ export default function FormRenovacao() {
   }
 
     try {
-      await axios.post('https://api-planos.abstartups.com.br/registeruppo/starter', userRegister)
+      await api.post('uppo/start', userRegister)
     } catch (err) {
       toast.error('Ooops, houve um erro!')
       
@@ -196,48 +196,49 @@ export default function FormRenovacao() {
 
 
   async function handleSubscription(cnpj){
-    await axios.get(`https://api-planos.abstartups.com.br/subscription/subs/${cnpj.replace(/\D/g, '')}`).then(response => {
+    
+    await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
 
-      if (response.data.status === 401){
+      if (response.data.status === 400 || typeof response.data.body.customer === "string"){
         history.push('/growth')
       } else {
         setValidaCnpj(true);
         setHasError({cnpj: false});
         setLoading(false);
-        setBusiness(response.data.customers[0].name);
-        setName(response.data.customers[0].metadata.nome_pessoa_fisica);
-        setConsumer(response.data.customers[0]);
-        setIdConsumer(response.data.customers[0].id)
-        localStorage.setItem('consumer_id', response.data.customers[0].id)
+        setBusiness(response.data.body.customer[0].name);
+        setName(response.data.body.customer[0].metadata.nome_pessoa_fisica);
+        setConsumer(response.data.body.customer[0]);
+        setIdConsumer(response.data.body.customer[0].id)
+        localStorage.setItem('consumer_id', response.data.body.customer[0].id)
         setLoadingContent(true)
         setFirstName(name.split(' '))
-        SetMail(response.data.customers[0].email);
-        SetPassword(response.data.customers[0].metadata.password);      
+        SetMail(response.data.body.customer[0].email);
+        SetPassword(response.data.body.customer[0].metadata.password);      
       }
     })
   }
 
   async function getSubscriptions() {
-          await axios.get(`https://api-planos.abstartups.com.br/subscription/subs/customers/${idConsumer}`).then(
+          await api.get(`vindi/customer/find/${idConsumer}`).then(
             res => {
 
-              if (!res.data.subscriptions){
+              if (!res.data.body.subscriptions){
                   toast.error('Localizamos seu cadastro, porém você ainda não selecionou seu plano.');
                   setIsNotSubsCription(true)
                   setLoadingContent(false);
 
               } else {
-                setPrice( res.data.subscriptions[res.data.subscriptions.length -1].product_items[0].pricing_schema.short_format);
-                setSubscriptionID( res.data.subscriptions[res.data.subscriptions.length -1].id );
-                setPlanName( res.data.subscriptions[res.data.subscriptions.length -1].product_items[0].product.name );
-                setStartPlain( res.data.subscriptions[[res.data.subscriptions.length -1]].start_at );
-                setEndPlain( res.data.subscriptions[[res.data.subscriptions.length -1]].end_at );
-                setWallet( res.data.subscriptions[[res.data.subscriptions.length -1]].payment_profile );
-                setSubscription( res.data.subscriptions[[res.data.subscriptions.length -1]].product_items[0].product );
-                setSubScriptionStatus( res.data.subscriptions[[res.data.subscriptions.length -1]].product_items[0].status);
-                SetPlanID( res.data.subscriptions[[res.data.subscriptions.length -1]].plan.id )
+                setPrice( res.data.body.subscriptions[res.data.body.subscriptions.length -1].product_items[0].pricing_schema.short_format);
+                setSubscriptionID( res.data.body.subscriptions[res.data.body.subscriptions.length -1].id );
+                setPlanName( res.data.body.subscriptions[res.data.body.subscriptions.length -1].product_items[0].product.name );
+                setStartPlain( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].start_at );
+                setEndPlain( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].end_at );
+                setWallet( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].payment_profile );
+                setSubscription( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].product );
+                setSubScriptionStatus( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].status);
+                SetPlanID( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
-                localStorage.setItem('plan_id', res.data.subscriptions[[res.data.subscriptions.length -1]].plan.id); 
+                localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id); 
               }
 
             }

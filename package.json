@@ -17,7 +17,7 @@
   },
   "homepage": "https://assinaturas.abstartups.com.br",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -53,7 +53,7 @@
     "nouislider": "14.1.1",
     "payment": "^2.3.0",
     "prop-types": "^15.7.2",
-    "react": "16.12.0",
+    "react": "^17.0.1",
     "react-animate-on-scroll": "^2.1.5",
     "react-cookie-banner": "^4.1.0",
     "react-copy-to-clipboard": "^5.0.2",
