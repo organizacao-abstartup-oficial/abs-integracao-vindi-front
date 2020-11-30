@@ -172,7 +172,6 @@ export default function FormRenovacao() {
         setIsNotSubsCription(false);
       } else {
         toast.error('Oops, houve um erro!')
-        console.log(subscription, consumer)
       }
     })
   }
@@ -435,7 +434,6 @@ export default function FormRenovacao() {
 
   async function postReniewSubscription(){
     // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customers/reniew/${subsCriptionID}`).then( res => {
-    //   console.log('Funcionando')
     // } )
   }
 
@@ -670,7 +668,6 @@ export default function FormRenovacao() {
       window.scrollTo({top: 0, behavior: 'smooth'});
       // localStorage.removeItem('consumer_id');
       getSubscriptions();
-      console.log('passo 1', newActiveStep)
       
 
       try {

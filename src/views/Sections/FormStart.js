@@ -119,7 +119,6 @@ export default function FormStarter() {
       setBairro(response.data.bairro)
       setCountry('BR')
       localStorage.clear();
-      console.log(plan)
     })
   }
 
@@ -216,7 +215,6 @@ export default function FormStarter() {
     }
 
      try {
-      console.log(consumerData)
       await api.post( 'vindi/customer', consumerData)
       .then( response => {
         
@@ -224,7 +222,6 @@ export default function FormStarter() {
         setIdConsumer(response.data.body.customer.id);
         setPlan({ id: 160505, name: 'Start'})
         localStorage.setItem('consumer_id', JSON.stringify(response.data.body.customer.id));
-        console.log(idConsumer)
 
         if ( response.status === 200 ){
           try {
@@ -905,7 +902,6 @@ export default function FormStarter() {
     }
     if (newActiveStep === 3) {
       window.scrollTo({top: 100, behavior: 'smooth'});
-      console.log('Consumer ID é:', idConsumer)
 
       try {
         const schema = Yup.object().shape({

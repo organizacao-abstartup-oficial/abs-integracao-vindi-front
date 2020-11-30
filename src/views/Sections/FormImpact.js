@@ -126,7 +126,6 @@ export default function FormImpact() {
 
   const handleChangeNewPlan = (event) => {
     SetSelectNewPlan(event.target.value);
-    console.log(subscription, consumer, mail, password)
   };
 
   setInterval(() => {
@@ -155,21 +154,21 @@ export default function FormImpact() {
 
   async function handleSubscription(cnpj){
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
-      if (response.data.status === 401 || response.data.body.customers[0].metadata.impact !== "sim"){
+      if (response.data.status === 401 || response.data.body.customer[0].metadata.impact !== "sim"){
         history.push('/')
       } else {
         setValidaCnpj(true);
         setHasError({cnpj: false});
         setLoading(false);
-        setBusiness(response.data.body.customers[0].name);
-        setName(response.data.body.customers[0].metadata.nome_pessoa_fisica);
-        setConsumer(response.data.body.customers[0]);
-        setIdConsumer(response.data.body.customers[0].id)
-        localStorage.setItem('consumer_id', response.data.body.customers[0].id)
+        setBusiness(response.data.body.customer[0].name);
+        setName(response.data.body.customer[0].metadata.nome_pessoa_fisica);
+        setConsumer(response.data.body.customer[0]);
+        setIdConsumer(response.data.body.customer[0].id)
+        localStorage.setItem('consumer_id', response.data.body.customer[0].id)
         setLoadingContent(true)
         setFirstName(name.split(' '))
-        SetMail(response.data.body.customers[0].email);
-        SetPassword(response.data.body.customers[0].metadata.password)        
+        SetMail(response.data.body.customer[0].email);
+        SetPassword(response.data.body.customer[0].metadata.password)        
       }
     })
   }
@@ -336,8 +335,7 @@ export default function FormImpact() {
   )
 
   async function postReniewSubscription(){
-    // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customers/reniew/${subsCriptionID}`).then( res => {
-    //   console.log('Funcionando')
+    // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customer/reniew/${subsCriptionID}`).then( res => {
     // } )
   }
 
@@ -478,7 +476,7 @@ export default function FormImpact() {
           
           <hr/>
 
-          { selectNewPlan === '160505' ? ( 
+          { selectNewPlan !== 'Impact' ? ( 
             <>
               <h5>Tudo certo aqui, não há nada para pagar!</h5>
               <h5>Agora é só acessar seu painel de benefícios e aproveitar.</h5>
@@ -490,7 +488,7 @@ export default function FormImpact() {
             </>) : (
             <>
               <div className="payment-description">
-                <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/>
+                <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/> 
               </div>
               <br/>
                 <CardModal />
@@ -549,7 +547,6 @@ export default function FormImpact() {
       window.scrollTo({top: 0, behavior: 'smooth'});
       // localStorage.removeItem('consumer_id');
       getSubscriptions();
-      console.log('passo 1', newActiveStep)
       
 
       try {
@@ -707,7 +704,7 @@ export default function FormImpact() {
               height={100}
               width={100}
             />
-              <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
+              <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a {business}, Estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano { selectNewPlan ? 'selecionado' : 'renovado' } é o: <b>{planName}</b></p>
               

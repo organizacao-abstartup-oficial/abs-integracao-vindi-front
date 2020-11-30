@@ -930,7 +930,6 @@ export default function FormStarter() {
       
     } 
     if (newActiveStep === 3) {
-      console.log(`Validar passo 2`)
       window.scrollTo({top: 100, behavior: 'smooth'});
 
       try {
