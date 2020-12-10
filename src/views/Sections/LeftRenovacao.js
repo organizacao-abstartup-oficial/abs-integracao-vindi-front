@@ -24,11 +24,12 @@ export default function LeftRenovacao() {
         </h3>
         
         <p><b>Para dar início a sua renovação e encontrarmos o seu cadastro, nos informe o CNPJ da sua startup.</b></p>
-
+        <center>
           <Lottie options={renewAnimation}
             height={300}
             width={300}
           />
+        </center>
 
         <br/>
         <p><b>Estamos com tudo pronto para mais este ano de parceria, vamos lá.</b></p>

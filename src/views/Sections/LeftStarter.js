@@ -14,16 +14,18 @@ export default function IndexSections() {
             NOVO CADASTRO
           </h3>
           <p>Informe os dados de sua startup para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
-
-          <img src={plainLogo} alt="starter" width="200px"/>
-          <br/>
-          <br/>
-          <h5><b>Plano Start - Grátis</b></h5>
+          
+          <center>
+            <img src={plainLogo} alt="starter" width="200px"/>
+            <br/>
+            <br/>
+            <h5><b>Plano Start - Grátis</b></h5>
+          </center>
           <hr/>
           <p>Tenha acesso a benefícios e descontos exclusivos da Abstartups:</p>
           <p>Quer acelerar ainda mais sua startup com muito mais benefícios e vantagens? Conheça o nosso plano <b>Growth</b> clicando no botão abaixo.</p>
 
-          <Link to="/growth"><Button variant="contained" fullWidth color="primary"> Seja um Growth </Button></Link>
+          <Link to="/growth"><Button variant="contained" fullWidth color="primary"> Seja Growth </Button></Link>
 
           
           

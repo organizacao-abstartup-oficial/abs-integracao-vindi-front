@@ -13,11 +13,12 @@ export default function IndexSections() {
           </h3>
           
           <p>Informe seus dados pessoais para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
-
-          <img src={plainLogo} alt="growth" width="200px"/>
-          <br/>
-          <br/>
-          <h5><b>12x de R$ 41,58 ou R$ 399/ano</b></h5>
+          <center>
+            <img src={plainLogo} alt="growth" width="200px"/>
+            <br/>
+            <br/>
+            <h5><b>12x de R$ 41,58 <br/>ou R$ 399/ano</b></h5>
+          </center>
           <hr/>
           <p>Com o plano Growth você possui muito mais benefícios para que a sua startup chegue longe.</p>
           

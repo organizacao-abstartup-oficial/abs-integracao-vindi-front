@@ -94,7 +94,7 @@ export const fasesShort = [
   {id: 2, text: 'Ideação'},
   {id: 3, text: 'Operação'},
   {id: 4, text: 'Tração'},
-  {id: 5, text: 'Scaleup'},
+  {id: 5, text: 'Scale up'},
 ]
 
 export const papeis = [

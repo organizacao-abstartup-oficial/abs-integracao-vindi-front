@@ -17,11 +17,13 @@ export default function IndexSections() {
       
       <p><b>Parabéns por ser aprovado no <strong>Batch de Impacts</strong> estamos muito felizes! Para continuarmos esse grande momento, siga os passos a seguir.</b></p>
 
+      <center>
         <img src={logoImpact} alt="Impact" />
-
-      <br/>
-      <p><b>Estamos com tudo pronto para continuar esse momento especial, vamos lá!</b></p>
-      <br/>
+      
+        <br/>
+        <p><b>Estamos com tudo pronto para continuar esse momento especial, vamos lá!</b></p>
+        <br/>
+      </center>
       <hr/>
     </Col>
   </>
