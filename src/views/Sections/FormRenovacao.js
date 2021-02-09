@@ -803,7 +803,7 @@ export default function FormRenovacao() {
                   <Typography variant="caption" className={classes.completed}>
 
                   { DateNowCondition >= endPlain || subScriptionStatus === 'inative' ? '' : (
-                    <> { completedSteps() === totalSteps() - 2 ? 'Cadastro realizado com sucesso!' : (
+                    <> { completedSteps() === totalSteps() - 1 ? 'Cadastro realizado com sucesso!' : (
                       <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
                         Próximo <NavigateNextIcon/>
                       </Button>
@@ -816,7 +816,7 @@ export default function FormRenovacao() {
   const FinishStepsAct = (<>
   
       { subScriptionStatus === 'active' && parseInt(format(new Date(), `yyyy`)) - parseInt(format(new Date(endPlain), 'yyyy')) < 0 ? (<>
-        <p><spam>Renovação disponível a partir de { `${format(new Date(endPlain), `dd`)}/${ format(new Date(endPlain), `MM`) - 2 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 2 ) : format(new Date(endPlain), `MM`) }/${format(new Date(endPlain), `yyyy`)}` }. </spam></p>
+        <p><spam>Renovação disponível a partir de { `${format(new Date(endPlain), `dd`)}/${ format(new Date(endPlain), `MM`) - 1 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 2 ) : format(new Date(endPlain), `MM`) }/${format(new Date(endPlain), `yyyy`)}` }. </spam></p>
         </>
       ) : ( 
         <>
