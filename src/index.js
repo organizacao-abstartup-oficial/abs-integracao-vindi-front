@@ -14,7 +14,6 @@ import Growth from "views/pages/Growth.js";
 import Impact from "views/pages/Impact.js";
 import Renovacao from "views/pages/Renovacao.js";
 
-
 ReactDOM.render(
   <BrowserRouter>
 

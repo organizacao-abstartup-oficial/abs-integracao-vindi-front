@@ -36,6 +36,7 @@ import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
 import WellComeModal from './WelcomeModal';
 import CardModal from './CardModal';
 import BoletoModal from './BoletoModal';
+import TermsModal from '../Sections/TermsModal'
 
 import CardsAccept from '../../assets/img/brand/bandeiras-final.png';
 import LogoMaster from '../../assets/img/brand/master.png';
@@ -326,6 +327,7 @@ export default function FormRenovacao() {
                               control={<Radio color="primary" />} 
                               label="Plano Growth" 
                             />
+                            <br/>
                           </>
                         ) : (
                           <>
@@ -349,7 +351,11 @@ export default function FormRenovacao() {
                       </FormControl>
 
                       <Typography className={classes.title} color="textSecondary" gutterBottom>
-                          Identificação única do plano: { selectNewPlan ? selectNewPlan : 'Não selecionado' }
+                          Plano selecionado: { selectNewPlan ? selectNewPlan : 'Não selecionado' }<br/>
+                          Ao selecionar o plano, você automáticamente concorda com os termos e políticas de associados.
+                          <br/>
+                          <br/>
+                          {<TermsModal/>}
                           <hr/>
                           Agora basta escolher um dos planos acima<br/>
                           e concluir sua assinatura. <br/>
@@ -797,10 +803,12 @@ export default function FormRenovacao() {
                   <Typography variant="caption" className={classes.completed}>
 
                   { DateNowCondition >= endPlain || subScriptionStatus === 'inative' ? '' : (
-                    <>
+                    <> { completedSteps() === totalSteps() - 1 ? 'Cadastro realizado com sucesso!' : (
                       <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                        { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' }<NavigateNextIcon/>
-                      </Button> {' '} O passo {activeStep + 1} está completo. 
+                        Próximo <NavigateNextIcon/>
+                      </Button>
+                    )}
+                       {' '} O passo {activeStep + 1} está completo. 
                     </>) }
                   </Typography>
                 );
