@@ -43,8 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function FormStarter() {
 
   const classes = useStyles();
@@ -102,7 +100,6 @@ export default function FormStarter() {
   const [ facebook, setFacebook ] = useState('');
   const [ instagram, setInstagram ] = useState('');
   const [ youtube, setYoutube ] = useState('');
-  const [ idConsumer, setIdConsumer ] = useState('');
   const [plan, setPlan] = useState({ id: 160505, name: 'Start'});
   const [ loading, setLoading ] = useState(false);
 
@@ -219,7 +216,6 @@ export default function FormStarter() {
       .then( response => {
         
         localStorage.removeItem('id_consumer');
-        setIdConsumer(response.data.body.customer.id);
         setPlan({ id: 160505, name: 'Start'})
         localStorage.setItem('consumer_id', JSON.stringify(response.data.body.customer.id));
 
@@ -987,10 +983,6 @@ export default function FormStarter() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
-  // const handleStep = (step) => () => {
-  //   setActiveStep(step);
-  // };
 
   function handleComplete (e) {
     e.preventDefault();

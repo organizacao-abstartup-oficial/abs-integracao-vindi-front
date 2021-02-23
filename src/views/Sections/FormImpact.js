@@ -81,8 +81,6 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-
-
 export default function FormImpact() {
 
   const classes = useStyles();
@@ -101,9 +99,7 @@ export default function FormImpact() {
   const [ idConsumer, setIdConsumer ] = useState('');
   const [ isLastStepCompleted, setIsLastStepCompleted ] = useState(localStorage.setItem('isLastStep', "false"));
   const [ loading, setLoading ] = useState(false);
-  const [ loadingContent, setLoadingContent ] = useState(false)
-  const [ subscription, setSubscription ] = useState('');
-  const [ consumer, setConsumer ] = useState('');
+  const [ loadingContent, setLoadingContent ] = useState(false);
   const [ wallet, setWallet ] = useState('');
 
   const [ price, setPrice ] = useState('');
@@ -116,8 +112,6 @@ export default function FormImpact() {
   const [ isNotSubsCription, setIsNotSubsCription ] = useState(false);
   const [ selectNewPlan, SetSelectNewPlan ] = useState('');
   const [ planID, SetPlanID ] = useState('')
-  const [ mail, SetMail ] = useState('')
-  const [ password, SetPassword ] = useState('')
   
 
   const history = useHistory()
@@ -160,15 +154,12 @@ export default function FormImpact() {
         setValidaCnpj(true);
         setHasError({cnpj: false});
         setLoading(false);
-        setBusiness(response.data.body.customer[0].name);
-        setName(response.data.body.customer[0].metadata.nome_pessoa_fisica);
-        setConsumer(response.data.body.customer[0]);
-        setIdConsumer(response.data.body.customer[0].id)
-        localStorage.setItem('consumer_id', response.data.body.customer[0].id)
+        setBusiness(response.data.body.customer.name);
+        setName(response.data.body.customer.nome_pessoa_fisica);
+        setIdConsumer(response.data.body.customer.id)
+        localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(name.split(' '))
-        SetMail(response.data.body.customer[0].email);
-        SetPassword(response.data.body.customer[0].metadata.password)        
+        setFirstName(name.split(' '))       
       }
     })
   }
@@ -189,7 +180,6 @@ export default function FormImpact() {
                 setStartPlain( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].start_at );
                 setEndPlain( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].end_at );
                 setWallet( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].payment_profile );
-                setSubscription( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].product );
                 setSubScriptionStatus( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].status);
                 SetPlanID( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
@@ -334,11 +324,6 @@ export default function FormImpact() {
     </>
   )
 
-  async function postReniewSubscription(){
-    // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customer/reniew/${subsCriptionID}`).then( res => {
-    // } )
-  }
-
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -472,7 +457,7 @@ export default function FormImpact() {
         <h5 className={classes.instructions}><b>{ FirstName[0] }</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} muito felizes por mais este ano com a <b>{business}</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
         
           
-          { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button  onClick={ postReniewSubscription } block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
+          { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
           
           <hr/>
 
@@ -601,8 +586,6 @@ export default function FormImpact() {
     if (newActiveStep === 2){
       try {
 
-          // if ( selectNewPlan ) {
-
             const schema = Yup.object().shape({
               selectNewPlan: Yup.string().required(),
             });
@@ -624,7 +607,6 @@ export default function FormImpact() {
                 });
                 return;
             }
-        // }
 
         window.scrollTo({top: 100, behavior: 'smooth'});
 

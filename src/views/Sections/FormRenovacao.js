@@ -6,7 +6,6 @@ import Lottie from 'react-lottie';
 import api from '../../Data/endPoints';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
-import { uuid } from 'uuidv4';
 
 // material design components
 import CreditCardIcon from '@material-ui/icons/CreditCard';
@@ -102,8 +101,7 @@ export default function FormRenovacao() {
   const [ isLastStepCompleted, setIsLastStepCompleted ] = useState(localStorage.setItem('isLastStep', "false"));
   const [ loading, setLoading ] = useState(false);
   const [ loadingContent, setLoadingContent ] = useState(false);
-  const [ subscription, setSubscription ] = useState('');
-  const [ consumer, setConsumer ] = useState('');
+
   const [ wallet, setWallet ] = useState('');
 
   const [ price, setPrice ] = useState('');
@@ -116,8 +114,6 @@ export default function FormRenovacao() {
   const [ isNotSubsCription, setIsNotSubsCription ] = useState(false);
   const [ selectNewPlan, SetSelectNewPlan ] = useState('');
   const [ planID, SetPlanID ] = useState('');
-  const [ mail, SetMail ] = useState('');
-  const [ password, SetPassword ] = useState('');
   
 
   const history = useHistory()
@@ -157,43 +153,6 @@ export default function FormRenovacao() {
   }, [cnpj]);
 
 
-  const RegisterStart = async () => {
-    const data = {
-          plan_id: parseInt(localStorage.getItem('plan_id')),
-          customer_id: parseInt(localStorage.getItem('consumer_id')),
-          code: uuid(),
-          payment_method_code: 'bank_slip',
-          metadata: uuid(),
-          invoice_split: false
-        }
-
-    api.post('vindi/payment/bankslip', data)
-    .then( res => {
-      if(res.data){
-        setIsNotSubsCription(false);
-      } else {
-        toast.error('Oops, houve um erro!')
-      }
-    })
-  }
-
-  const PostUppo = async () => {
-  let userRegister = {
-    email: mail,
-    password: password,
-    cpf: cnpj,
-    name: name
-  }
-
-    try {
-      await api.post('uppo/start', userRegister)
-    } catch (err) {
-      toast.error('Ooops, houve um erro!')
-      
-    }
-  }
-
-
 
   async function handleSubscription(cnpj){
     
@@ -205,15 +164,12 @@ export default function FormRenovacao() {
         setValidaCnpj(true);
         setHasError({cnpj: false});
         setLoading(false);
-        setBusiness(response.data.body.customer[0].name);
-        setName(response.data.body.customer[0].metadata.nome_pessoa_fisica);
-        setConsumer(response.data.body.customer[0]);
-        setIdConsumer(response.data.body.customer[0].id)
-        localStorage.setItem('consumer_id', response.data.body.customer[0].id)
+        setBusiness(response.data.body.customer.name);
+        setName(response.data.body.customer.nome_pessoa_fisica);
+        setIdConsumer(response.data.body.customer.id)
+        localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(name.split(' '))
-        SetMail(response.data.body.customer[0].email);
-        SetPassword(response.data.body.customer[0].metadata.password);      
+        setFirstName(name.split(' '))      
       }
     })
   }
@@ -234,7 +190,6 @@ export default function FormRenovacao() {
                 setStartPlain( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].start_at );
                 setEndPlain( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].end_at );
                 setWallet( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].payment_profile );
-                setSubscription( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].product );
                 setSubScriptionStatus( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].status);
                 SetPlanID( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
@@ -438,11 +393,6 @@ export default function FormRenovacao() {
     </>
   )
 
-  async function postReniewSubscription(){
-    // await axios.post(`https://api-planos.abstartups.com.br/subscription/subs/customers/reniew/${subsCriptionID}`).then( res => {
-    // } )
-  }
-
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -539,7 +489,12 @@ export default function FormRenovacao() {
         );
  
       default:
-        return <h2>Ooops, parece que algo deu errado!</h2>;
+        return (
+        <>
+          <h2>Tudo certo!</h2>
+          <p>Aguarde a confirmação em seu email </p>
+        </>
+          );
     }
   }
 
@@ -580,7 +535,7 @@ export default function FormRenovacao() {
         <p>Valor anual: <b>{price}</b></p>
         
           
-          { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button  onClick={ postReniewSubscription } block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
+          { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
           
           <hr/>
 
@@ -750,13 +705,7 @@ export default function FormRenovacao() {
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
         localStorage.setItem('plan_id', selectNewPlan)
-
-        if ( selectNewPlan === '160505' ) {
-          PostUppo();
-          RegisterStart();
-        } else {
-          toast.success('Tudo pronto, agora é só selecionar o método de pagamento.')
-        }
+        toast.success('Tudo pronto, agora é só selecionar o método de pagamento.')
 
       } catch (err) {
         toast.error('Por favor, selecione uma assinatura.')
@@ -816,11 +765,11 @@ export default function FormRenovacao() {
   const FinishStepsAct = (<>
   
       { subScriptionStatus === 'active' && parseInt(format(new Date(), `yyyy`)) - parseInt(format(new Date(endPlain), 'yyyy')) < 0 ? (<>
-        <p><spam>Renovação disponível a partir de { `${format(new Date(endPlain), `dd`)}/${ format(new Date(endPlain), `MM`) - 1 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 2 ) : format(new Date(endPlain), `MM`) }/${format(new Date(endPlain), `yyyy`)}` }. </spam></p>
+        <p><spam>Renovação disponível a partir de { `${format(new Date(endPlain), `dd`)}/${ format(new Date(endPlain), `MM`) - 1 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 1 ) : format(new Date(endPlain), `MM`) }/${format(new Date(endPlain), `yyyy`)}` }. </spam></p>
         </>
       ) : ( 
         <>
-        { completedSteps() === totalSteps() - 2 ? '' :  (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+        { completedSteps() === totalSteps() - 1 ? '' :  (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
         { completedSteps() === totalSteps() - 1 ? '' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/> 
         </Button>)}
         
