@@ -37,7 +37,7 @@ export default function CForm({
     const pathName = window.location.pathname;
 
     const PlanObjectGrowth = [  
-        { id: 151756, value: 1, pricing: 399, label: 399  },
+        { id: 151756, value: 1, pricing: 199, label: 199  },
         { id: 150698, value: 12, pricing: 499, label: 499 /12 }];
 
     const PlanObjectImpact = [  
@@ -96,6 +96,9 @@ export default function CForm({
 
 
     async function postPayment(){
+
+        // post discount
+        
         const consumer = localStorage.getItem('consumer_id');
         const cardHolderStorage = localStorage.getItem('cardHolder');
         const cardValidateStorage = localStorage.getItem('cardValidate');
@@ -125,6 +128,19 @@ export default function CForm({
                             payment_profile: {
                                 id: response.data.body.payment_profile.id
                             },
+                            product_items: [
+                                {
+                                  product_id: 569202,
+                                  discounts: [
+                                    {
+                                        discount_type: "amount",
+                                        amount: planIdState == 151756 ? 200.00 : 0,
+                                        quantity: 1,
+                                        cycles: 1
+                                    }
+                                ],
+                                }
+                            ],
                             invoice_split: false
                         }
                         api.post('vindi/payment/card', sub)

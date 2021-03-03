@@ -242,8 +242,6 @@ export default function FormStarter() {
       case 0:
         return ( <form autoComplete="on" ><Row lg="8">
 
-        
-
           <TextField
             label="Nome"
             required={true}
@@ -1057,9 +1055,6 @@ export default function FormStarter() {
             <StepButton completed={completed[index] }>
               {label}
             </StepButton>
-            {/* <StepButton onClick={ handleStep(index)} completed={completed[index] }>
-              {label}
-            </StepButton> */}
           </Step>
         ))}
       </Stepper>
