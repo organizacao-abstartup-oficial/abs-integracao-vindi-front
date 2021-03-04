@@ -331,14 +331,16 @@ export default function FormRenovacao() {
       { planID === 160505 ? (
 
                               <>
-                              <Typography variant="h5" component="h2">
-                                <b>Obá! você tem um upgrade disponível</b> 
-                              </Typography>
+                              <center>
+                                <Typography variant="h5" component="h2">
+                                  <b>Obá! você tem um upgrade disponível </b><br/><b>R$: 199,00 / ano</b>
+                                </Typography>
+                              </center>
                               <br/>
                                 <center>
                                   <Button 
                                     variant="contained"
-                                    onClick={ UppCellAction } 
+                                    onClick={ UppCellAction }
                                     color="danger"
                                   >
                                     Quero ser um Growth
