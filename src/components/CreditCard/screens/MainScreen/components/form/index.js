@@ -136,6 +136,7 @@ export default function CForm({
                             localStorage.removeItem('companyCode')
                             localStorage.setItem('paymentSubmited', true)
                             localStorage.setItem('isLastStep', true);
+                            localStorage.clear()
                             }
                         )
                     } catch(err) {
@@ -262,7 +263,7 @@ export default function CForm({
                     <select
                         name="installments"
                         className="card-input__input -select"
-                        onChange={e =>   setplanIdState(e.target.value) }
+                        onChange={ e =>   setplanIdState(e.target.value) }
                     >
                         <option value="" disabled>
                             Selecione as parcelas
