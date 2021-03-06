@@ -148,7 +148,7 @@ export default function FormImpact() {
 
   async function handleSubscription(cnpj){
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
-      if (response.data.status === 401 || response.data.body.customer.impact !== "sim"){
+      if (response.data.status_code === 400 || response.data.body.customer.impact !== "sim"){
         history.push('/')
       } else {
         setValidaCnpj(true);
