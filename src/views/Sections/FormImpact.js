@@ -148,7 +148,7 @@ export default function FormImpact() {
 
   async function handleSubscription(cnpj){
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
-      if (response.data.status === 401 || response.data.body.customer.impact !== "sim"){
+      if (response.data.status_code === 400 || response.data.body.customer.impact !== "sim"){
         history.push('/')
       } else {
         setValidaCnpj(true);
@@ -261,8 +261,8 @@ export default function FormImpact() {
                         <FormLabel component="legend"></FormLabel>
                         <RadioGroup aria-label="gender" name="gender1" value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
 
-                          <FormControlLabel value="Impact" control={<Radio color="primary" />} label="Plano Impact" />
-                          {/* <FormControlLabel  value="152186" control={<Radio color="primary" />} label="Plano Impact - R$ 1.799,00 (em 12x)" /> */}
+                          <FormControlLabel value="152208" control={<Radio color="primary" />} label="Plano Impact" />
+                          <FormControlLabel  value="152186" control={<Radio color="primary" />} label="Plano Impact - R$ 1.799,00 (em 12x)" />
 
                         </RadioGroup>
                       </FormControl>
@@ -419,7 +419,7 @@ export default function FormImpact() {
         );
  
       default:
-        return <h2>Ooops, parece que algo deu errado!</h2>;
+        return <h2>Confira seu email</h2>;
     }
   }
 
@@ -461,7 +461,7 @@ export default function FormImpact() {
           
           <hr/>
 
-          { selectNewPlan !== 'Impact' ? ( 
+          { !selectNewPlan ? ( 
             <>
               <h5>Tudo certo aqui, não há nada para pagar!</h5>
               <h5>Agora é só acessar seu painel de benefícios e aproveitar.</h5>
@@ -662,20 +662,27 @@ export default function FormImpact() {
 
                   { DateNowCondition >= endPlain ? '' : (
                     <>
+                    { completedSteps() === totalSteps() -2 ? (
+                    <>
                       <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                        { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
-                      </Button> {' '} O passo {activeStep + 1} está completo. 
+                        { completedSteps() === totalSteps() - 2 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
+                      </Button> {' '} O passo {activeStep + 1} está completo.
+                      
+                    </>) : "" }
+                      
                     </>) }
                   </Typography>
                 );
 
 
-  const FinishStepsAct = (
-                  
-                  <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-                    { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/>
-                  </Button>
-                  
+  const FinishStepsAct = (<>
+
+                  { completedSteps() === totalSteps() - 2 ? "" : (
+                    <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+                      { completedSteps() === totalSteps() - 2 ? 'Finalizar' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/>
+                    </Button>
+                  )}
+                  </>
                 );
 
   const AllStepsCompleted = allStepsCompleted() ? (
