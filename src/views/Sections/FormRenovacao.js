@@ -273,12 +273,12 @@ export default function FormRenovacao() {
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend"></FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1" value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
+                        <RadioGroup value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
 
                         { planID === 160505 ? (
                           <>
                             <FormControlLabel 
-                              value="Growth" 
+                              value="151756" 
                               control={<Radio color="primary" />} 
                               label="Plano Growth" 
                             />

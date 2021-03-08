@@ -275,6 +275,8 @@ export default function CForm({
                     </div>
                 </div>
 
+                {planIdState == 151756 ? (<p style={{ color: "red" }}>Desconto de aniversário Abstartups</p>) : ''}
+
                     <select
                         name="installments"
                         className="card-input__input -select"
