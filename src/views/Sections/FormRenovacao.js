@@ -273,12 +273,12 @@ export default function FormRenovacao() {
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend"></FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1" value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
+                        <RadioGroup value={selectNewPlan} onChange={ handleChangeNewPlan } required={true} >
 
                         { planID === 160505 ? (
                           <>
                             <FormControlLabel 
-                              value="Growth" 
+                              value="151756" 
                               control={<Radio color="primary" />} 
                               label="Plano Growth" 
                             />
@@ -331,14 +331,16 @@ export default function FormRenovacao() {
       { planID === 160505 ? (
 
                               <>
-                              <Typography variant="h5" component="h2">
-                                <b>Obá! você tem um upgrade disponível</b> 
-                              </Typography>
+                              <center>
+                                <Typography variant="h5" component="h2">
+                                  <b>Obá! você tem um upgrade disponível </b><br/><b>R$: 199,00 / ano</b>
+                                </Typography>
+                              </center>
                               <br/>
                                 <center>
                                   <Button 
                                     variant="contained"
-                                    onClick={ UppCellAction } 
+                                    onClick={ UppCellAction }
                                     color="danger"
                                   >
                                     Quero ser um Growth
