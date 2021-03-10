@@ -32,6 +32,13 @@ export default function LeftRenovacao() {
         </center>
 
         <br/>
+        <center>
+          <h5>10 anos de Abstartups</h5>
+          <h5>Renovação ou upgrade para Growth</h5>
+          <h4 style={{ color: 'red'}}><b>R$: 199</b></h4>
+          <p>*Válido até 10/04 para novas associações, migração de plano ou renovação. Somente para pagamentos à vista no cartão de crédito</p>
+        </center>
+        <br/>
         <p><b>Estamos com tudo pronto para mais este ano de parceria, vamos lá.</b></p>
         <br/>
         <hr/>
