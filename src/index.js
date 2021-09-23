@@ -23,7 +23,7 @@ ReactDOM.render(
         path="/" 
         exact   
       >
-        <IndexForm/>
+        { process.env.NODE_ENV === "development" ? <Starter/> : <IndexForm/> }
       </Route>
 
       <Route
