@@ -14,9 +14,9 @@ set :nvm_path, '/etc/profile.d/nvm.sh'
 set :base_path, "/var/www/#{fetch(:user)}"
 
 if fetch(:environment) == 'staging'
-  set :branch,    'master'
+  set :branch,    'develop'
   set :domain,    'sif.jera.com.br'
-  set :deploy_to, "/var/www/#{fetch(:user)}/production/front"
+  set :deploy_to, "/var/www/#{fetch(:user)}/staging/front"
 end
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'public/system', 'tmp/pids', 'tmp/sockets')
