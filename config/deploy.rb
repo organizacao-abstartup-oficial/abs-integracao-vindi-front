@@ -4,12 +4,12 @@ require 'mina/rvm'
 
 set :repository, 'git@github.com:organizacao-abstartup-oficial/abs-integracao-vindi-front.git'
 
-set :identity_file, ENV['IDENTIFY_FILE']
+set :identity_file, ENV['IDENTIFY_FILE'] || ENV['KEY']
 set :environment,   ENV['ENV']
 
 set :application_name, 'abs-integracao-vindi-front'
 set :user, 'abstartup'
-set :node_version, 'v14.17.1'
+set :node_version, '12.20.0'
 set :nvm_path, '/etc/profile.d/nvm.sh'
 set :base_path, "/var/www/#{fetch(:user)}"
 
@@ -65,7 +65,7 @@ task :deploy do
     command %(npm set progress=false)
     command %(rm -rf node_modules/)
     command %(npm install)
-    command %(npm run build)
+    command %(npm run build-staging)
 
     invoke :'deploy:cleanup'
 
