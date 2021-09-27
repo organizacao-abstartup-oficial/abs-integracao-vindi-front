@@ -17,9 +17,9 @@
   },
   "homepage": "https://assinaturas.abstartups.com.br",
   "scripts": {
-    "start": "NODE_ENV=development env-cmd -f .env.dev react-scripts start",
-    "dev": "NODE_ENV=development react-scripts start",
-    "build-staging": "NODE_ENV=staging env-cmd -f .env.staging react-scripts build && gulp licenses",
+    "start": "REACT_APP_NODE_ENV=development env-cmd -f .env.dev react-scripts start",
+    "dev": "REACT_APP_NODE_ENV=development react-scripts start",
+    "build-staging": "REACT_APP_NODE_ENV=staging env-cmd -f .env.staging react-scripts build && gulp licenses",
     "build": "env-cmd -f .env.production react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
