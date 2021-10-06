@@ -48,8 +48,6 @@ import BankSlipIcon from '../../assets/img/brand/boleto-icon.png';
 import plainLogoGrowth from '../../assets/img/icons/common/growth.png'
 import plainLogoStart from '../../assets/img/icons/common/start.png'
 
-
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -112,7 +110,6 @@ export default function FormImpact() {
   const [ isNotSubsCription, setIsNotSubsCription ] = useState(false);
   const [ selectNewPlan, SetSelectNewPlan ] = useState('');
   const [ planID, SetPlanID ] = useState('')
-  
 
   const history = useHistory()
 
@@ -516,10 +513,6 @@ export default function FormImpact() {
     return completedSteps() === totalSteps();
   };
 
-
-
-  
-
   const handleNext = async () => {
 
     //Inputar validações aqui
@@ -547,8 +540,6 @@ export default function FormImpact() {
           abortEarly: false
         })
 
-        
-        console.log("validando cnpj aqui", validaCnpj)
         if(!validaCnpj) {
           toast.error('Ooops, houve um erro.');
           setHasError(
@@ -656,7 +647,6 @@ export default function FormImpact() {
     handleNext();
   };
 
-
   const StepsButtonAct =  (
                   <Typography variant="caption" className={classes.completed}>
 
@@ -673,7 +663,6 @@ export default function FormImpact() {
                     </>) }
                   </Typography>
                 );
-
 
   const FinishStepsAct = (<>
 
@@ -711,7 +700,6 @@ export default function FormImpact() {
             </div>
           </div>
         )
-
 
   return (
     <Col lg="8">
