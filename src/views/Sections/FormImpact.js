@@ -148,8 +148,8 @@ export default function FormImpact() {
 
   async function handleSubscription(cnpj){
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
-      if (response.data.status_code === 400 || response.data.body.customer.impact !== "sim"){
-        history.push('/')
+      if (response.data.status_code === 400){
+        toast.error(response.data.message)
       } else {
         setValidaCnpj(true);
         setHasError({cnpj: false});
@@ -548,7 +548,7 @@ export default function FormImpact() {
         })
 
         
-
+        console.log("validando cnpj aqui", validaCnpj)
         if(!validaCnpj) {
           toast.error('Ooops, houve um erro.');
           setHasError(
