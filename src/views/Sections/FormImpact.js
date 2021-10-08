@@ -48,8 +48,6 @@ import BankSlipIcon from '../../assets/img/brand/boleto-icon.png';
 import plainLogoGrowth from '../../assets/img/icons/common/growth.png'
 import plainLogoStart from '../../assets/img/icons/common/start.png'
 
-
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -112,7 +110,6 @@ export default function FormImpact() {
   const [ isNotSubsCription, setIsNotSubsCription ] = useState(false);
   const [ selectNewPlan, SetSelectNewPlan ] = useState('');
   const [ planID, SetPlanID ] = useState('')
-  
 
   const history = useHistory()
 
@@ -148,8 +145,8 @@ export default function FormImpact() {
 
   async function handleSubscription(cnpj){
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
-      if (response.data.status_code === 400 || response.data.body.customer.impact !== "sim"){
-        history.push('/')
+      if (response.data.status_code === 400){
+        toast.error(response.data.message)
       } else {
         setValidaCnpj(true);
         setHasError({cnpj: false});
@@ -516,10 +513,6 @@ export default function FormImpact() {
     return completedSteps() === totalSteps();
   };
 
-
-
-  
-
   const handleNext = async () => {
 
     //Inputar validações aqui
@@ -546,8 +539,6 @@ export default function FormImpact() {
         await schema.validate(data, {
           abortEarly: false
         })
-
-        
 
         if(!validaCnpj) {
           toast.error('Ooops, houve um erro.');
@@ -656,7 +647,6 @@ export default function FormImpact() {
     handleNext();
   };
 
-
   const StepsButtonAct =  (
                   <Typography variant="caption" className={classes.completed}>
 
@@ -673,7 +663,6 @@ export default function FormImpact() {
                     </>) }
                   </Typography>
                 );
-
 
   const FinishStepsAct = (<>
 
@@ -711,7 +700,6 @@ export default function FormImpact() {
             </div>
           </div>
         )
-
 
   return (
     <Col lg="8">
