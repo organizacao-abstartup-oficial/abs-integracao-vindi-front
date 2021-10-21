@@ -19,7 +19,7 @@
   "scripts": {
     "start": "REACT_APP_NODE_ENV=development env-cmd -f .env.dev react-scripts start",
     "dev": "REACT_APP_NODE_ENV=development react-scripts start",
-    "build-staging": "REACT_APP_NODE_ENV=staging env-cmd -f .env.staging react-scripts build && gulp licenses",
+    "build:staging": "REACT_APP_NODE_ENV=staging env-cmd -f .env.staging react-scripts build && gulp licenses",
     "build": "env-cmd -f .env.production react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -27,7 +27,8 @@
     "compile-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css",
     "minify-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css --source-map true",
-    "deploy": "aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read"
+    "deploy:production": "aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read",
+    "deploy:staging": "aws s3 sync build/ s3://staging.planos.abstartup --acl public-read"
   },
   "eslintConfig": {
     "extends": "react-app"
