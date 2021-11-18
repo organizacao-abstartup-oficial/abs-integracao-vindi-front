@@ -47,7 +47,7 @@ export default function CForm({
         { id: 152186, value: 12, pricing: 1799, label: 1799 /12 }];
     
     const PlanObjectGrowthWithCoupon = [  
-        { id: 152209, value: 1, pricing: 319, label: 319  }];
+        { id: 258342, value: 1, pricing: 319, label: 319  }];
 
     const formatPlanText = (plan) => {
         if (plan.value === 1) {
@@ -63,7 +63,7 @@ export default function CForm({
             PlanObjectGrowthWithCoupon.map(
                 plan => (
                     <option key={plan.id} value={plan.id}>
-                        { formatPlanText(plan) }
+                        {`Á vista ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)}
                     </option>
                 )
             )
@@ -71,7 +71,7 @@ export default function CForm({
             PlanObjectGrowth.map(
                 plan => (
                     <option key={plan.id} value={plan.id}>
-                        {`${plan.value} a vista` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)}
+                        { formatPlanText(plan) }
                     </option>
                 )
             )
