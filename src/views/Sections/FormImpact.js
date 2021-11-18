@@ -159,7 +159,7 @@ export default function FormImpact() {
         setIdConsumer(response.data.body.customer.id)
         localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(name.split(' '))       
+        setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))       
       }
     })
   }

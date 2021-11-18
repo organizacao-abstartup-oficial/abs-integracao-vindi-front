@@ -169,7 +169,7 @@ export default function FormRenovacao() {
         setIdConsumer(response.data.body.customer.id)
         localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(name.split(' '))      
+        setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))      
       }
     })
   }
@@ -178,7 +178,7 @@ export default function FormRenovacao() {
           await api.get(`vindi/customer/find/${idConsumer}`).then(
             res => {
 
-              if (!res.data.body.subscriptions){
+              if (!res.data.body){
                   toast.error('Localizamos seu cadastro, porém você ainda não selecionou seu plano.');
                   setIsNotSubsCription(true)
                   setLoadingContent(false);
