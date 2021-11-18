@@ -233,12 +233,10 @@ export default function FormGrowth({ couponCallback }) {
   };
 
   function getSteps() {
-    return ['Pagamento'];
-    // return ['Informações', 'Contato', 'Modelo de negócio', 'Pagamento'];
+    return ['Informações', 'Contato', 'Modelo de negócio', 'Pagamento'];
   }
 
   function getStepContent(step) {
-    return FormPayment;
     switch (step) {
       case 0:
         return ( <form autoComplete="on" ><Row lg="8">
