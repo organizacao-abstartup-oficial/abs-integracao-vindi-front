@@ -17,7 +17,9 @@
   },
   "homepage": "https://assinaturas.abstartups.com.br",
   "scripts": {
-    "start": "HTTPS=true react-scripts start",
+    "start": "REACT_APP_NODE_ENV=development env-cmd -f .env.dev react-scripts start",
+    "dev": "REACT_APP_NODE_ENV=development react-scripts start",
+    "build:staging": "REACT_APP_NODE_ENV=staging env-cmd -f .env.staging react-scripts build && gulp licenses",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -25,7 +27,8 @@
     "compile-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css",
     "minify-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css --source-map true",
-    "deploy": "aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read"
+    "deploy:production": "aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read",
+    "deploy:staging": "aws s3 sync build/ s3://staging.planos.abstartup --acl public-read"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -81,6 +84,7 @@
     "@types/googlemaps": "3.39.2",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.9.19",
+    "env-cmd": "^10.1.0",
     "eslint-plugin-flowtype": "3.13.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
