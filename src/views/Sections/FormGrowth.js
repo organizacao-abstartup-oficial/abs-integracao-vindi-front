@@ -166,8 +166,11 @@ export default function FormGrowth({ couponCallback }) {
     } catch (err) {
         toast.error('Problemas ao conectar-se com o servidor.')
     }
+  }, [cnpj])
+  
+  useEffect( () => {
     validateCoupon(coupon);
-  }, [cnpj, coupon])
+  }, [coupon])
 
   async function PostRegister(){
     let consumerData = {
