@@ -735,12 +735,12 @@ export default function FormGrowth({ couponCallback }) {
       
         <hr/>
         </form>);
-        case 3:
-          return (
-            <>
-              { isLastStepCompleted === "true" ? Thanks : FormPayment }
-            </>
-          )
+      case 3:
+        return (
+          <>
+            { isLastStepCompleted === "true" ? Thanks : FormPayment }
+          </>
+        )
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -1071,9 +1071,19 @@ export default function FormGrowth({ couponCallback }) {
     setLoading(true);
     
     api.get(`coupon/validate/${coupon}`).then(response => {
-      if(response.data.body != null) {
+      if((response.data.status_code >= 400 && response.data.status_code <= 500)) {
         setLoading(false);
-        couponCallback(true);
+        setHasError({ cupom: true });
+        toast.error(`Cupom inválido`);
+      } else {
+        if(response.data.body != null ) {
+          setLoading(false);
+          couponCallback(true);
+        } else {
+          setLoading(false);
+          setHasError({ cupom: true });
+          toast.error(`Cupom inválido`);
+        }
       }
     }).catch(error => {
       setLoading(false);
