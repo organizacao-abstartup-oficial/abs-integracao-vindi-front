@@ -13,11 +13,7 @@ export default function Starter() {
     localStorage.setItem('has_coupon', params);
   };
 
-  useEffect(() => {
-    window.onload = () => {
-      localStorage.removeItem('has_coupon')
-    }
-  })
+  useEffect(() => { localStorage.removeItem('has_coupon') }, [])
 
   return (
     <Row className="row-grid justify-content-between align-items-top mt-lg">
