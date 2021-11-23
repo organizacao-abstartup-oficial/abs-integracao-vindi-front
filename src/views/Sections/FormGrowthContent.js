@@ -11,7 +11,9 @@ export default function Starter() {
   const changeCouponState = (params) => {
     setHasCoupon(params);
     localStorage.setItem('has_coupon', params);
-  }
+  };
+
+  useEffect(() => { localStorage.removeItem('has_coupon') }, [])
 
   return (
     <Row className="row-grid justify-content-between align-items-top mt-lg">
