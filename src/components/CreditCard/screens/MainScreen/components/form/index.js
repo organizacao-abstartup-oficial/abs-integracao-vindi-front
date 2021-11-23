@@ -28,7 +28,7 @@ export default function CForm({
     const [ cardNumber, setCardNumber ] = useState('');
     const [ planIdState, setplanIdState ] = useState(parseInt(localStorage.getItem('plan_id')))
 
-    const hasCoupon = useState(localStorage.getItem('has_coupon'));
+    const [ hasCoupon ] = useState(localStorage.getItem('has_coupon'));
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
@@ -50,15 +50,16 @@ export default function CForm({
         { id: 258342, value: 1, pricing: 319, label: 319  }];
 
     const formatPlanText = (plan) => {
+        
         if (plan.value === 1) {
             return `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)
         } else {
             return `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)
         }
     }
-
-    const planGrowth = (<>{
     
+    const planGrowth = (<>{
+        
         hasCoupon ?
             PlanObjectGrowthWithCoupon.map(
                 plan => (
@@ -295,7 +296,7 @@ export default function CForm({
                         <option value="" disabled>
                             Selecione as parcelas
                         </option>
-                        { pathName === '/growth' && hasCoupon ? planGrowth : '' }
+                        { pathName === '/growth' ? planGrowth : '' }
                         { pathName === '/renovacao' ? planGrowth : '' }
                         { pathName === '/impact' ? planImpact : '' }
                     </select>
