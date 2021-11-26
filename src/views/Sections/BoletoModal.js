@@ -24,7 +24,7 @@ export default function BoletoModal(props)  {
 
   const pathName = window.location.pathname;
 
-  const planDefault = pathName === '/growth' ? (hasCoupon ? 258342 : 151756) : pathName === '/renovacao' ? (hasCoupon ? 258342 : 151756) : pathName === '/impact' ? 152208 : 0;
+  const planDefault = pathName === '/growth' ? 151756 : pathName === '/renovacao' ? 151756 : pathName === '/impact' ? 152208 : 0;
   const idCustomer = localStorage.getItem('consumer_id');
   const planRenew = parseInt(localStorage.getItem('plan_id'));
 
