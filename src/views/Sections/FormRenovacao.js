@@ -186,7 +186,6 @@ export default function FormRenovacao({ couponCallback }) {
                   setLoadingContent(false);
 
               } else {
-                debugger;
                 setPrice( res.data.body.subscriptions[res.data.body.subscriptions.length -1].product_items[0].pricing_schema.short_format);
                 setSubscriptionID( res.data.body.subscriptions[res.data.body.subscriptions.length -1].id );
                 setPlanName( res.data.body.subscriptions[res.data.body.subscriptions.length -1].product_items[0].product.name );
@@ -788,6 +787,7 @@ export default function FormRenovacao({ couponCallback }) {
         if(response.data.body != null ) {
           setLoading(false);
           toast.success(`Cupom aplicado`);
+          localStorage.setItem('plan_id', 258342)
           couponCallback(true);
         } else {
           setLoading(false);
