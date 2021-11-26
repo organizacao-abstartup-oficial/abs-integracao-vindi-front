@@ -18,17 +18,18 @@ export default function BoletoModal(props)  {
   const [modal, setModal] = useState(false);
   const [bankSlipCode, setBankSlipCode] = useState('');
   const [bankSlipLink, setBankSlipLink] = useState('');
+  const [ hasCoupon ] = useState(localStorage.getItem('has_coupon'));
 
   const toggle = () => setModal(!modal) ;
 
   const pathName = window.location.pathname;
 
-  const planDefault = pathName === '/growth' ? 151756 : pathName === '/renovacao' ? 151756 : pathName === '/impact' ? 152208 : 0;
+  const planDefault = pathName === '/growth' ? (hasCoupon ? 258342 : 151756) : pathName === '/renovacao' ? (hasCoupon ? 258342 : 151756) : pathName === '/impact' ? 152208 : 0;
   const idCustomer = localStorage.getItem('consumer_id');
   const planRenew = parseInt(localStorage.getItem('plan_id'));
 
   const BankSlipData = {
-    plan_id: planDefault === 0 ? planRenew :  planDefault,
+    plan_id: planDefault === 0 ? planRenew : planDefault,
     customer_id: parseInt(idCustomer),
     payment_method_code: 'bank_slip',
     metadata: uuid(),
