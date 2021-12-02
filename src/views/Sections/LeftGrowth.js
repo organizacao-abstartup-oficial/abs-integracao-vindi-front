@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Col } from "reactstrap";
 import plainLogo from '../../assets/img/icons/common/growth.png'
+import blackFridayLogo from '../../assets/img/icons/common/growth-black-friday.png'
 
 export default function LeftGrowth({ hasCoupon }) {
 
@@ -14,7 +15,7 @@ export default function LeftGrowth({ hasCoupon }) {
         </h3>
         <p>Informe seus dados pessoais para criar a sua conta. Você irá utilizar este login para todas as nossas atividades.</p>
         <center>
-          <img src={plainLogo} alt="growth" width="200px"/>
+          <img src={blackFridayLogo} alt="growth" width="200px"/>
           <br/>
           <br/>
           { hasCoupon ? 
