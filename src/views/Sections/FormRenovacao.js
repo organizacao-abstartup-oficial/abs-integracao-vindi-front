@@ -527,9 +527,9 @@ export default function FormRenovacao({ couponCallback }) {
   const NowDate = Date.now();
   const DateNowCondition = NowDate;
 
-  const isPlanStart = () => {
-    return planName === 'Plano Start' && planID === 160505;
-  }
+  // const isPlanStart = () => {
+  //   return planName === 'Plano Start' && planID === 160505;
+  // }
 
   const FormCoupon = (
     <FormGroup row>
@@ -584,7 +584,7 @@ export default function FormRenovacao({ couponCallback }) {
                 <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/>
               </div>
               <center>
-                { isPlanStart() ? FormCoupon : '' }
+                { FormCoupon }
               
             </center>
               <br/>
