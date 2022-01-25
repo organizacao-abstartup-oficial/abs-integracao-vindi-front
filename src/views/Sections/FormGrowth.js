@@ -1070,7 +1070,7 @@ export default function FormGrowth({ couponCallback }) {
     api.get(`coupon/validate/${coupon}`).then(response => {
       if(response.data.body != null) {
         setLoading(false);
-        couponCallback(true);
+        couponCallback(response.data.body);
       }
     }).catch(error => {
       setLoading(false);

@@ -10,7 +10,7 @@ export default function Starter() {
   
   const changeCouponState = (params) => {
     setHasCoupon(params);
-    localStorage.setItem('has_coupon', params);
+    localStorage.setItem('coupon_data', JSON.stringify(params));
   }
 
   return (
