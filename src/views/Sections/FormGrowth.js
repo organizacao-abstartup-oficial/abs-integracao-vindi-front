@@ -139,7 +139,7 @@ export default function FormGrowth({ couponCallback }) {
     }
 
     try {
-      if(cnpjValidate.cnpj.length === 14){
+      if(cnpjValidate.cnpj.length === 14 && activeStep === 0){
         setLoading(true)
         api.get(`validate/${cnpjValidate.cnpj}`).then(response => {
           if(typeof response.data.body.customer !== "string") {
