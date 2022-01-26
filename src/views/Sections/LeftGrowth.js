@@ -18,7 +18,7 @@ export default function LeftGrowth({ hasCoupon }) {
           <br/>
           <br/>
           { hasCoupon ? 
-              <h5><b>De R$ 399/ano <br/> por apenas R$ 319/ano</b></h5> 
+              <h5><b>De R$ 399/ano <br/> por apenas R$ {hasCoupon.value}/ano</b></h5> 
             : 
               <h5><b>12x de R$ 41,58 <br/>ou R$ 399/ano</b></h5>
           }
