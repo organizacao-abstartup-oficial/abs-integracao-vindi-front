@@ -6,10 +6,10 @@ import LeftRenovacao from './LeftRenovacao';
 import FormRenovacao from '../Sections/FormRenovacao'
 
 export default function Renovacao() {
-  const [ couponData, setcouponData ] = useState(false);
+  const [ couponData, setCouponData ] = useState(false);
 
   const changeCouponState = (params) => {
-    setcouponData(params);
+    setCouponData(params);
     localStorage.setItem('coupon_data', JSON.stringify(params));
   };
 
