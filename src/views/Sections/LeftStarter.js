@@ -26,9 +26,6 @@ export default function IndexSections() {
           <p>Quer acelerar ainda mais sua startup com muito mais benefícios e vantagens? Conheça o nosso plano <b>Growth</b> clicando no botão abaixo.</p>
 
           <Link to="/growth"><Button variant="contained" fullWidth color="primary"> Seja Growth </Button></Link>
-
-          
-          
         </Col>
       </>
   );

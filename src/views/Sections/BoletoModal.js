@@ -18,6 +18,7 @@ export default function BoletoModal(props)  {
   const [modal, setModal] = useState(false);
   const [bankSlipCode, setBankSlipCode] = useState('');
   const [bankSlipLink, setBankSlipLink] = useState('');
+  const [ hasCoupon ] = useState(localStorage.getItem('has_coupon'));
 
   const toggle = () => setModal(!modal) ;
 
@@ -28,7 +29,7 @@ export default function BoletoModal(props)  {
   const planRenew = parseInt(localStorage.getItem('plan_id'));
 
   const BankSlipData = {
-    plan_id: planDefault === 0 ? planRenew :  planDefault,
+    plan_id: planDefault === 0 ? planRenew : planDefault,
     customer_id: parseInt(idCustomer),
     payment_method_code: 'bank_slip',
     metadata: uuid(),

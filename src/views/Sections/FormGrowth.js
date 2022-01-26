@@ -21,7 +21,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputMask from "react-input-mask";
-import { Col, Row } from 'reactstrap';
+import { Col, Row, FormGroup, Label } from 'reactstrap';
 
 import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, ondenosconheceu } from '../../Data';
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function FormStarter() {
+export default function FormGrowth({ couponCallback }) {
 
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
@@ -83,6 +83,7 @@ export default function FormStarter() {
   const [ logradouro, setLogradouro ] = useState('Nome da Rua');
   const [ numeroLogradouro, setNumeroLogradouro ] = useState('');
   const [ complemento, setComplemento ] = useState('');
+  const [ coupon, setCoupon ] = useState('');
   const [ bairro, setBairro ] = useState('');
   const [ phone, setPhone ] = useState('');
   const [ mail, setMail ] = useState('');
@@ -106,12 +107,11 @@ export default function FormStarter() {
   const [ youtube, setYoutube ] = useState('');
   const [ idConsumer, setIdConsumer ] = useState('');
   const [isLastStepCompleted, setIsLastStepCompleted] = useState(localStorage.setItem('isLastStep', "false"));
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
   const steps = getSteps();
-
 
   setInterval(() => {
     setIsLastStepCompleted(localStorage.getItem('isLastStep'))
@@ -165,9 +165,12 @@ export default function FormStarter() {
       }
     } catch (err) {
         toast.error('Problemas ao conectar-se com o servidor.')
-        
-      }
+    }
   }, [cnpj])
+  
+  useEffect( () => {
+    validateCoupon(coupon);
+  }, [coupon])
 
   async function PostRegister(){
     let consumerData = {
@@ -233,17 +236,13 @@ export default function FormStarter() {
   };
 
   function getSteps() {
-  return ['Informações', 'Contato', 'Modelo de negócio', 'Pagamento'];
+    return ['Informações', 'Contato', 'Modelo de negócio', 'Pagamento'];
   }
 
   function getStepContent(step) {
-
     switch (step) {
       case 0:
         return ( <form autoComplete="on" ><Row lg="8">
-
-        
-
           <TextField
             label="Nome"
             required={true}
@@ -333,35 +332,35 @@ export default function FormStarter() {
                 error={hasError.mail}
               />
               <div className="double-input--form">
-              <TextField
-                label="Senha"
-                required={true}
-                id="password"
-                type="password"
-                fullWidth
-                value={password}
-                onChange={ e => setPassword(e.target.value) }
-                style={{ margin: 8 }}
-                placeholder="Cadastre sua senha"
-                helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
-                margin="normal"
-                variant="outlined"
-                error={hasError.password}
-              />
-              <TextField
-                label="Confirmar senha"
-                required={true}
-                id="re-password"
-                type="password"
-                fullWidth
-                value={confirmpassword}
-                onChange={ e => setConfirmpassword(e.target.value) }
-                style={{ margin: 8 }}
-                helperText="Confirmar senha"
-                vmargin="normal"
-                variant="outlined"
-                error={hasError.confirmpassword}
-              />
+                <TextField
+                  label="Senha"
+                  required={true}
+                  id="password"
+                  type="password"
+                  fullWidth
+                  value={password}
+                  onChange={ e => setPassword(e.target.value) }
+                  style={{ margin: 8 }}
+                  placeholder="Cadastre sua senha"
+                  helperText="Com esta senha você irá realizar o seu login no Portal de Benefícios"
+                  margin="normal"
+                  variant="outlined"
+                  error={hasError.password}
+                />
+                <TextField
+                  label="Confirmar senha"
+                  required={true}
+                  id="re-password"
+                  type="password"
+                  fullWidth
+                  value={confirmpassword}
+                  onChange={ e => setConfirmpassword(e.target.value) }
+                  style={{ margin: 8 }}
+                  helperText="Confirmar senha"
+                  vmargin="normal"
+                  variant="outlined"
+                  error={hasError.confirmpassword}
+                />
               </div>
             </Row></form>);
 
@@ -736,12 +735,12 @@ export default function FormStarter() {
       
         <hr/>
         </form>);
-        case 3:
-          return (
-            <>
-              { isLastStepCompleted === "true" ? Thanks : FormPayment }
-            </>
-          )
+      case 3:
+        return (
+          <>
+            { isLastStepCompleted === "true" ? Thanks : FormPayment }
+          </>
+        )
       default:
         return <h1>Ooops, parece que algo deu errado!</h1>;
     }
@@ -778,6 +777,31 @@ export default function FormStarter() {
             <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/>
           </div>
           <br/>
+        </center>
+        <center>
+          <FormGroup row>
+            <Label
+              for="coupon"
+              className={ classes.instructions }
+              sm={3}
+            >
+              <b>Tem cupom?</b>
+            </Label>
+            <Col sm={6} style={ { paddingLeft: '0px' } } >
+              <TextField
+                id="coupon"
+                label="Seu cupom aqui!"
+                type='text'
+                style={{ margin: 8 }}
+                value={coupon}
+                onChange={ e => setCoupon(e.target.value) && validateCoupon(e.target.value) }
+                placeholder="ABSCUPOM123"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+              />
+            </Col>
+          </FormGroup>
         </center>
         
         <CardModal />
@@ -1040,6 +1064,35 @@ export default function FormStarter() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const validateCoupon = (coupon) => {
+    if (coupon.length < 5) {
+      return;
+    }
+    setLoading(true);
+    
+    api.get(`coupon/validate/${coupon}`).then(response => {
+      if((response.data.status_code >= 400 && response.data.status_code <= 500)) {
+        setLoading(false);
+        setHasError({ cupom: true });
+        toast.error(`Cupom inválido`);
+      } else {
+        if(response.data.body != null ) {
+          setLoading(false);
+          toast.success(`Cupom aplicado`);
+          couponCallback(true);
+        } else {
+          setLoading(false);
+          setHasError({ cupom: true });
+          toast.error(`Cupom inválido`);
+        }
+      }
+    }).catch(error => {
+      setLoading(false);
+      setHasError({ cupom: true });
+      toast.error(`Cupom inválido`);
+    })
+  }
+
   // const handleStep = (step) => () => {
   //   setActiveStep(step);
   // };
@@ -1048,6 +1101,7 @@ export default function FormStarter() {
     e.preventDefault();
     handleNext();
   };
+  
 
   return (
     <Col lg="8">

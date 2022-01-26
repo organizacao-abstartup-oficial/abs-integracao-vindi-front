@@ -27,7 +27,7 @@ import {  makeStyles,
           StepButton  } from '@material-ui/core/';
 
 import InputMask from "react-input-mask";
-import { Button, Col } from 'reactstrap';
+import { Button, Col, FormGroup, Label } from 'reactstrap';
 import { Row } from 'reactstrap';
 
 import animationData from '../../components/Animation/lf30_editor_TBeJvw.json';
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function FormRenovacao() {
+export default function FormRenovacao({ couponCallback }) {
 
   const classes = useStyles();
 
@@ -114,7 +114,7 @@ export default function FormRenovacao() {
   const [ isNotSubsCription, setIsNotSubsCription ] = useState(false);
   const [ selectNewPlan, SetSelectNewPlan ] = useState('');
   const [ planID, SetPlanID ] = useState('');
-  
+  const [ coupon, setCoupon ] = useState('');
 
   const history = useHistory()
 
@@ -152,7 +152,9 @@ export default function FormRenovacao() {
     }
   }, [cnpj]);
 
-
+  useEffect( () => {
+    validateCoupon(coupon);
+  }, [coupon])
 
   async function handleSubscription(cnpj){
     
@@ -169,7 +171,7 @@ export default function FormRenovacao() {
         setIdConsumer(response.data.body.customer.id)
         localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(name.split(' '))      
+        setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))      
       }
     })
   }
@@ -178,7 +180,7 @@ export default function FormRenovacao() {
           await api.get(`vindi/customer/find/${idConsumer}`).then(
             res => {
 
-              if (!res.data.body.subscriptions){
+              if (!res.data.body){
                   toast.error('Localizamos seu cadastro, porém você ainda não selecionou seu plano.');
                   setIsNotSubsCription(true)
                   setLoadingContent(false);
@@ -525,6 +527,36 @@ export default function FormRenovacao() {
   const NowDate = Date.now();
   const DateNowCondition = NowDate;
 
+  // const isPlanStart = () => {
+  //   return planName === 'Plano Start' && planID === 160505;
+  // }
+
+  const FormCoupon = (
+    <FormGroup row>
+      <Label
+        for="coupon"
+        className={ classes.instructions }
+        sm={3}
+      >
+        <b>Tem cupom?</b>
+      </Label>
+      <Col sm={6} style={ { paddingLeft: '0px' } } >
+        <TextField
+          id="coupon"
+          label="Seu cupom aqui!"
+          type='text'
+          style={{ margin: 8 }}
+          value={coupon}
+          onChange={ e => setCoupon(e.target.value) && validateCoupon(e.target.value) }
+          placeholder="ABSCUPOM123"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+      </Col>
+    </FormGroup>
+  )
+
   const FormPayment = (
     <div>
 
@@ -551,6 +583,10 @@ export default function FormRenovacao() {
               <div className="payment-description">
                 <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto"/>
               </div>
+              <center>
+                { FormCoupon }
+              
+            </center>
               <br/>
                 <CardModal />
               <br/>
@@ -610,10 +646,6 @@ export default function FormRenovacao() {
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
   };
-
-
-
-  
 
   const handleNext = async () => {
 
@@ -739,6 +771,37 @@ export default function FormRenovacao() {
       }
     }
   };
+
+  const validateCoupon = (coupon) => {
+    if (coupon.length < 5) {
+      return;
+    }
+    setLoading(true);
+    
+    api.get(`coupon/validate/${coupon}`).then(response => {
+      if((response.data.status_code >= 400 && response.data.status_code <= 500)) {
+        setLoading(false);
+        setHasError({ cupom: true });
+        toast.error(`Cupom inválido`);
+      } else {
+        if(response.data.body != null ) {
+          setLoading(false);
+          toast.success(`Cupom aplicado`);
+          localStorage.setItem('plan_id', 258342)
+          localStorage.setItem('has_coupon', true);
+          couponCallback(true);
+        } else {
+          setLoading(false);
+          setHasError({ cupom: true });
+          toast.error(`Cupom inválido`);
+        }
+      }
+    }).catch(error => {
+      setLoading(false);
+      setHasError({ cupom: true });
+      toast.error(`Cupom inválido`);
+    })
+  }
 
   function handleComplete (e) {
     e.preventDefault();

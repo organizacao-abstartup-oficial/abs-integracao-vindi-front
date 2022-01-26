@@ -28,6 +28,8 @@ export default function CForm({
     const [ cardNumber, setCardNumber ] = useState('');
     const [ planIdState, setplanIdState ] = useState(parseInt(localStorage.getItem('plan_id')))
 
+    const [ hasCoupon ] = useState(localStorage.getItem('has_coupon'));
+
     const handleFormChange = (event) => {
         const { name, value } = event.target;
 
@@ -43,20 +45,45 @@ export default function CForm({
     const PlanObjectImpact = [  
         { id: 152208, value: 1, pricing: 1499, label: 1499  },
         { id: 152186, value: 12, pricing: 1799, label: 1799 /12 }];
+    
+    const PlanObjectGrowthWithCoupon = [  
+        { id: 258342, value: 1, pricing: 319, label: 319  }];
 
-
-
-    const planGrowth = (<>{PlanObjectGrowth.map(plan => (
-                        <option key={plan.id} value={plan.id}>
-                            {plan.value === 1 ? `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) : `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) }
-                        </option>
-                    ))}</>)
+    const formatPlanText = (plan) => {
+        
+        if (plan.value === 1) {
+            return `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)
+        } else {
+            return `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)
+        }
+    }
+    
+    const planGrowth = (<>{
+        
+        hasCoupon ?
+            PlanObjectGrowthWithCoupon.map(
+                plan => (
+                    <option key={plan.id} value={plan.id}>
+                        {`Á vista ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)}
+                    </option>
+                )
+            )
+        :
+            PlanObjectGrowth.map(
+                plan => (
+                    <option key={plan.id} value={plan.id}>
+                        { formatPlanText(plan) }
+                    </option>
+                )
+            )
+            
+    }</>)
 
     const planImpact = (<>{PlanObjectImpact.map(plan => (
-                    <option key={plan.id} value={plan.id}>
-                        {plan.value === 1 ? `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) : `${plan.value} parcelas de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label) }
-                    </option>
-                ))}</>)
+        <option key={plan.id} value={plan.id}>
+            { formatPlanText(plan) }
+        </option>
+    ))}</>)
 
     const onCardNumberChange = (event) => {
         let { value, name } = event.target;
@@ -134,6 +161,7 @@ export default function CForm({
                             localStorage.removeItem('cardValidate')
                             localStorage.removeItem('cardCvv')
                             localStorage.removeItem('companyCode')
+                            localStorage.removeItem('has_coupon')
                             localStorage.setItem('paymentSubmited', true)
                             localStorage.setItem('isLastStep', true);
                             localStorage.clear()
@@ -268,9 +296,8 @@ export default function CForm({
                         <option value="" disabled>
                             Selecione as parcelas
                         </option>
-
                         { pathName === '/growth' ? planGrowth : '' }
-                        { pathName === '/renovacao' ? planGrowth : ''}
+                        { pathName === '/renovacao' ? planGrowth : '' }
                         { pathName === '/impact' ? planImpact : '' }
                     </select>
 
