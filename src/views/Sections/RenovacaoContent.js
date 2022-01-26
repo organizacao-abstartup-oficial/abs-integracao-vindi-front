@@ -6,10 +6,10 @@ import LeftRenovacao from './LeftRenovacao';
 import FormRenovacao from '../Sections/FormRenovacao'
 
 export default function Renovacao() {
-  const [ hasCoupon, setHasCoupon ] = useState(false);
-  
+  const [ couponData, setcouponData ] = useState(false);
+
   const changeCouponState = (params) => {
-    setHasCoupon(params);
+    setcouponData(params);
     localStorage.setItem('coupon_data', JSON.stringify(params));
   };
 
@@ -17,7 +17,7 @@ export default function Renovacao() {
 
   return (
         <Row className="row-grid justify-content-between align-items-top mt-lg">
-          <LeftRenovacao hasCoupon={hasCoupon} />
+          <LeftRenovacao couponData={couponData} />
           <FormRenovacao couponCallback={changeCouponState} />
         </Row>
   );
