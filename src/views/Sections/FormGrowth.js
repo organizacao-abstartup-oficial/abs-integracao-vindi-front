@@ -1079,7 +1079,7 @@ export default function FormGrowth({ couponCallback }) {
         if(response.data.body != null ) {
           setLoading(false);
           toast.success(`Cupom aplicado`);
-          couponCallback(true);
+          couponCallback(response.data.body);
         } else {
           setLoading(false);
           setHasError({ cupom: true });
