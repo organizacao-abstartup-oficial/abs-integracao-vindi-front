@@ -27,8 +27,8 @@
     "compile-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css",
     "minify-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css --source-map true",
-    "deploy:production": "aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read",
-    "deploy:staging": "aws s3 sync build/ s3://staging.planos.abstartup --acl public-read"
+    "deploy:production": "npm run build && aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read",
+    "deploy:staging": "npm run build:staging && aws s3 sync build/ s3://staging.planos.abstartup --acl public-read"
   },
   "eslintConfig": {
     "extends": "react-app"
