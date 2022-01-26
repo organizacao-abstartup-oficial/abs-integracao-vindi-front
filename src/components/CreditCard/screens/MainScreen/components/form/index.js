@@ -58,9 +58,6 @@ export default function CForm({
   const PlanObjectGrowthWithCoupon80 = [
     { id: 66469, value: 1, pricing: 79, label: 79 }];
 
-  const PlanObjectGrowthWithCoupon100 = [
-    { id: 66470, value: 1, pricing: 0, label: 0 }];
-
   const formatPlanText = (plan) => {
     if (plan.value === 1) {
       return `${plan.value} parcela de ` + Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(plan.label)
@@ -79,8 +76,6 @@ export default function CForm({
         return PlanObjectGrowthWithCoupon60;
       case 80:
         return PlanObjectGrowthWithCoupon80;
-      case 100:
-        return PlanObjectGrowthWithCoupon100;
       default:
         return PlanObjectGrowth;
     }
