@@ -143,13 +143,15 @@ export default function FormStarter() {
       try {
         if(cnpjValidate.cnpj.length === 14){
           setLoading(true)
+          
           api.get(`validate/${cnpjValidate.cnpj}`).then(response => {
             if(typeof response.data.body.customer !== "string") {
               setLoading(false)
               setHasError({cnpj:false})
               toast.success(`Você já possui cadastro em nossa plataforma, você está sendo redirecionado...`)
+              
               localStorage.setItem('cnpj', cnpjValidate.cnpj)
-              localStorage.setItem('personal_name', response.data.body.customer[0].metadata.nome_pessoa_fisica)
+              localStorage.setItem('personal_name', response.data.body.customer.nome_pessoa_fisica)
               
               setTimeout(() => {
                 history.push('/renovacao')
