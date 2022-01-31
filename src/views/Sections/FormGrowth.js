@@ -109,6 +109,8 @@ export default function FormGrowth({ couponCallback }) {
   const [isLastStepCompleted, setIsLastStepCompleted] = useState(localStorage.setItem('isLastStep', "false"));
   const [loading, setLoading] = useState(false);
 
+  const couponData = useState(JSON.parse(localStorage.getItem('coupon_data')))[0]
+
   const history = useHistory();
 
   const steps = getSteps();
@@ -968,7 +970,7 @@ export default function FormGrowth({ couponCallback }) {
           getajuda: Yup.string().ensure().required(),
         });
 
-        localStorage.setItem('plan_id', '151756')
+        localStorage.setItem('plan_id', couponData ? couponData.id : '151756')
 
         const data = {
           getcargo,
