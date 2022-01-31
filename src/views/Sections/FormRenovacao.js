@@ -789,7 +789,6 @@ export default function FormRenovacao({ couponCallback }) {
           toast.success(`Cupom aplicado`);
           couponCallback(response.data.body);
           localStorage.setItem('plan_id', JSON.stringify(response.data.body.id))
-          console.log(JSON.stringify(response.data.body))
         } else {
           setLoading(false);
           setHasError({ cupom: true });
