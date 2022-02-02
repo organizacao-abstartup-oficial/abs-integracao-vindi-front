@@ -109,8 +109,6 @@ export default function FormGrowth({ couponCallback }) {
   const [isLastStepCompleted, setIsLastStepCompleted] = useState(localStorage.setItem('isLastStep', "false"));
   const [loading, setLoading] = useState(false);
 
-  const couponData = useState(JSON.parse(localStorage.getItem('coupon_data')))
-
   const history = useHistory();
 
   const steps = getSteps();
