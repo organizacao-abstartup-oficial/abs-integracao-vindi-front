@@ -167,7 +167,7 @@ export default function FormGrowth({ couponCallback }) {
         toast.error('Problemas ao conectar-se com o servidor.')
     }
   }, [cnpj])
-  
+
   useEffect( () => {
     validateCoupon(coupon);
   }, [coupon])
@@ -211,7 +211,7 @@ export default function FormGrowth({ couponCallback }) {
         }
       ]
     }
-    
+
      try {
       await api.post('vindi/customer', consumerData)
       .then( response => {
@@ -219,10 +219,10 @@ export default function FormGrowth({ couponCallback }) {
         setIdConsumer(response.data.body.customer.id);
         localStorage.setItem('consumer_id', JSON.stringify(response.data.body.customer.id))
       })
-       
+
      } catch (error) {
        toast.error('Ooops, houve um problema em seu cadastro, por favor tente novamente.')
-       
+
      }
   }
 
@@ -257,7 +257,7 @@ export default function FormGrowth({ couponCallback }) {
             variant="outlined"
             error={hasError.name}
           />
-         
+
           <TextField
             label="Nome da Startup"
             required={true}
@@ -279,7 +279,7 @@ export default function FormGrowth({ couponCallback }) {
                     onChange={e => setCnpj( e.target.value )}
                     mask="99.999.999/9999-99"
                   >
-                    {() => 
+                    {() =>
                     <TextField
                       label="CNPJ"
                       required={true}
@@ -299,7 +299,7 @@ export default function FormGrowth({ couponCallback }) {
                   value={ phone }
                   onChange={ e => setPhone( e.target.value.replace(/\D/g, '') )}
                 >
-                  {() => 
+                  {() =>
                     <TextField
                       label="Telefone"
                       required={true}
@@ -364,7 +364,7 @@ export default function FormGrowth({ couponCallback }) {
               </div>
             </Row></form>);
 
-        case 1: 
+        case 1:
         return ( <form><Row lg="8">
 
         <div style={{ display: 'flex', width: '100%' }}>
@@ -374,7 +374,7 @@ export default function FormGrowth({ couponCallback }) {
             onChange={ e => { setCep( e.target.value ) } }
 
           >
-            {() => 
+            {() =>
               <TextField
                   label="CEP"
                   id="cep"
@@ -386,7 +386,7 @@ export default function FormGrowth({ couponCallback }) {
                   error={hasError.cep}
                 />}
           </InputMask>
-        <Button 
+        <Button
           variant="contained"
           fullWidth
           color="primary"
@@ -540,7 +540,7 @@ export default function FormGrowth({ couponCallback }) {
 
       case 2:
         return  (<form><Row lg="8" xs="12">
-        
+
         <div className="double-input--form">
           <TextField
             id="qual-seu-cargo"
@@ -562,7 +562,7 @@ export default function FormGrowth({ couponCallback }) {
               <option key={cargo.id} value={cargo.text}>{cargo.text}</option>
             ))}
           </TextField>
-          
+
           <TextField
             id="socios"
             select
@@ -584,7 +584,7 @@ export default function FormGrowth({ couponCallback }) {
             ))}
 
           </TextField>
-          
+
           </div>
           <div className="double-input--form">
 
@@ -608,7 +608,7 @@ export default function FormGrowth({ couponCallback }) {
               {segmentos.map( segmentos => (
                 <option key={segmentos.id} value={segmentos.text}>{segmentos.text}</option>
               ))}
-          
+
             </TextField>
 
             <TextField
@@ -679,7 +679,7 @@ export default function FormGrowth({ couponCallback }) {
               ))}
             </TextField>
 
-          
+
           </div>
 
 
@@ -725,14 +725,14 @@ export default function FormGrowth({ couponCallback }) {
           ))}
 
           </TextField>
-          
+
           </div>
         </Row>
-            
+
         <RadioGroup aria-label="termos" name="termos" className="accept-term">
-          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Eu aceito os termos de uso." />{' '}<TermsModal/> 
+          <FormControlLabel value="acceptTerm" control={<Radio onChange={() => setChecked(true)}/>} label="Eu aceito os termos de uso." />{' '}<TermsModal/>
         </RadioGroup>
-      
+
         <hr/>
         </form>);
       case 3:
@@ -803,7 +803,7 @@ export default function FormGrowth({ couponCallback }) {
             </Col>
           </FormGroup>
         </center>
-        
+
         <CardModal />
         <br/>
         <BoletoModal/>
@@ -831,10 +831,10 @@ export default function FormGrowth({ couponCallback }) {
   const handleNext = async () => {
     //Inputar validações aqui
     const newActiveStep = isLastStep() && !allStepsCompleted()
-    
+
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
-      
+
     if (newActiveStep === 1){
       window.scrollTo({top: 100, behavior: 'smooth'});
       localStorage.removeItem('consumer_id');
@@ -850,7 +850,7 @@ export default function FormGrowth({ couponCallback }) {
           password: Yup.string().required(),
           confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
         });
-        
+
         const data = {
           name,
           business,
@@ -865,13 +865,13 @@ export default function FormGrowth({ couponCallback }) {
           abortEarly: false
         })
 
-        
+
 
         if(!validaCnpj) {
           toast.error('Digite um CNPJ válido.');
           setHasError(
             {
-              ...hasError, 
+              ...hasError,
               cnpj: true,
             });
             return;
@@ -881,7 +881,7 @@ export default function FormGrowth({ couponCallback }) {
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
-        
+
       } catch (err) {
         toast.error('Por favor, preencha todos os campos obrigatórios.')
         if (err instanceof Yup.ValidationError) {
@@ -889,18 +889,18 @@ export default function FormGrowth({ couponCallback }) {
           err.inner.forEach(error => {
             errorMessages[error.path] = true;
           });
-          const { 
+          const {
             name,
             business,
             cnpj,
             phone,
             mail,
             password,
-            confirmpassword 
+            confirmpassword
           } = errorMessages;
           setHasError(
             {
-              ...hasError, 
+              ...hasError,
               name,
               business,
               cnpj,
@@ -909,7 +909,7 @@ export default function FormGrowth({ couponCallback }) {
               password,
               confirmpassword
             })
-          
+
         }
       }
     }
@@ -951,8 +951,8 @@ export default function FormGrowth({ couponCallback }) {
           })
         }
       }
-      
-    } 
+
+    }
     if (newActiveStep === 3) {
       window.scrollTo({top: 100, behavior: 'smooth'});
 
@@ -989,7 +989,7 @@ export default function FormGrowth({ couponCallback }) {
           toast.error('Por favor aceite os termos de uso para continuar.');
           setHasError(
             {
-              ...hasError, 
+              ...hasError,
               checkedTerm: true,
             });
             return;
@@ -1011,7 +1011,7 @@ export default function FormGrowth({ couponCallback }) {
           err.inner.forEach(error => {
             errorMessages[error.path] = true;
           });
-          const { 
+          const {
             getcargo,
             getsocios,
             getsegmento,
@@ -1023,7 +1023,7 @@ export default function FormGrowth({ couponCallback }) {
             checkedTerm
           } = errorMessages;
           setHasError(
-            { ...hasError, 
+            { ...hasError,
               getcargo,
               getsocios,
               getsegmento,
@@ -1038,7 +1038,7 @@ export default function FormGrowth({ couponCallback }) {
         }
       }
 
-      
+
     }
     if (newActiveStep === 4) {
       try {
@@ -1053,7 +1053,7 @@ export default function FormGrowth({ couponCallback }) {
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
 
-        
+
 
       } catch (err) {
       }
@@ -1069,9 +1069,9 @@ export default function FormGrowth({ couponCallback }) {
       return;
     }
     setLoading(true);
-    
+
     api.get(`coupon/validate/${coupon}`).then(response => {
-      if((response.data.status_code >= 400 && response.data.status_code <= 500)) {
+      if((response.data.status_code >= 400 && response.data.status_code <= 500) || response.data.body.discount !== 50) {
         setLoading(false);
         setHasError({ cupom: true });
         toast.error(`Cupom inválido`);
@@ -1102,7 +1102,7 @@ export default function FormGrowth({ couponCallback }) {
     e.preventDefault();
     handleNext();
   };
-  
+
 
   return (
     <Col lg="8">
@@ -1130,7 +1130,7 @@ export default function FormGrowth({ couponCallback }) {
               <h5 className={classes.instructions}>Oba {name}, parabéns! ;) Agora você faz parte da maior rede de startups do Brasil!</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano Contratado é o: <b>Growth</b>{ idConsumer ? '' : '' }</p>
-              
+
               <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
@@ -1148,7 +1148,7 @@ export default function FormGrowth({ couponCallback }) {
                   <Typography variant="caption" className={classes.completed}>
                     <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
                       { completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Próximo' } <NavigateNextIcon/>
-                    </Button> {' '} O passo {activeStep + 1} está completo. 
+                    </Button> {' '} O passo {activeStep + 1} está completo.
                   </Typography>
                 ) : (
                   <Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
