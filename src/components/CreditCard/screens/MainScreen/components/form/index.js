@@ -37,7 +37,7 @@ export default function CForm({
   };
 
   const pathName = window.location.pathname;
-
+  // TODO mudar ids antes de fazer deploy de produção
   const PlanObjectGrowth = [
     { id: 151756, value: 1, pricing: 399, label: 399 },
     { id: 150698, value: 12, pricing: 499, label: 499 / 12 }];
@@ -47,10 +47,10 @@ export default function CForm({
     { id: 152186, value: 12, pricing: 1799, label: 1799 / 12 }];
 
   const PlanObjectGrowthWithCoupon20 = [
-    { id: 277322, value: 1, pricing: 320, label: 320 }]
+    { id: 66978, value: 1, pricing: 320, label: 320 }]
 
   const PlanObjectGrowthWithCoupon50 = [
-    { id: 270637, value: 1, pricing: 199, label: 199 }];
+    { id: 66467, value: 1, pricing: 199, label: 199 }];
 
   const formatPlanText = (plan) => {
     if (plan.value === 1) {
