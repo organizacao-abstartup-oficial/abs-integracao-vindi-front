@@ -779,7 +779,8 @@ export default function FormRenovacao({ couponCallback }) {
     setLoading(true);
 
     api.get(`coupon/validate/${coupon}`).then(response => {
-      if((response.data.status_code >= 400 && response.data.status_code <= 500) || response.data.body.discount !== 20) {
+      if((response.data.status_code >= 400 && response.data.status_code <= 500) ||
+      (response.data.body.discount !== 20 && planID !== 160505)) {
         setLoading(false);
         setHasError({ cupom: true });
         toast.error(`Cupom inválido`);

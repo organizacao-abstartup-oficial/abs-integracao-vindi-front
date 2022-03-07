@@ -46,17 +46,11 @@ export default function CForm({
     { id: 152208, value: 1, pricing: 1499, label: 1499 },
     { id: 152186, value: 12, pricing: 1799, label: 1799 / 12 }];
 
-  const PlanObjectGrowthWithCoupon30 = [
-    { id: 270635, value: 1, pricing: 279, label: 279 }];
+  const PlanObjectGrowthWithCoupon20 = [
+    { id: 277322, value: 1, pricing: 320, label: 320 }]
 
   const PlanObjectGrowthWithCoupon50 = [
     { id: 270637, value: 1, pricing: 199, label: 199 }];
-
-  const PlanObjectGrowthWithCoupon60 = [
-    { id: 270638, value: 1, pricing: 159, label: 159 }];
-
-  const PlanObjectGrowthWithCoupon80 = [
-    { id: 270639, value: 1, pricing: 79, label: 79 }];
 
   const formatPlanText = (plan) => {
     if (plan.value === 1) {
@@ -68,14 +62,10 @@ export default function CForm({
 
   const identifyPlanCoupon = () => {
     switch (hasCoupon.discount) {
-      case 30:
-        return PlanObjectGrowthWithCoupon30;
+      case 20:
+        return PlanObjectGrowthWithCoupon20;
       case 50:
         return PlanObjectGrowthWithCoupon50;
-      case 60:
-        return PlanObjectGrowthWithCoupon60;
-      case 80:
-        return PlanObjectGrowthWithCoupon80;
       default:
         return PlanObjectGrowth;
     }
