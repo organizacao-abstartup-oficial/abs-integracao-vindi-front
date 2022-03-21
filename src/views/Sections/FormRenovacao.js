@@ -12,18 +12,18 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import {  makeStyles,
-          FormControl, 
-          FormLabel, 
-          Card, 
-          CardContent, 
-          Radio, 
-          RadioGroup, 
-          FormControlLabel, 
-          CircularProgress, 
-          Typography, 
-          TextField, 
-          Stepper, 
-          Step, 
+          FormControl,
+          FormLabel,
+          Card,
+          CardContent,
+          Radio,
+          RadioGroup,
+          FormControlLabel,
+          CircularProgress,
+          Typography,
+          TextField,
+          Stepper,
+          Step,
           StepButton  } from '@material-ui/core/';
 
 import InputMask from "react-input-mask";
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   }
-  
+
 }));
 
 
@@ -133,7 +133,7 @@ export default function FormRenovacao({ couponCallback }) {
     if(isLastStepCompleted === "true") {
       handleNext();
     }
-    
+
   }, 1000);
 
   useEffect(() => {
@@ -157,7 +157,7 @@ export default function FormRenovacao({ couponCallback }) {
   }, [coupon])
 
   async function handleSubscription(cnpj){
-    
+
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
 
       if (response.data.status === 400 || typeof response.data.body.customer === "string"){
@@ -171,7 +171,7 @@ export default function FormRenovacao({ couponCallback }) {
         setIdConsumer(response.data.body.customer.id)
         localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))      
+        setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))
       }
     })
   }
@@ -195,17 +195,17 @@ export default function FormRenovacao({ couponCallback }) {
                 setSubScriptionStatus( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].product_items[0].status);
                 SetPlanID( res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id )
                 setLoadingContent(false);
-                localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id); 
+                localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length -1]].plan.id);
               }
 
             }
           )
-          
+
   };
 
 
 
-  
+
 
   const InfoDataSubscription = (<div className="content-subscription">
 
@@ -230,7 +230,7 @@ export default function FormRenovacao({ couponCallback }) {
                         <Typography variant="h5" component="h2">
                           Startup: <b> {business ? business : 'Não informado.' } </b>
                         </Typography>
-                        
+
 
                         <Typography className={classes.pos} color="textSecondary">
                           Responsável: { name ? name : 'Não informado.' }
@@ -270,7 +270,7 @@ export default function FormRenovacao({ couponCallback }) {
                   <>
                   <div className="card-row--active">
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                         <b>Selecione uma assinatura: </b>  
+                         <b>Selecione uma assinatura: </b>
                     </Typography>
 
                     <FormControl component="fieldset">
@@ -279,25 +279,25 @@ export default function FormRenovacao({ couponCallback }) {
 
                         { planID === 160505 ? (
                           <>
-                            <FormControlLabel 
-                              value="151756" 
-                              control={<Radio color="primary" />} 
-                              label="Plano Growth" 
+                            <FormControlLabel
+                              value="151756"
+                              control={<Radio color="primary" />}
+                              label="Plano Growth"
                             />
                             <br/>
                           </>
                         ) : (
                           <>
-                            <FormControlLabel 
-                              value="Growth" 
-                              control={<Radio color="primary" />} 
-                              label="Plano Growth" 
+                            <FormControlLabel
+                              value="Growth"
+                              control={<Radio color="primary" />}
+                              label="Plano Growth"
                             />
 
-                            <FormControlLabel 
-                              value="Start" 
-                              control={<Radio color="primary" />} 
-                              label="Plano Start - Gratuito" 
+                            <FormControlLabel
+                              value="Start"
+                              control={<Radio color="primary" />}
+                              label="Plano Start - Gratuito"
                             />
                           </>
                         )}
@@ -322,7 +322,7 @@ export default function FormRenovacao({ couponCallback }) {
                       </Typography>
 
                     </div>
-                    
+
                   </>
                   );
 
@@ -340,7 +340,7 @@ export default function FormRenovacao({ couponCallback }) {
                               </center>
                               <br/>
                                 <center>
-                                  <Button 
+                                  <Button
                                     variant="contained"
                                     onClick={ UppCellAction }
                                     color="danger"
@@ -349,7 +349,7 @@ export default function FormRenovacao({ couponCallback }) {
                                   </Button>
                                 </center>
                               </>
-                              
+
                             ) : (
         <>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -361,15 +361,15 @@ export default function FormRenovacao({ couponCallback }) {
           </center>
         </>
       )}
-          
+
 
           <Typography className={classes.title} color="textSecondary" gutterBottom>
               <br/>
-              { !subScriptionStatus ? (<Button >Clique aqui para re-imprimir sua via.</Button>) : ( 
-                <> 
+              { !subScriptionStatus ? (<Button >Clique aqui para re-imprimir sua via.</Button>) : (
+                <>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Aqui está tudo certo, agora é só acessar seu painel de benefícios e aproveitar. <br/>
-                  
+
                   <br/>
                   <center>
                     { parseInt(format(new Date(endPlain), `MM`)) - 1 > parseInt(format(new Date(), `MM`)) && parseInt(format(new Date(endPlain), `yyyy`)) >= parseInt(format(new Date(), `yyyy`)) ? (<>
@@ -393,7 +393,7 @@ export default function FormRenovacao({ couponCallback }) {
           </Typography>
 
       </div>
-      
+
     </>
   )
 
@@ -422,7 +422,7 @@ export default function FormRenovacao({ couponCallback }) {
                 onChange={e => setCnpj( e.target.value )}
                 mask="99.999.999/9999-99"
               >
-                {() => 
+                {() =>
                 <TextField
                   label={ 'CNPJ' }
                   required={true}
@@ -439,30 +439,30 @@ export default function FormRenovacao({ couponCallback }) {
           </div>
         </Row></form>);
 
-        case 1: 
-        return ( 
+        case 1:
+        return (
           <Row lg="8" xs="12">
           <div>
-        
+
             <h3>Seus dados:</h3>
 
               <div className='content-stage--infos'>
-              { loadingContent ? LoadContentProgress : InfoDataSubscription } 
+              { loadingContent ? LoadContentProgress : InfoDataSubscription }
 
                 { wallet ? (
                   <>
                     <div className="card-row--active">
                     <p>Pago com: <b>{ wallet ? wallet.payment_company.name : 'não informado' }</b></p>
                       <div className="cards-information">
-                        <div className="card-line"> 
+                        <div className="card-line">
                           <img src={ChipCard} alt="leftchip" width="30px" height="auto"/>
-                            { wallet.payment_company.name === 'MasterCard' ? 
-                              (<> <img src={LogoMaster} alt="MasterLogo" width="40px" height="auto"/> </>) : 
-                              wallet.payment_company.name === 'Visa' ? 
-                              (<> <img src={LogoVisa} alt="VisaLogo" width="40px" height="auto"/> </>) : 
-                              wallet.payment_company.name === 'Elo' ? 
+                            { wallet.payment_company.name === 'MasterCard' ?
+                              (<> <img src={LogoMaster} alt="MasterLogo" width="40px" height="auto"/> </>) :
+                              wallet.payment_company.name === 'Visa' ?
+                              (<> <img src={LogoVisa} alt="VisaLogo" width="40px" height="auto"/> </>) :
+                              wallet.payment_company.name === 'Elo' ?
                               (<> <img src={LogoElo} alt="EloLogo" width="40px" height="auto"/> </>) :
-                              wallet.payment_company.name === 'HiperCard' ? 
+                              wallet.payment_company.name === 'HiperCard' ?
                               (<> <img src={LogoHiper} alt="HiperLogo" width="40px" height="auto"/> </>) : 'Não informado.'}
                         </div>
                         <p className="card-label-min"><b>{ wallet ? '**** **** **** ' + wallet.card_number_last_four : 'não informado' }</b></p>
@@ -480,7 +480,7 @@ export default function FormRenovacao({ couponCallback }) {
               </div>
           </div>
         </Row>
-          
+
       );
 
       case 2:
@@ -489,9 +489,9 @@ export default function FormRenovacao({ couponCallback }) {
             <>
               { isLastStepCompleted === "true" ? Thanks : FormPayment }
             </>
-        
+
         );
- 
+
       default:
         return (
         <>
@@ -564,17 +564,17 @@ export default function FormRenovacao({ couponCallback }) {
       <>
       <center>
         <h5 className={classes.instructions}><b>{FirstName[0]}</b>, estamos muito felizes por mais este ano com a <b>{business}</b>, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
-          
+
           { wallet ? ( <><h5>Renovar assinatura com cartão cadastrado</h5> <Button block color="danger" type="button"> <CreditCardIcon/> RENOVAR AGORA MESMO </Button></> ) : ''}
-          
+
           <hr/>
 
-          { selectNewPlan === '160505' ? ( 
+          { selectNewPlan === '160505' ? (
             <>
               <h5>Tudo certo aqui, não há nada para pagar!</h5>
               <h5>Agora é só acessar seu painel de benefícios e aproveitar.</h5>
               <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups-start/login', '_blank') } } color="primary">Acessar painel de benefícios</Button>
-              
+
 
               <hr/>
 
@@ -585,7 +585,7 @@ export default function FormRenovacao({ couponCallback }) {
               </div>
               <center>
                 { FormCoupon }
-              
+
             </center>
               <br/>
                 <CardModal />
@@ -594,7 +594,7 @@ export default function FormRenovacao({ couponCallback }) {
               <br/>
             </>) }
 
-          
+
       </center>
       </> ) : (
         <>
@@ -651,7 +651,7 @@ export default function FormRenovacao({ couponCallback }) {
 
     //Inputar validações aqui
     const newActiveStep = isLastStep() && !allStepsCompleted()
-    
+
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
 
@@ -659,13 +659,13 @@ export default function FormRenovacao({ couponCallback }) {
       window.scrollTo({top: 0, behavior: 'smooth'});
       // localStorage.removeItem('consumer_id');
       getSubscriptions();
-      
+
 
       try {
         const schema = Yup.object().shape({
           cnpj: Yup.string().required().min(14),
         });
-        
+
         const data = {
           cnpj,
         }
@@ -674,13 +674,13 @@ export default function FormRenovacao({ couponCallback }) {
           abortEarly: false
         })
 
-        
+
 
         if(!validaCnpj) {
           toast.error('Ooops, houve um erro.');
           setHasError(
             {
-              ...hasError, 
+              ...hasError,
               cnpj: true,
             });
             return;
@@ -690,7 +690,7 @@ export default function FormRenovacao({ couponCallback }) {
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
-        
+
       } catch (err) {
         toast.error('Por favor, preencha todos os campos obrigatórios.')
         if (err instanceof Yup.ValidationError) {
@@ -698,14 +698,14 @@ export default function FormRenovacao({ couponCallback }) {
           err.inner.forEach(error => {
             errorMessages[error.path] = true;
           });
-          const { 
+          const {
             cnpj,
           } = errorMessages;
           setHasError(
             {
               cnpj,
             })
-          
+
         }
       }
     }
@@ -740,8 +740,8 @@ export default function FormRenovacao({ couponCallback }) {
       } catch (err) {
         toast.error('Por favor, selecione uma assinatura.')
       }
-      
-    } 
+
+    }
 
     if (newActiveStep === 3) {
 
@@ -765,7 +765,7 @@ export default function FormRenovacao({ couponCallback }) {
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
 
-        
+
 
       } catch (err) {
       }
@@ -777,9 +777,8 @@ export default function FormRenovacao({ couponCallback }) {
       return;
     }
     setLoading(true);
-    
     api.get(`coupon/validate/${coupon}`).then(response => {
-      if((response.data.status_code >= 400 && response.data.status_code <= 500)) {
+      if(response.data.status_code >= 400 && response.data.status_code <= 500) {
         setLoading(false);
         setHasError({ cupom: true });
         toast.error(`Cupom inválido`);
@@ -817,27 +816,27 @@ export default function FormRenovacao({ couponCallback }) {
                         Próximo <NavigateNextIcon/>
                       </Button>
                     )}
-                       {' '} O passo {activeStep + 1} está completo. 
+                       {' '} O passo {activeStep + 1} está completo.
                     </>) }
                   </Typography>
                 );
 
   const FinishStepsAct = (<>
-  
+
       { subScriptionStatus === 'active' && parseInt(format(new Date(), `yyyy`)) - parseInt(format(new Date(endPlain), 'yyyy')) < 0 ? (<>
         <p><spam>Renovação disponível a partir de { `${format(new Date(endPlain), `dd`)}/${ format(new Date(endPlain), `MM`) - 1 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 1 ) : format(new Date(endPlain), `MM`) }/${format(new Date(endPlain), `yyyy`)}` }. </spam></p>
         </>
-      ) : ( 
+      ) : (
         <>
         { completedSteps() === totalSteps() - 1 ? '' :  (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-        { completedSteps() === totalSteps() - 1 ? '' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/> 
+        { completedSteps() === totalSteps() - 1 ? '' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'  } <NavigateNextIcon/>
         </Button>)}
-        
+
         </>
-      
+
       ) }
-  
-      </>                    
+
+      </>
      );
 
   const AllStepsCompleted = allStepsCompleted() ? (
@@ -851,7 +850,7 @@ export default function FormRenovacao({ couponCallback }) {
               <h5 className={classes.instructions}><b>{FirstName[0]}</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} muito felizes por mais este ano com a {business}, estamos trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano { selectNewPlan ? 'selecionado' : 'renovado' } é o: <b>{planName}</b></p>
-              
+
               <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
