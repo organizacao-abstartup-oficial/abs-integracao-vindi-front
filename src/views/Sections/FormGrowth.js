@@ -1071,7 +1071,7 @@ export default function FormGrowth({ couponCallback }) {
     setLoading(true);
 
     api.get(`coupon/validate/${coupon}`).then(response => {
-      if((response.data.status_code >= 400 && response.data.status_code <= 500) || response.data.body.discount !== 50) {
+      if(response.data.status_code >= 400 && response.data.status_code <= 500) {
         setLoading(false);
         setHasError({ cupom: true });
         toast.error(`Cupom inválido`);
