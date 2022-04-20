@@ -189,6 +189,7 @@ export default function FormStarter() {
         recebeu_investimento: getinvestimentos,
         tamanho_time: gettime,
         end_site: site,
+        onde_nos_conheceu: getajuda,
         linkedin,
         facebook,
         instagram,
