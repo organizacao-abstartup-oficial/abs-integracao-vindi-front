@@ -52,6 +52,7 @@ import BankSlipIcon from '../../assets/img/brand/boleto-icon.png';
 import plainLogoGrowth from '../../assets/img/icons/common/growth.png'
 import plainLogoStart from '../../assets/img/icons/common/start.png'
 
+import { segmentos, negociosShort, fasesShort, papeis, investimentos, time, ondenosconheceu } from '../../Data';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -141,8 +142,8 @@ export default function FormRenovacao({ couponCallback }) {
   const [facebook, setFacebook] = useState('');
   const [instagram, setInstagram] = useState('');
   const [youtube, setYoutube] = useState('');
-  const [ cep, setCep ] = useState('');
-  const [ uf, setUf ] = useState('UF');
+  const [cep, setCep] = useState('');
+  const [uf, setUf] = useState('UF');
 
   const history = useHistory()
 
@@ -184,16 +185,16 @@ export default function FormRenovacao({ couponCallback }) {
     validateCoupon(coupon);
   }, [coupon])
 
-  async function  getAddress(){
-    await axios.get(`https://viacep.com.br/ws/${cep.replace(/-\s/g,"")}/json/`)
-    .then( response => {
-      setUf(response.data.uf)
-      setMunicipio(response.data.localidade)
-      setLogradouro(response.data.logradouro)
-      setBairro(response.data.bairro)
-      setCountry('BR')
-      localStorage.clear();
-    })
+  async function getAddress() {
+    await axios.get(`https://viacep.com.br/ws/${cep.replace(/-\s/g, "")}/json/`)
+      .then(response => {
+        setUf(response.data.uf)
+        setMunicipio(response.data.localidade)
+        setLogradouro(response.data.logradouro)
+        setBairro(response.data.bairro)
+        setCountry('BR')
+        localStorage.clear();
+      })
   }
 
   async function handleSubscription(cnpj) {
@@ -214,6 +215,9 @@ export default function FormRenovacao({ couponCallback }) {
         setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))
       }
     })
+    .finally(() => {
+      setLoadingContent(false)
+    })
   }
 
   async function getSubscriptions() {
@@ -223,7 +227,6 @@ export default function FormRenovacao({ couponCallback }) {
         if (!res.data.body) {
           toast.error('Localizamos seu cadastro, porém você ainda não selecionou seu plano.');
           setIsNotSubsCription(true)
-          setLoadingContent(false);
 
         } else {
           setPrice(res.data.body.subscriptions[res.data.body.subscriptions.length - 1].product_items[0].pricing_schema.short_format);
@@ -234,12 +237,14 @@ export default function FormRenovacao({ couponCallback }) {
           setWallet(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].payment_profile);
           setSubScriptionStatus(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].product_items[0].status);
           SetPlanID(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id)
-          setLoadingContent(false);
           localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id);
         }
 
       }
     )
+    .finally(() => {
+      setLoadingContent(false)
+    })
 
     await api.get(`vindi/customer/find-by-cnpj/${cnpj.replace(/\D/g, '')}`).then(
       res => {
@@ -251,9 +256,6 @@ export default function FormRenovacao({ couponCallback }) {
         setCnpj(customers.registry_code)
         setName(customers.metadata.nome_pessoa_fisica);
         setCep(customers.address.zipcode);
-        setMunicipio(customers.address.city);
-        setUf(customers.address.state);
-        setLogradouro(customers.address.street);
         setNumeroLogradouro(customers.address.number);
         setComplemento(customers.address.additional_details);
         setSite(customers.metadata.end_site);
@@ -261,6 +263,14 @@ export default function FormRenovacao({ couponCallback }) {
         setFacebook(customers.metadata.facebook);
         setInstagram(customers.metadata.instagram);
         setYoutube(customers.metadata.youtube);
+        setGetCargo(customers.metadata.cargo_empresa);
+        setGetSocios(customers.metadata.nro_socios);
+        setGetModelo(customers.metadata.modelo_negocio);
+        setGetSegmento(customers.metadata.segmento);
+        setGetFase(customers.metadata.fase_startup);
+        setGetInvestimento(customers.metadata.recebeu_investimento);
+        setGetTime(customers.metadata.tamanho_time);
+        setGetAjuda(customers.metadata.onde_nos_conheceu);
       }
     )
 
@@ -470,7 +480,7 @@ export default function FormRenovacao({ couponCallback }) {
   };
 
   function getSteps() {
-    return ['Identificação', 'Informações', 'Contato', 'Renovação', 'Confirmação'];
+    return ['Identificação', 'Informações', 'Contato', 'Negócio', 'Renovação', 'Confirmação'];
   }
 
   function getStepContent(step) {
@@ -772,6 +782,199 @@ export default function FormRenovacao({ couponCallback }) {
 
       case 3:
         return (
+          <form>
+            <Row lg="8" xs="12">
+              <div className="double-input--form">
+                <TextField
+                  id="qual-seu-cargo"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getcargo}
+                  onChange={e => setGetCargo(e.target.value)}
+                  label="Qual seu cargo?"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Informe o seu cargo"
+                  variant="outlined"
+                  error={hasError.getcargo}
+                >
+                  {papeis.map(cargo => (
+                    <option key={cargo.id} value={cargo.text}>{cargo.text}</option>
+                  ))}
+                </TextField>
+
+                <TextField
+                  id="socios"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getsocios}
+                  onChange={e => setGetSocios(e.target.value)}
+                  label="Numero de sócios?"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Quantos sócios possui?"
+                  variant="outlined"
+                  error={hasError.getsocios}
+                >
+                  {time.map(time => (
+                    <option key={time.id} value={time.text}>{time.text}</option>
+                  ))}
+
+                </TextField>
+
+              </div>
+              <div className="double-input--form">
+
+                <TextField
+                  id="segmentos"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getsegmento}
+                  onChange={e => setGetSegmento(e.target.value)}
+                  label="Segmento"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Selecione um dos modelos listados"
+                  variant="outlined"
+                  error={hasError.getsegmento}
+                >
+
+                  {segmentos.map(segmentos => (
+                    <option key={segmentos.id} value={segmentos.text}>{segmentos.text}</option>
+                  ))}
+
+                </TextField>
+
+                <TextField
+                  id="modelo"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getmodelo}
+                  onChange={e => setGetModelo(e.target.value)}
+                  label="Modelo de negócio?"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Selecione uma das opções."
+                  variant="outlined"
+                  error={hasError.getmodelo}
+                >
+                  {negociosShort.map(negocios => (
+                    <option key={negocios.id} value={negocios.text}>{negocios.text}</option>
+                  ))}
+
+                </TextField>
+
+              </div>
+
+              <div className="double-input--form">
+
+                <TextField
+                  id="fase"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getfase}
+                  onChange={e => setGetFase(e.target.value)}
+                  label="Qual fase atual?"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Fase da startup"
+                  variant="outlined"
+                  error={hasError.getfase}
+                >
+                  {fasesShort.map(fase => (
+                    <option key={fase.id} value={fase.text}>{fase.text}</option>
+                  ))}
+                </TextField>
+
+                <TextField
+                  id="whats"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getinvestimentos}
+                  onChange={e => setGetInvestimento(e.target.value)}
+                  label="Já recebeu investimento?"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Já recebeu investimento?"
+                  variant="outlined"
+                  error={hasError.getinvestimentos}
+                >
+                  {investimentos.map(investimento => (
+                    <option key={investimento.id} value={investimento.text}>{investimento.text}</option>
+                  ))}
+                </TextField>
+
+
+              </div>
+
+
+              <div className="double-input--form">
+                <TextField
+                  id="tamanho-da-equipe"
+                  select
+                  fullWidth
+                  required={true}
+                  value={gettime}
+                  onChange={e => setGetTime(e.target.value)}
+                  label="Qual o tamanho do seu time"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Quantos colaboradores possui"
+                  variant="outlined"
+                  error={hasError.gettime}
+                >
+                  {time.map(time => (
+                    <option key={time.id} value={time.text}>{time.text}</option>
+                  ))}
+                </TextField>
+                <TextField
+                  id="ajuda"
+                  select
+                  fullWidth
+                  required={true}
+                  value={getajuda}
+                  onChange={e => setGetAjuda(e.target.value)}
+                  label="Onde nos conheceu?"
+                  style={{ margin: 8 }}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="Selecione uma das opções"
+                  variant="outlined"
+                  error={hasError.getajuda}
+                >
+                  {ondenosconheceu.map(ondenosconheceu => (
+                    <option key={ondenosconheceu.id} value={ondenosconheceu.text}>{ondenosconheceu.text}</option>
+                  ))}
+
+                </TextField>
+              </div>
+            </Row>
+          </form>
+        )
+
+      case 4:
+        return (
           <Row lg="8" xs="12">
             <div>
 
@@ -814,7 +1017,7 @@ export default function FormRenovacao({ couponCallback }) {
 
         );
 
-      case 4:
+      case 5:
         return (
 
           <>
@@ -1040,8 +1243,8 @@ export default function FormRenovacao({ couponCallback }) {
       }
     }
 
-    if (newActiveStep === 2){
-      window.scrollTo({top: 100, behavior: 'smooth'});
+    if (newActiveStep === 2) {
+      window.scrollTo({ top: 100, behavior: 'smooth' });
       localStorage.removeItem('consumer_id');
 
       try {
@@ -1051,8 +1254,6 @@ export default function FormRenovacao({ couponCallback }) {
           cnpj: Yup.string().required().min(14),
           phone: Yup.string().required().min(12).max(13),
           mail: Yup.string().email().required(),
-          password: Yup.string().required(),
-          confirmpassword: Yup.string().oneOf([Yup.ref('password'), null])
         });
 
         const data = {
@@ -1067,14 +1268,14 @@ export default function FormRenovacao({ couponCallback }) {
           abortEarly: false
         })
 
-        if(!validaCnpj) {
+        if (!validaCnpj) {
           toast.error('Digite um CNPJ válido.');
           setHasError(
             {
               ...hasError,
               cnpj: true,
             });
-            return;
+          return;
         }
 
         const newCompleted = completed;
@@ -1113,7 +1314,7 @@ export default function FormRenovacao({ couponCallback }) {
         }
       }
     }
-    if (newActiveStep === 3){
+    if (newActiveStep === 3) {
       try {
 
         const schema = Yup.object().shape({
@@ -1131,7 +1332,7 @@ export default function FormRenovacao({ couponCallback }) {
           abortEarly: false
         });
 
-        window.scrollTo({top: 100, behavior: 'smooth'});
+        window.scrollTo({ top: 100, behavior: 'smooth' });
 
         const newCompleted = completed;
         newCompleted[activeStep] = true;
@@ -1140,7 +1341,7 @@ export default function FormRenovacao({ couponCallback }) {
 
       } catch (err) {
         toast.error('Por favor, preencha todos os campos obrigatórios.')
-        if(err instanceof Yup.ValidationError){
+        if (err instanceof Yup.ValidationError) {
           const errorMessages = {};
           err.inner.forEach(error => {
             errorMessages[error.path] = true;
@@ -1154,7 +1355,7 @@ export default function FormRenovacao({ couponCallback }) {
 
     }
     if (newActiveStep === 4) {
-      window.scrollTo({top: 100, behavior: 'smooth'});
+      window.scrollTo({ top: 100, behavior: 'smooth' });
 
       try {
         const schema = Yup.object().shape({
@@ -1188,9 +1389,9 @@ export default function FormRenovacao({ couponCallback }) {
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
 
-      } catch(err) {
+      } catch (err) {
         toast.error('Por favor, preencha todos os campos obrigatórios.')
-        if(err instanceof Yup.ValidationError){
+        if (err instanceof Yup.ValidationError) {
           const errorMessages = {};
           err.inner.forEach(error => {
             errorMessages[error.path] = true;
@@ -1207,7 +1408,8 @@ export default function FormRenovacao({ couponCallback }) {
             checkedTerm
           } = errorMessages;
           setHasError(
-            { ...hasError,
+            {
+              ...hasError,
               getcargo,
               getsocios,
               getsegmento,
