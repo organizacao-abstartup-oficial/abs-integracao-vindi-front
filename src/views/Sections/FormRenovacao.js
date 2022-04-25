@@ -185,6 +185,11 @@ export default function FormRenovacao({ couponCallback }) {
     validateCoupon(coupon);
   }, [coupon])
 
+  useEffect(() => {
+    if (isLastStepCompleted === "true")
+      updateCustomer();
+  }, [isLastStepCompleted])
+
   async function getAddress() {
     await axios.get(`https://viacep.com.br/ws/${cep.replace(/-\s/g, "")}/json/`)
       .then(response => {
@@ -215,6 +220,9 @@ export default function FormRenovacao({ couponCallback }) {
         setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))
       }
     })
+    .catch((err) => {
+      toast.error('Digite um CNPJ válido.');
+    })
     .finally(() => {
       setLoadingContent(false)
     })
@@ -239,7 +247,6 @@ export default function FormRenovacao({ couponCallback }) {
           SetPlanID(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id)
           localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id);
         }
-
       }
     )
     .finally(() => {
@@ -273,12 +280,55 @@ export default function FormRenovacao({ couponCallback }) {
         setGetAjuda(customers.metadata.onde_nos_conheceu);
       }
     )
-
+    .catch((err) => {
+      toast.error('Problemas ao conectar-se com o servidor.')
+    })
   };
 
-
-
-
+  async function updateCustomer() {
+    try {
+      await api.put(`/vindi/customer/${idConsumer}`, {
+        name: business,
+        email: mail,
+        registry_code: cnpj.replace(/\D/g, ''),
+        metadata: {
+          razao_social: razaoSocial,
+          nome_pessoa_fisica: name,
+          cargo_empresa: getcargo,
+          nro_socios: getsocios,
+          segmento: getsegmento,
+          modelo_negocio: getmodelo,
+          fase_startup: getfase,
+          recebeu_investimento: getinvestimentos,
+          tamanho_time: gettime,
+          end_site: site,
+          onde_nos_conheceu: getajuda,
+          linkedin,
+          facebook,
+          instagram,
+          youtube,
+        },
+        address: {
+          street: logradouro,
+          number: numeroLogradouro,
+          additional_details: complemento,
+          zipcode: cep,
+          neighborhood: bairro,
+          city: municipio,
+          state: uf,
+          country: country
+        },
+        phones: [
+            {
+            phone_type: 'mobile',
+            number: phone,
+          }
+        ]
+      })
+    } catch (err) {
+      toast.error('Problemas ao conectar-se com o servidor.')
+    }
+  }
 
   const InfoDataSubscription = (<div className="content-subscription">
 
@@ -1207,8 +1257,6 @@ export default function FormRenovacao({ couponCallback }) {
           abortEarly: false
         })
 
-
-
         if (!validaCnpj) {
           toast.error('Ooops, houve um erro.');
           setHasError(
@@ -1459,15 +1507,6 @@ export default function FormRenovacao({ couponCallback }) {
     }
 
     if (newActiveStep === 6) {
-
-      const newCompleted = completed;
-      newCompleted[activeStep] = true;
-      setCompleted(newCompleted);
-      setActiveStep(newActiveStep);
-
-    }
-
-    if (newActiveStep === 7) {
       try {
 
         if (isLastStepCompleted === "false") {
@@ -1479,8 +1518,6 @@ export default function FormRenovacao({ couponCallback }) {
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
-
-
 
       } catch (err) {
       }
