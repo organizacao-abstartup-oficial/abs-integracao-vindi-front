@@ -780,7 +780,6 @@ export default function FormStarter() {
   const handleNext = async () => {
     //Inputar validações aqui
     const newActiveStep = isLastStep() && !allStepsCompleted()
-    
       ? steps.findIndex((step, i) => !(i in completed))
       : activeStep + 1;
 
