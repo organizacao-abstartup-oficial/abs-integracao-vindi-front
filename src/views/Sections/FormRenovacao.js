@@ -319,7 +319,7 @@ export default function FormRenovacao({ couponCallback }) {
           country: country
         },
         phones: [
-            {
+          {
             phone_type: 'mobile',
             number: phone,
           }
