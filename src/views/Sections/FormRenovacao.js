@@ -198,7 +198,6 @@ export default function FormRenovacao({ couponCallback }) {
         setLogradouro(response.data.logradouro)
         setBairro(response.data.bairro)
         setCountry('BR')
-        localStorage.clear();
       })
   }
 
@@ -1293,7 +1292,6 @@ export default function FormRenovacao({ couponCallback }) {
 
     if (newActiveStep === 2) {
       window.scrollTo({ top: 100, behavior: 'smooth' });
-      localStorage.removeItem('consumer_id');
 
       try {
         const schema = Yup.object().shape({
