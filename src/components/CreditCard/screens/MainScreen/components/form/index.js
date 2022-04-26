@@ -47,10 +47,10 @@ export default function CForm({
     { id: 152186, value: 12, pricing: 1799, label: 1799 / 12 }];
 
   const PlanObjectGrowthWithCoupon20 = [
-    { id: 277322, value: 1, pricing: 320, label: 320 }]
+    { id: process.env.REACT_APP_CUPON20_ID, value: 1, pricing: 320, label: 320 }]
 
   const PlanObjectGrowthWithCoupon50 = [
-    { id: 270637, value: 1, pricing: 199, label: 199 }];
+    { id: process.env.REACT_APP_CUPON50_ID, value: 1, pricing: 199, label: 199 }];
 
   const formatPlanText = (plan) => {
     if (plan.value === 1) {
@@ -156,32 +156,32 @@ export default function CForm({
 
         if (response.status === 200) {
           try {
-            // const sub = {
-            //   plan_id: planIdState,
-            //   customer_id: consumer,
-            //   code: uuid(),
-            //   payment_method_code: 'credit_card',
-            //   metadata: uuid(),
-            //   payment_profile: {
-            //     id: response.data.body.payment_profile.id
-            //   },
-            //   invoice_split: false
-            // }
-            // api.post('vindi/payment/card', sub)
-            //   .then(res => {
-            //     toast.success('Pagamento realizado com sucesso!')
-            //     localStorage.removeItem('cardHolder')
-            //     localStorage.removeItem('cardValidate')
-            //     localStorage.removeItem('cardCvv')
-            //     localStorage.removeItem('companyCode')
-            //     localStorage.removeItem('coupon_data')
-            //     localStorage.setItem('paymentSubmited', true)
-            //     localStorage.setItem('isLastStep', true);
-            //     localStorage.clear()
-            //   }
-            //   )
-            localStorage.setItem('paymentSubmited', true)
-            localStorage.setItem('isLastStep', true);
+            const sub = {
+              plan_id: planIdState,
+              customer_id: consumer,
+              code: uuid(),
+              payment_method_code: 'credit_card',
+              metadata: uuid(),
+              payment_profile: {
+                id: response.data.body.payment_profile.id
+              },
+              invoice_split: false
+            }
+            api.post('vindi/payment/card', sub)
+              .then(res => {
+                toast.success('Pagamento realizado com sucesso!')
+                localStorage.removeItem('cardHolder')
+                localStorage.removeItem('cardValidate')
+                localStorage.removeItem('cardCvv')
+                localStorage.removeItem('companyCode')
+                localStorage.removeItem('coupon_data')
+                localStorage.setItem('paymentSubmited', true)
+                localStorage.setItem('isLastStep', true);
+                localStorage.clear()
+              }
+              )
+            // localStorage.setItem('paymentSubmited', true)
+            // localStorage.setItem('isLastStep', true);
           } catch (err) {
             toast.error('Houve um problema ao efeturar o pagamento. Verifique seus dados e tente novamente.')
           }
