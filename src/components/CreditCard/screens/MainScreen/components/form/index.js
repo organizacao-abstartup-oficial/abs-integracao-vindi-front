@@ -180,8 +180,6 @@ export default function CForm({
                 localStorage.clear()
               }
               )
-            // localStorage.setItem('paymentSubmited', true)
-            // localStorage.setItem('isLastStep', true);
           } catch (err) {
             toast.error('Houve um problema ao efeturar o pagamento. Verifique seus dados e tente novamente.')
           }
