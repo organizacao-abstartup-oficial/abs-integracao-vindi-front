@@ -47,10 +47,10 @@ export default function CForm({
     { id: 152186, value: 12, pricing: 1799, label: 1799 / 12 }];
 
   const PlanObjectGrowthWithCoupon20 = [
-    { id: 277322, value: 1, pricing: 320, label: 320 }]
+    { id: process.env.REACT_APP_CUPON20_ID, value: 1, pricing: 320, label: 320 }]
 
   const PlanObjectGrowthWithCoupon50 = [
-    { id: 270637, value: 1, pricing: 199, label: 199 }];
+    { id: process.env.REACT_APP_CUPON50_ID, value: 1, pricing: 199, label: 199 }];
 
   const formatPlanText = (plan) => {
     if (plan.value === 1) {
