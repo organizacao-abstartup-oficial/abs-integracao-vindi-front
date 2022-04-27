@@ -157,6 +157,10 @@ export default function FormRenovacao({ couponCallback }) {
     SetSelectNewPlan(event.target.value);
   };
 
+  const plansLabel = (id) => {
+    return id === '151756' ? 'Plano Growth' : 'Plano Start - Gratuito'
+  }
+
   setInterval(() => {
     setIsLastStepCompleted(localStorage.getItem('isLastStep'))
     if (isLastStepCompleted === "true") {
@@ -411,13 +415,13 @@ export default function FormRenovacao({ couponCallback }) {
             ) : (
               <>
                 <FormControlLabel
-                  value="Growth"
+                  value="151756"
                   control={<Radio color="primary" />}
                   label="Plano Growth"
                 />
 
                 <FormControlLabel
-                  value="Start"
+                  value="160505"
                   control={<Radio color="primary" />}
                   label="Plano Start - Gratuito"
                 />
@@ -430,7 +434,7 @@ export default function FormRenovacao({ couponCallback }) {
         </FormControl>
 
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Plano selecionado: {selectNewPlan ? selectNewPlan : 'Não selecionado'}<br />
+          Plano selecionado: {plansLabel(selectNewPlan)}<br />
           Ao selecionar o plano, você automáticamente concorda com os termos e políticas de associados.
           <br />
           <br />
@@ -1487,6 +1491,7 @@ export default function FormRenovacao({ couponCallback }) {
           await schema.validate(data, {
             abortEarly: false
           })
+          localStorage.setItem('plan_id', selectNewPlan)
         }
 
         window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -1495,7 +1500,6 @@ export default function FormRenovacao({ couponCallback }) {
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
         setActiveStep(newActiveStep);
-        localStorage.setItem('plan_id', selectNewPlan)
         toast.success('Tudo pronto, agora é só selecionar o método de pagamento.')
 
       } catch (err) {
