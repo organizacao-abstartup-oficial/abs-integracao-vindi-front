@@ -173,11 +173,13 @@ export const oquebusca = [
 export const ondenosconheceu = [
   {id: 0, text: ''},
   {id: 1, text: 'Indicação de associado'},
-  {id: 2, text: 'Redes Sociais'},
-  {id: 3, text: 'Reportagens na Midia'},
-  {id: 4, text: 'Site de Busca'},
-  {id: 5, text: 'Sites Parceiros'},
-  {id: 6, text: 'Outros'},
+  {id: 2, text: 'Inovativa'},
+  {id: 3, text: 'Redes Sociais'},
+  {id: 4, text: 'Reportagens na Midia'},
+  {id: 5, text: 'Sebrae'},
+  {id: 6, text: 'Site de Busca'},
+  {id: 7, text: 'Sites Parceiros'},
+  {id: 8, text: 'Outros'},
 ]
 
 
