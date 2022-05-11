@@ -347,7 +347,7 @@ export default function CForm({
           <option value="" disabled>
             Selecione as parcelas
           </option>
-          {pathName === '/growth' && hasCoupon ? planGrowth : ''}
+          {pathName === '/growth' ? planGrowth : ''}
           {pathName === '/renovacao' ? planGrowth : ''}
           {pathName === '/impact' ? planImpact : ''}
         </select>
