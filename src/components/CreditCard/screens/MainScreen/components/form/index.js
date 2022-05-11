@@ -215,7 +215,6 @@ export default function CForm({
                 localStorage.removeItem('coupon_data')
                 localStorage.setItem('paymentSubmited', true)
                 localStorage.setItem('isLastStep', true);
-                localStorage.clear()
               }
               )
           } catch (err) {
