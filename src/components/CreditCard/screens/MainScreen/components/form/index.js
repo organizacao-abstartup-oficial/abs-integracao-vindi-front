@@ -46,11 +46,37 @@ export default function CForm({
     { id: 152208, value: 1, pricing: 1499, label: 1499 },
     { id: 152186, value: 12, pricing: 1799, label: 1799 / 12 }];
 
+  const PlanObjectGrowthWithCoupon10 = [
+    { id: process.env.REACT_APP_COUPON10_ID, value: 1, pricing: 359, label: 359 }
+  ]
+
   const PlanObjectGrowthWithCoupon20 = [
-    { id: process.env.REACT_APP_CUPON20_ID, value: 1, pricing: 320, label: 320 }]
+    { id: process.env.REACT_APP_COUPON20_ID, value: 1, pricing: 320, label: 320 }
+  ]
+
+  const PlanObjectGrowthWithCoupon30 = [
+    { id: process.env.REACT_APP_COUPON30_ID, value: 1, pricing: 279, label: 279 }
+  ]
+
+  const PlanObjectGrowthWithCoupon40 = [
+    { id: process.env.REACT_APP_COUPON40_ID, value: 1, pricing: 240, label: 240 }
+  ]
 
   const PlanObjectGrowthWithCoupon50 = [
-    { id: process.env.REACT_APP_CUPON50_ID, value: 1, pricing: 199, label: 199 }];
+    { id: process.env.REACT_APP_COUPON50_ID, value: 1, pricing: 199, label: 199 }
+  ];
+
+  const PlanObjectGrowthWithCoupon60 = [
+    { id: process.env.REACT_APP_COUPON60_ID, value: 1, pricing: 159, label: 159 }
+  ]
+
+  const PlanObjectGrowthWithCoupon80 = [
+    { id: process.env.REACT_APP_COUPON80_ID, value: 1, pricing: 79, label: 79 }
+  ]
+
+  const PlanObjectGrowthWithCoupon100 = [
+    { id: process.env.REACT_APP_COUPON100_ID, value: 1, pricing: 0, label: 0 }
+  ]
 
   const formatPlanText = (plan) => {
     if (plan.value === 1) {
@@ -62,10 +88,22 @@ export default function CForm({
 
   const identifyPlanCoupon = () => {
     switch (hasCoupon.discount) {
+      case 10:
+        return PlanObjectGrowthWithCoupon10;
       case 20:
         return PlanObjectGrowthWithCoupon20;
+      case 30:
+        return PlanObjectGrowthWithCoupon30;
+      case 40:
+        return PlanObjectGrowthWithCoupon40;
       case 50:
         return PlanObjectGrowthWithCoupon50;
+      case 60:
+        return PlanObjectGrowthWithCoupon60;
+      case 80:
+        return PlanObjectGrowthWithCoupon80;
+      case 100:
+        return PlanObjectGrowthWithCoupon100;
       default:
         return PlanObjectGrowth;
     }
@@ -177,7 +215,6 @@ export default function CForm({
                 localStorage.removeItem('coupon_data')
                 localStorage.setItem('paymentSubmited', true)
                 localStorage.setItem('isLastStep', true);
-                localStorage.clear()
               }
               )
           } catch (err) {
@@ -309,7 +346,7 @@ export default function CForm({
           <option value="" disabled>
             Selecione as parcelas
           </option>
-          {pathName === '/growth' && hasCoupon ? planGrowth : ''}
+          {pathName === '/growth' ? planGrowth : ''}
           {pathName === '/renovacao' ? planGrowth : ''}
           {pathName === '/impact' ? planImpact : ''}
         </select>
