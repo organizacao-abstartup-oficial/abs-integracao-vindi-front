@@ -215,7 +215,6 @@ export default function CForm({
                 localStorage.removeItem('coupon_data')
                 localStorage.setItem('paymentSubmited', true)
                 localStorage.setItem('isLastStep', true);
-                localStorage.clear()
               }
               )
           } catch (err) {
@@ -347,7 +346,7 @@ export default function CForm({
           <option value="" disabled>
             Selecione as parcelas
           </option>
-          {pathName === '/growth' && hasCoupon ? planGrowth : ''}
+          {pathName === '/growth' ? planGrowth : ''}
           {pathName === '/renovacao' ? planGrowth : ''}
           {pathName === '/impact' ? planImpact : ''}
         </select>
