@@ -290,7 +290,7 @@ export default function FormRenovacao({ couponCallback }) {
 
   async function updateCustomer() {
     try {
-      await api.put(`/vindi/customer/${idConsumer}`, {
+      await api.post(`/vindi/customer/${idConsumer}`, {
         name: business,
         email: mail,
         registry_code: cnpj.replace(/\D/g, ''),
