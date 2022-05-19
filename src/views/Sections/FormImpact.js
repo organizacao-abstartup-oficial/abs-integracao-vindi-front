@@ -303,11 +303,11 @@ export default function FormImpact() {
                   <br/>
                   <center>
                     { planID === 160505 ? (<>
-                                            <Button  variant="contained" onClick={ () => window.open('https://app.uppo.com.br/abstartups-start/', '_blank') } color="primary">
+                                            <Button  variant="contained" onClick={ () => window.open('https://www.beneficiosabstartups.com.br/', '_blank') } color="primary">
                                               Acesse seus benefícios
                                             </Button>
                                           </>) : (<>
-                                                    <Button  variant="contained" onClick={ () => window.open('https://app.uppo.com.br/abstartups/', '_blank') } color="primary">
+                                                    <Button  variant="contained" onClick={ () => window.open('https://www.beneficiosabstartups.com.br/', '_blank') } color="primary">
                                                       Acesse seus benefícios
                                                     </Button>
                                                   </>)}
@@ -436,7 +436,7 @@ export default function FormImpact() {
 
         <p>O Plano { selectNewPlan ? 'selecionado' : 'renovado' } é o: <b>{'Nome do plano'}</b></p>
 
-        <Button  variant="contained" onClick={ () => window.open('https://app.uppo.com.br/abstartups/', '_blank') } color="primary">Acesse seus benefícios</Button>
+        <Button  variant="contained" onClick={ () => window.open('https://www.beneficiosabstartups.com.br/', '_blank') } color="primary">Acesse seus benefícios</Button>
 
       </center>
     </div>
@@ -462,7 +462,7 @@ export default function FormImpact() {
             <>
               <h5>Tudo certo aqui, não há nada para pagar!</h5>
               <h5>Agora é só acessar seu painel de benefícios e aproveitar.</h5>
-              <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups-start/login', '_blank') } } color="primary">Acessar painel de benefícios</Button>
+              <Button  variant="contained" onClick={ () => { window.open('https://www.beneficiosabstartups.com.br', '_blank') } } color="primary">Acessar painel de benefícios</Button>
               
 
               <hr/>
@@ -487,7 +487,7 @@ export default function FormImpact() {
           <div>
             <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:)</h5>
 
-            <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/login', '_blank') } } color="primary">Acessar painel de benefícios</Button>
+            <Button  variant="contained" onClick={ () => { window.open('https://www.beneficiosabstartups.com.br', '_blank') } } color="primary">Acessar painel de benefícios</Button>
           </div>
           <hr/>
           <br/><br/>
@@ -686,7 +686,7 @@ export default function FormImpact() {
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano { selectNewPlan ? 'selecionado' : 'renovado' } é o: <b>{planName}</b></p>
               
-              <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
+              <Button  variant="contained" onClick={ () => { window.open('https://www.beneficiosabstartups.com.br/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
 
