@@ -1132,7 +1132,7 @@ export default function FormGrowth({ couponCallback }) {
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano Contratado é o: <b>Growth</b>{ idConsumer ? '' : '' }</p>
 
-              <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
+              <Button  variant="contained" onClick={ () => { window.open('https://www.beneficiosabstartups.com.br/', '_blank') } } color="primary">Acessar painel de benefícios</Button>
             </center>
           </div>
 
