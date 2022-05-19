@@ -1018,7 +1018,7 @@ export default function FormStarter() {
               <h3 className={classes.instructions}>Acesse nosso portal de benefícios e aproveite!</h3>
               <p>O Plano Contratado é o: <b>Start</b></p>
 
-              <Button  variant="contained" onClick={ () => { window.open('https://app.uppo.com.br/abstartups-start/login', '_blank') } } color="primary">Acesse seus benefícios</Button>
+              <Button  variant="contained" onClick={ () => { window.open('https://www.beneficiosabstartups.com.br', '_blank') } } color="primary">Acesse seus benefícios</Button>
             </center>
           </div>
 
