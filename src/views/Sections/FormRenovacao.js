@@ -249,6 +249,7 @@ export default function FormRenovacao({ couponCallback }) {
           setSubScriptionStatus(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].product_items[0].status);
           SetPlanID(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id)
           localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id);
+          console.log(endPlain);
         }
       }
     )
@@ -1576,20 +1577,9 @@ export default function FormRenovacao({ couponCallback }) {
   );
 
   const FinishStepsAct = (<>
-
-    {subScriptionStatus === 'active' && parseInt(format(new Date(), `yyyy`)) - parseInt(format(new Date(endPlain), 'yyyy')) < 0 ? (<>
-      <p><spam>Renovação disponível a partir de {`${format(new Date(endPlain), `dd`)}/${format(new Date(endPlain), `MM`) - 1 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 1) : format(new Date(endPlain), `MM`)}/${format(new Date(endPlain), `yyyy`)}`}. </spam></p>
-    </>
-    ) : (
-      <>
-        {completedSteps() === totalSteps() - 1 ? '' : (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-          {completedSteps() === totalSteps() - 1 ? '' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'} <NavigateNextIcon />
-        </Button>)}
-
-      </>
-
-    )}
-
+    {completedSteps() === totalSteps() - 1 ? '' : (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+      {loading ? 'Carregando aguarde...' : 'Próximo'} <NavigateNextIcon />
+    </Button>)}
   </>
   );
 
