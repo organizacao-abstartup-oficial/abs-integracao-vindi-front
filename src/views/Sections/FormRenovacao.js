@@ -249,7 +249,6 @@ export default function FormRenovacao({ couponCallback }) {
           setSubScriptionStatus(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].product_items[0].status);
           SetPlanID(res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id)
           localStorage.setItem('plan_id', res.data.body.subscriptions[[res.data.body.subscriptions.length - 1]].plan.id);
-          console.log(endPlain);
         }
       }
     )
