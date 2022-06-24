@@ -1146,7 +1146,6 @@ export default function FormRenovacao({ couponCallback }) {
 
   const FormPayment = (
     <div>
-
       {DateNowCondition >= endPlain ? (
         <>
           <center>
@@ -1161,19 +1160,14 @@ export default function FormRenovacao({ couponCallback }) {
                 <h5>Tudo certo aqui, não há nada para pagar!</h5>
                 <h5>Agora é só acessar seu painel de benefícios e aproveitar.</h5>
                 <Button variant="contained" onClick={() => { window.open('https://www.beneficiosabstartups.com.br', '_blank') }} color="primary">Acessar painel de benefícios</Button>
-
-
                 <hr />
-
-              </>) : (
+              </>
+            ) : (
               <>
                 <div className="payment-description">
                   <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto" />
                 </div>
-                <center>
-                  {FormCoupon}
-
-                </center>
+                <center>{FormCoupon}</center>
                 <br />
                 <CardModal />
                 <br />
@@ -1183,17 +1177,19 @@ export default function FormRenovacao({ couponCallback }) {
 
 
           </center>
-        </>) : (
+        </>
+      ) : (
         <>
-          {parseInt(format(new Date(endPlain), `MM`)) - 1 > parseInt(format(new Date(), `MM`)) && parseInt(format(new Date(endPlain), `yyyy`)) >= parseInt(format(new Date(), `yyyy`)) ? (<center>
-            <div>
-              <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:) </h5>
+          {parseInt(format(new Date(endPlain), `MM`)) - 1 > parseInt(format(new Date(), `MM`)) && parseInt(format(new Date(endPlain), `yyyy`)) >= parseInt(format(new Date(), `yyyy`)) ? (
+            <center>
+              <div>
+                <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:) </h5>
 
-              <Button variant="contained" onClick={() => { window.open('https://www.beneficiosabstartups.com.br', '_blank') }} color="primary">Acessar painel de benefícios</Button>
-            </div>
-            <hr />
-            <br /><br />
-          </center>
+                <Button variant="contained" onClick={() => { window.open('https://www.beneficiosabstartups.com.br', '_blank') }} color="primary">Acessar painel de benefícios</Button>
+              </div>
+              <hr />
+              <br /><br />
+            </center>
           ) : (
             <center>
               <div>
@@ -1203,6 +1199,7 @@ export default function FormRenovacao({ couponCallback }) {
                 <div className="payment-description">
                   <p><b>Pague com:</b></p> <img src={CardsAccept} alt="cartões" width="30%" height="auto" />
                 </div>
+                <center>{FormCoupon}</center>
                 <br />
                 <CardModal />
                 <br />
@@ -1576,20 +1573,9 @@ export default function FormRenovacao({ couponCallback }) {
   );
 
   const FinishStepsAct = (<>
-
-    {subScriptionStatus === 'active' && parseInt(format(new Date(), `yyyy`)) - parseInt(format(new Date(endPlain), 'yyyy')) < 0 ? (<>
-      <p><spam>Renovação disponível a partir de {`${format(new Date(endPlain), `dd`)}/${format(new Date(endPlain), `MM`) - 1 < 10 ? '0' + (format(new Date(endPlain), `MM`) - 1) : format(new Date(endPlain), `MM`)}/${format(new Date(endPlain), `yyyy`)}`}. </spam></p>
-    </>
-    ) : (
-      <>
-        {completedSteps() === totalSteps() - 1 ? '' : (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
-          {completedSteps() === totalSteps() - 1 ? '' : 'Próximo' && loading ? 'Carregando aguarde...' : 'Próximo'} <NavigateNextIcon />
-        </Button>)}
-
-      </>
-
-    )}
-
+    {completedSteps() === totalSteps() - 1 ? '' : (<Button variant="contained" color="primary" type="submit" onClick={handleComplete}>
+      {loading ? 'Carregando aguarde...' : 'Próximo'} <NavigateNextIcon />
+    </Button>)}
   </>
   );
 
