@@ -58,7 +58,7 @@ export default function Terms(props)  {
             width={200}
         />
         <br/>
-        <p> Este é o ambiente onde você realizará a renovação da assinatura com a <b>ABStartups</b>. Caso você não seja ainda um associado, iremos te direcionar para que possa criar o seu cadastro.</p>
+        <p> Este é o ambiente onde você realizará a renovação da assinatura com a <b>Abstartups</b>. Caso você não seja ainda um associado, iremos te direcionar para que possa criar o seu cadastro.</p>
         <Button variant="contained"  onClick={ () => setModal(false)} color="primary" > Tudo pronto, vamos lá! </Button>
       </center>
     </div>
