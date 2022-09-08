@@ -16,7 +16,6 @@ import Renovacao from "views/pages/Renovacao.js";
 
 ReactDOM.render(
   <BrowserRouter>
-
     <ToastContainer autoClose={3000} />
     <Switch>
       <Route
@@ -51,7 +50,6 @@ ReactDOM.render(
       >
         <Impact />
       </Route>
-      
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>,
