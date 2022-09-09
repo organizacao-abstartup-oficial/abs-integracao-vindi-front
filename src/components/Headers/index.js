@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Container } from "reactstrap";
 import { Link } from 'react-router-dom'
 
-import logoABS from '../../assets/img/brand/logo_abs.png';
+import logoABS from '../../assets/img/brand/logo_abs_nova.png';
 
 export default function Nav() {
 
