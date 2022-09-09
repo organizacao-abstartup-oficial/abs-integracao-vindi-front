@@ -26,8 +26,5 @@ jobs:
       - name: Instalando dependências do projeto
         run: npm install
 
-      - name: Gerando artefacto do projeto
-        run: npm run build
-
-      - name: Publicando na AWS - Ambiente produtivo
-        run: aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read
+      - name: Gerando artefacto do projeto e deploy
+        run: npm run deploy:production
