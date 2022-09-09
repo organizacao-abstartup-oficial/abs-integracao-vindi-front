@@ -23,6 +23,7 @@
     "start": "REACT_APP_NODE_ENV=development env-cmd -f .env.dev react-app-rewired start",
     "dev": "REACT_APP_NODE_ENV=development react-app-rewired start",
     "build:staging": "REACT_APP_NODE_ENV=staging env-cmd -f .env.staging react-app-rewired build && gulp licenses",
+    "build:prod": "REACT_APP_NODE_ENV=production env-cmd -f .env react-app-rewired build && gulp licenses",
     "build": "react-app-rewired build && gulp licenses",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
@@ -30,7 +31,7 @@
     "compile-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css",
     "minify-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/abs-form.scss src/assets/css/abs-form.css --source-map true",
-    "deploy:production": "npm run build && aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read",
+    "deploy:production": "npm run build:prod && aws s3 sync build/ s3://planos.abstartups.com.br --acl public-read",
     "deploy:staging": "npm run build:staging && aws s3 sync build/ s3://staging.planos.abstartup --acl public-read"
   },
   "eslintConfig": {
