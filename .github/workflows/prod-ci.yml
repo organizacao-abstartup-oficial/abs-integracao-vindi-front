@@ -19,6 +19,8 @@ jobs:
           persist-credentials: false
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
+        run: npm install
+        
       - name: Configurando credenciais AWS
         uses: aws-actions/configure-aws-credentials@v1
         with: 
@@ -27,4 +29,4 @@ jobs:
           aws-region: ${{secrets.AWS_REGION}}
 
       - name: Publicando em ambiente produtivo
-        run: npm install && npm run deploy:production
+        run: npm run deploy:production
