@@ -21,3 +21,4 @@ jobs:
 
       - name: Publicando em ambiente produtivo
         run: npm install && npm run deploy:production
+        
