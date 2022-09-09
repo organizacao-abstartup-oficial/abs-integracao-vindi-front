@@ -4,7 +4,7 @@ name: Publicando em ambiente de Prod
 on:
   push: 
     branches:
-      - master
+      - develop
 
 jobs:
   build: 
@@ -24,4 +24,5 @@ jobs:
           aws-region: ${{secrets.AWS_REGION}}
 
       - name: Publicando em ambiente produtivo
-        run: npm install && npm run deploy:production
+        run: npm install && npm run deploy:staging
+        

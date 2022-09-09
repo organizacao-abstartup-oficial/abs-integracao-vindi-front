@@ -1,6 +1,6 @@
 {
   "name": "cadastro-abs",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Formulário de castro ABS",
   "main": "index.js",
   "repository": {
@@ -10,6 +10,9 @@
   "keywords": [
     "ABSTARTUPS"
   ],
+  "engines": {
+    "node": "12.20.0"
+  },
   "author": "Douglas Morais",
   "license": "MIT",
   "bugs": {
