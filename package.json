@@ -11,7 +11,7 @@
     "ABSTARTUPS"
   ],
   "engines": {
-    "node": "~12"
+    "node": ">=14"
   },
   "author": "Douglas Morais",
   "license": "MIT",
@@ -59,7 +59,7 @@
     "nouislider": "14.1.1",
     "payment": "^2.3.0",
     "prop-types": "^15.7.2",
-    "react": "^0.0.0-bdc23c3db",
+    "react": "^17.x",
     "react-animate-on-scroll": "^2.1.5",
     "react-cookie-banner": "^4.1.0",
     "react-copy-to-clipboard": "^5.0.2",
