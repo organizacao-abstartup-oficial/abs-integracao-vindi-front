@@ -18,6 +18,10 @@ Toda estrutura de arquivos foi desenvolvida encima do padrão Atomic Design.
 
 Todo o projeto é controlado através do AirTable, para entender o fluxo de trabalho você pode [ver esse documento](https://airtable.com/invite/l?inviteId=invSpJMIMhjsjqrFi&inviteToken=a2281d837b9acb23a37131fe778aaa4a92d1387e997de6980faa5d1bdf3851cc), AirTable.
 
+## Github actions
+<!--lint ignore awesome-spell-check-->
+[actions/github](https://github.com/actions/github) - Wraps actions-toolkit into an Action for common GitHub automations.
+
 ## Contato:
 <!--  -->
 Douglas Morais - FullStack Developer
