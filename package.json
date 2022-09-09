@@ -10,6 +10,9 @@
   "keywords": [
     "ABSTARTUPS"
   ],
+  "engines": {
+    "node": "12.20.0"
+  },
   "author": "Douglas Morais",
   "license": "MIT",
   "bugs": {
