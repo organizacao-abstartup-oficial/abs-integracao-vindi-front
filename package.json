@@ -23,7 +23,7 @@
     "start": "REACT_APP_NODE_ENV=development env-cmd -f .env.dev react-app-rewired start",
     "dev": "REACT_APP_NODE_ENV=development react-app-rewired start",
     "build:staging": "REACT_APP_NODE_ENV=staging env-cmd -f .env.staging react-app-rewired build && gulp licenses",
-    "build:prod": "REACT_APP_NODE_ENV=production env-cmd -f .env process.env.CI=true react-app-rewired build && gulp licenses",
+    "build:prod": "REACT_APP_NODE_ENV=production CI=true env-cmd -f .env react-app-rewired build && gulp licenses",
     "build": "react-app-rewired build && gulp licenses",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
