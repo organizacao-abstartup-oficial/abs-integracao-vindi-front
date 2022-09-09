@@ -11,7 +11,7 @@
     "ABSTARTUPS"
   ],
   "engines": {
-    "node": "12.20.0"
+    "node": ">=12"
   },
   "author": "Douglas Morais",
   "license": "MIT",
