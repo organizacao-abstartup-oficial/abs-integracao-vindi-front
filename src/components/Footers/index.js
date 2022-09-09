@@ -117,7 +117,7 @@ export default function Footers() {
                       href="https://abstartups.com.br/"
                       target="_blank"
                     >
-                      ABStartups
+                      Abstartups
                     </NavLink>
                   </NavItem>
                   <NavItem>
