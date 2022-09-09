@@ -4,7 +4,7 @@ name: Publicando em ambiente de Prod
 on:
   push: 
     branches:
-      - main
+      - master
 
 jobs:
   build: 
