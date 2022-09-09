@@ -58,6 +58,10 @@ export default function CForm({
     { id: process.env.REACT_APP_COUPON30_ID, value: 1, pricing: 279, label: 279 }
   ]
 
+  const PlanObjectGrowthWithAws30 = [
+    { id: process.env.REACT_APP_AWS30_ID, value: 1, pricing: 279, label: 279 }
+  ]
+
   const PlanObjectGrowthWithCoupon40 = [
     { id: process.env.REACT_APP_COUPON40_ID, value: 1, pricing: 240, label: 240 }
   ]
@@ -94,6 +98,8 @@ export default function CForm({
         return PlanObjectGrowthWithCoupon20;
       case 30:
         return PlanObjectGrowthWithCoupon30;
+      case 31:
+        return PlanObjectGrowthWithAws30;
       case 40:
         return PlanObjectGrowthWithCoupon40;
       case 50:
