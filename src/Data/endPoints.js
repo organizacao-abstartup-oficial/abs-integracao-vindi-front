@@ -8,7 +8,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
   // TODO: resolve when sending to production
-  baseURL: process.env.REACT_APP_BASE_API_URL ? process.env.REACT_APP_BASE_API_URL : 'https://4xuzm4m60a.execute-api.us-east-1.amazonaws.com/dev/'
+  baseURL: 'https://4xuzm4m60a.execute-api.us-east-1.amazonaws.com/dev/'
 })
 
 export default api;
