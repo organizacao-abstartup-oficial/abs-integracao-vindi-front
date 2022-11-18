@@ -145,7 +145,7 @@ export default function FormImpact() {
 
   async function handleSubscription(cnpj){
     await api.get(`validate/${cnpj.replace(/\D/g, '')}`).then(response => {
-      if (response.data.status_code === 400){
+      if (response.data.status_code === 400 || typeof response.data.body.customer === "string"){
         toast.error(response.data.message)
       } else {
         setValidaCnpj(true);
@@ -156,7 +156,7 @@ export default function FormImpact() {
         setIdConsumer(response.data.body.customer.id)
         localStorage.setItem('consumer_id', response.data.body.customer.id)
         setLoadingContent(true)
-        setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))       
+        response.data.body.customer.nome_pessoa_fisica && setFirstName(response.data.body.customer.nome_pessoa_fisica.split(' '))
       }
     })
   }
@@ -447,9 +447,6 @@ export default function FormImpact() {
 
   const FormPayment = (
     <div>
-
-      { DateNowCondition >= endPlain ? (
-      <>
       <center>
         <h5 className={classes.instructions}><b>{ FirstName[0] }</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} muito felizes por mais este ano com a <b>{business}</b>{ FirstName[0] ? ', estamos ' : 'Estamos '} trabalhando duro para oferecer o melhor conteúdo para sua startup crescer ainda mais :)</h5>
         
@@ -481,19 +478,6 @@ export default function FormImpact() {
 
           
       </center>
-      </> ) : (
-        <>
-        <center>
-          <div>
-            <h5 className={classes.instructions}><b>{business}</b>, seu plano está ativo, continue aproveitando seus benefícios:)</h5>
-
-            <Button  variant="contained" onClick={ () => { window.open('https://www.beneficiosabstartups.com.br', '_blank') } } color="primary">Acessar painel de benefícios</Button>
-          </div>
-          <hr/>
-          <br/><br/>
-        </center>
-        </>
-      ) }
     </div>
   );
 
